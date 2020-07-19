@@ -1,0 +1,141 @@
+@extends('layouts.master')
+
+@section('content')
+<br>
+
+<div class="row">
+	<div class="col-md-4 col-sm-6 col-xs-12 hidden-print">
+		<form method="POST" action="/expenses/searchReason" >
+		{{csrf_field()}}
+			<div class="input-group has-warning">
+			      <span class="input-group-btn">
+			        <button class="btn btn-secondary btn-danger" type="submit">!گەڕان</button>
+			      </span>
+			      <input type="text" name="reason" class="form-control" placeholder="...گەڕانی مەصروفات">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-8">
+		<form method="POST" action="/expenses/search" id="addForm">
+					{{csrf_field()}}
+					<div class="input-group">
+						<span class="input-group-btn">
+								<button class="btn btn-secondary btn-danger" type="submit">!گەڕان</button>
+						</span>
+					 {{--    <select type="text" class="form-control" name="user_id">
+					    <option value="all">هەموو</option>
+					    @foreach ($users as $user)
+					    	<option value="{{$user->id}}">{{$user->name}}</option>
+					    @endforeach
+					    </select> --}}
+					    {{-- <span class="input-group-addon">کارمەند</span> --}}
+					    <input type="date" name="end_date" class="form-control"/>
+					    <span class="input-group-addon">بۆ</span>
+					    <input type="date"  name="start_date" class="form-control" placeholder="End"/>
+
+					</div>
+					
+		</form>
+	</div>
+</div>
+ <br>
+
+<div class="row">
+
+ <div class="col-md-8 col-sm-12 col-xs-12">
+
+<table class="table table-bordered table-striped">
+	<thead class="bg-success">
+		<tr class="custom_centered">
+			<th>گۆڕانکاری</th>
+			<th>بەروار</th>
+			<th>هۆکار</th>
+			<th>بڕی پارە</th>
+			<th>ناوی کارمەند</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	<?php if (isset($searchexpenses))
+		{ 	
+			$expenses=$searchexpenses;
+			$update=1;
+		}
+		else {
+			$update=0;
+			}
+		?>
+
+		@foreach ($expenses as $expense)
+
+			<tr class="text-center">
+				<td><a href="/expenses/edit/{{$expense->id}}"><span class="fa fa-edit fa-1x "></span></a></td>
+				<td>{{$expense->created_at->format('Y-m-d')}}</td>
+				<td>{{$expense->reason}}</td>
+				<td><small>{{$expense->currency}}</small> {{$expense->FormattedAmount()}}</span></td>
+				<td>{{$expense->user->name}}</td>
+			</tr>
+		@endforeach
+	</tbody>
+       
+</table>
+
+	 <p><mark>کۆی دۆڵار:${{$expenses->where('currency','$')->sum('amount')}}</mark></p>
+	 <p><mark>کۆی دینار:{{$expenses->where('currency','IQD')->sum('amount')}}</mark></p>
+
+ @if ($expenses->has('links'))
+ {{ $expenses->links('vendor.pagination.bootstrap-4') }}
+ @endif
+</div>
+<div class="col-md-4 col-sm-6 col-xs-6 hidden-print">
+@include('layouts.errorMessages')
+       <div class="panel panel-info">
+                <div class="panel-heading"><strong>زیادکردنی مەصروفات</strong></div>
+                <div class="panel-body">
+					<form class='text-right' method="POST" action="/expenses/store" id="addForm">
+					{{csrf_field()}}
+					<fieldset class="form-group">
+					<label for="name">بڕی پارە</label>
+					<div class="input-group">
+					    <select type="text" name="currency"  class="form-control">
+					    <option value="IQD">IQD</option>
+					    {{-- <option value="$">$</option> --}}
+					    </select>
+					    <span class="input-group-addon">-</span>
+					    <input type="text" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)" id="dinars"  name="amount" class="form-control"/>
+					    <input type="hidden" id="dollars" value="0"   class="form-control"/>
+					</div>
+					</fieldset>
+					<fieldset class="form-group">
+					<label for="name">نرخی دۆلار</label>
+					<div class="input-group">
+					    <span class="input-group-addon">-</span>
+					    <input type="text" id="rate" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)"  class="form-control"/>
+					</div>
+					</fieldset>
+
+					<fieldset class="form-group">
+					<label for="name">بڕی پارە بە دۆلار</label>
+					<div class="input-group">
+					    <span class="input-group-addon">-</span>
+					    <input type="text" id="totalPaid" name="amount" class="form-control"/>
+					</div>
+					</fieldset>
+
+						<fieldset class="form-group">
+							<label for="name">هۆکار</label>
+							<textarea class="form-control" name="reason" required></textarea>
+						</fieldset>
+						<div class="form-group text-center">
+						<button type="submit" class="btn btn-primary btn-lg ">تۆمارکردن</button>
+						</div>
+					</form>
+					</div>
+	</div>
+
+	
+ 
+
+</div>
+</div>
+@endsection('content')
