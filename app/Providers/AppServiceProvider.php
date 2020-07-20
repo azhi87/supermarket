@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
              });
 
-          view()->composer('calendar.addUserEvents',function($view){
+          view()->composer('main.index',function($view){
         $view->with([
             'users'=>\App\User::all(),
             ]);

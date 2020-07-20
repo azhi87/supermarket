@@ -12,10 +12,11 @@ class SearchController extends Controller
         $from=$request['from'];
         $to=$request['to'];
         $profits=array();
-        $profits['xasm']=($this->totalXasm($from,$to));
-        $profits['exchange']=($this->totalExchangeByDate($from,$to));
+
+        //$profits['exchange']=($this->totalExchangeByDate($from,$to));
+       
         $profits['expense']=($this->totalExpenseByDate($from,$to));
-        $profits['broken']=($this->sumBroken($from,$to));
+       // $profits['broken']=($this->sumBroken($from,$to));
         $profits['purchase']=($this->totalPurchaseByDate($from,$to));
         $profits['itemProfit']=($this->totalItemProfit($from,$to));
         $profits['sale']=($this->totalSaleByDate($from,$to));
@@ -53,25 +54,40 @@ class SearchController extends Controller
     	return view('sales.seeSales',compact('sales'));
     }
 
-    public function totalSaleByDate($from,$to)
+    public function getTotalSales($from,$to)
     {
-        return DB::table('sales')->where('created_at','>=',$from)
+        return DB::table('sales')->where('type','sale')->where('created_at','>=',$from)
                           ->where('created_at','<=',$to)
                                         ->sum('total');
     }
-    public function totalPurchaseByDate($from,$to)
-    {
-        return DB::table('purchases')->where('created_at','>=',$from)
+
+    public function getTotalReturnedSales($from,$to){
+        return DB::table('sales')->where('type','returned_sale')->where('created_at','>=',$from)
                           ->where('created_at','<=',$to)
                                         ->sum('total');
     }
-    
-   
-    
+    public function getTotalPurchase($from,$to)
+    {
+        return DB::table('purchases')->where('type','purchase')->where('created_at','>=',$from)
+                          ->where('created_at','<=',$to)
+                                        ->sum('total');
+    }
+
+     public function getTotalReturnedPurchases($from,$to)
+    {
+        return DB::table('purchases')
+                            ->where('type','returned_purchase')
+                            ->where('created_at','>=',$from)
+                            ->where('created_at','<=',$to)
+                            ->sum('total');
+    }
+
     public function totalExpenseByDate($from,$to)
     {
-        return DB::table('expenses')->whereDate('created_at','>=',$from)
-                          ->whereDate('created_at','<=',$to)->sum('amount');
+        return DB::table('expenses')
+                    ->whereDate('created_at','>=',$from)
+                    ->whereDate('created_at','<=',$to)
+                    ->sum('amount');
     }
 
     public function totalExchangeByDate($from,$to)
@@ -90,16 +106,7 @@ class SearchController extends Controller
 
 
     }
-      public function totalXasm($from,$to)
-    {
-        $items=\App\Item::all();
-        $result=0;
-        foreach($items as $item)
-        {
-           $result+= $item->totalProfitWithoutDiscount($from,$to) - $item->totalProfit($from,$to);
-        }
-        return $result;
-    }
+ 
 
     public function totalItemProfit($from,$to)
     {
@@ -111,20 +118,6 @@ class SearchController extends Controller
         }
         return $result-$this->totalCustomerDiscount($from,$to);
     }
-    public function today()
-    {
-        $Sales=\App\Patient::where('created_at','>=',Carbon::today())->orderBy('created_at')->get();
-        return view('today',compact('patients'));
-    }
-    
-/*     public function totalDebtByDate($from,$to)
-    {
-        return DB::table('debts')->whereDate('created_at','>=',$from)
-                          ->whereDate('created_at','<=',$to)->sum('calculatedPaid');
-        -
-        return DB::table('sales')->where('created_at','>=',$from)
-        ->where('created_at','<=',$to)
-                      ->sum('calculated');
-
-    } */
 }
+    
+
