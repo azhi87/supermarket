@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 @section('content')
-	<div class="page-content">
+	<div class="page-content" style="dir=rtl;">
 					<div class="page-bar">
 						<div class="page-title-breadcrumb">
 							<div class=" pull-left">
@@ -20,21 +20,17 @@
 											<address>
 												<img src="img/invoice_logo.png" alt="logo" class="logo-default" />
 												<p class="text-muted m-l-5">
-												کۆتای شەقامی ابراهیم پاشا, تەنیشت فولکەی گۆزەکان Hall, <br>
+												کۆتای شەقامی ابراهیم پاشا, تەنیشت فولکەی گۆزەکان , <br>
 													تەلاری پزیشکی خێزانی تەندروست <br>
 												</p>
 											</address>
 										</div>
 										<div class="pull-right text-right">
 											<address>
-												<p class="addr-font-h3">To,</p>
-												<p class="font-bold addr-font-h4">Jayesh Patel</p>
-												<p class="text-muted m-l-30">
-													207, Prem Sagar Appt., <br> Near Income Tax Office, <br>
-													Ashram Road, <br> Ahmedabad - 380057
-												</p>
+												<p class="addr-font-h4"> <b> مۆبایل :</b> 07700202023</p>
+												<p class="addr-font-h4"> <b> کاشێر :</b >  {{$sale->user->name}}  </p>
 												<p class="m-t-30">
-													<b>Invoice Date :</b> <i class="fa fa-calendar"></i> {{$sale->created_at->format('d/m/Y')}}
+													<b> بەروار :</b> <i class="fa fa-calendar"></i> {{$sale->created_at}}
 												</p>
 												
 											</address>
@@ -45,13 +41,12 @@
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th class="text-right">Subtotal</th>
-														<th class="text-right">Price</th>
-														<th class="text-right">Sheets</th>
-														<th class="text-right">ژ</th>
+														<th class="text-right">کۆ</th>
+														<th class="text-right">نرخ</th>
+														<th class="text-right">دانە</th>
+														<th class="text-right">پاکەت</th>
 														<th>ناوی دەرمان </th>
 														<th class="text-center">ژ</th>
-
 													</tr>
 												</thead>
 												<tbody>
