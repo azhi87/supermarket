@@ -37,16 +37,28 @@
 									<span class="input-group-addon">$</span>
 								</div>
 							</div>
-							<div class="input-group col-md-5 has-success">
+							
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Supplier</strong></span>
-									<select required="required" type="text" name="supplier_id" class="form-control">
+									<select required="required" name="supplier_id" class="form-control">
 										@foreach ($suppliers as $supplier)
 										<option value="{{$supplier->id}}">{{$supplier->name}}</option>
 										@endforeach
 									</select>
 								</div>
 							</div>
+
+							<div class="form-group col-md-3 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Type</strong></span>
+									<select required="required" name="type" class="form-control">
+										<option value="purchase" selected>Purchase</option>
+										<option value="returned_purchase" >Return</option>
+									</select>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 
@@ -88,7 +100,7 @@
 									<input type="number" step="250" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="sppi0" id="sppi0" class="form-control ">
 								</td>
 								<td>
-									<input type="number" step="1" value="1" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
+									<input type="number" step="0.1" value="1" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
 								</td>
 								<td>
 									<input type="number" step="1" id="bonus0" name="bonus0" value="0" class="form-control" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>

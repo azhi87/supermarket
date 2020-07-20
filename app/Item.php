@@ -2,18 +2,24 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use DB;
 use \App\Sale;
+use App\Stock;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+
 class Item extends Model
 {
     protected $guarded=[];
 
-    public function scopeNotDeleted($query)
-    {
+    public function scopeNotDeleted($query){
         return $query->where('status', '=', '1');
     }
+
+    public function stock(){
+        return $this->hasMany(Stock::class);
+    }
+    
     public function sales()
     {
         return $this->belongsToMany('App\Sale','sale_items')->withPivot('quantity','ppi','singles','exp','id')->withTimestamps();
@@ -35,8 +41,8 @@ class Item extends Model
     {
         return DB::select(DB::raw("select exp as expp,
                             (select sum(quantity) from stocks where item_id=".$this->id." and exp=expp) quantity,
-                            (select sum(quantity) from stocks where quantity>0 and item_id=".$this->id." and exp=expp) bought, 
-                            (select sum(quantity) from stocks where quantity<0 and item_id=".$this->id." and exp=expp) sold  from stocks where item_id=".$this->id."  group by item_id,exp"));
+                            (select sum(quantity) from stocks where (type='purchase' or type='returned_purchase') and item_id=".$this->id." and exp=expp) bought, 
+                            (select sum(quantity) from stocks where (type='sale' or type='returned_sale') and item_id=".$this->id." and exp=expp) sold  from stocks where item_id=".$this->id."  group by item_id,exp"));
     }
     public function totalSale()
     {
@@ -120,10 +126,10 @@ class Item extends Model
         return $this->sales()->where('garak_id',$garak_id)
                              ->sum('quantity');
     }
-    public function stock()
-    {
-    return floor($this->totalPurchase()+$this->sumReturned()-($this->totalSale()+$this->totalXasm()+$this->sumBroken()));
-    }
+    // public function stock()
+    // {
+    //     return floor($this->totalPurchase()+$this->sumReturned()-($this->totalSale()+$this->totalXasm()+$this->sumBroken()));
+    // }
     public function formattedDescription()
     {
       return nl2br($this->description);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\SaleCreatedEvent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use \App\Sale;
@@ -18,11 +19,11 @@ class SaleController extends Controller
    		{
    		    if(\Auth::user()->type=='mandwb')
    		    {
-   		        $sales=Sale::where('user_id',\Auth::user()->id)->latest()->paginate(15);
+   		        $sales=Sale::with('items')->where('user_id',\Auth::user()->id)->latest()->paginate(15);
    		    }
    		    else
    		    {
-   			    $sales=Sale::latest()->paginate(15);
+   			    $sales=Sale::with('items')->latest()->paginate(15);
    		    }
    		}
    		else
@@ -31,6 +32,13 @@ class SaleController extends Controller
    		}
    		return view('sales.seeSales',compact('sales'));
    }
+
+   public function viewReturned()
+	{
+		$sales=Sale::where('type','returned_sale')->latest()->paginate(25);
+		return view('sales.seeSales',compact('sales'));
+  }
+  
    public function create(Request $request,$id=0)
    {
       $this->validate($request,[
@@ -39,39 +47,40 @@ class SaleController extends Controller
 
       if($id==0)
       {
-        $sale=new Sale();
+          $sale=new Sale();
+          $sale->rate=$request['rate'];
+          $sale->user_id=\Auth::user()->id;
+          $sale->status=1;
       }
       else
       {
-        $sale=\App\Sale::find($id);
+        $sale=Sale::find($id);
         $sale->items()->detach();
-        DB::table('stocks')->where('type','sale')->where('source_id',$sale->id)->delete();
+        DB::table('stocks')->where('type',$sale->type)->where('source_id',$sale->id)->delete();
         $sale->items()->detach();
       }
 
-   	  $howManyItems=$request['howManyItems'];
-   	  $rate=$request['rate'];
+      $howManyItems=$request['howManyItems'];
+      $sale->type = $request['type'];
       $sale->description=$request['description'];
       $sale->discount=$request['discount'];
-  	  $sale->user_id=\Auth::user()->id;
       $sale->dinars=$request['total'];
       $sale->dollars=0;
-      $sale->calculatedPaid=$request['total'];
-      $sale->total=$request['total']-$request['discount'];
-      $sale->rate=$request['rate'];
-      $sale->status=1;
+      $sale->total = $request['total']-$request['discount'];
+      $sale->calculatedPaid = $sale->total;
+      
 
 		  $sale->save();
 		for($i=0; $i<=$howManyItems; $i++)
 		{
 			if($request->has('barcode'.$i))
 			{
-        		$barcode=$request['barcode'.$i];
-        		$quantity=$request['quantity'.$i];
-                $item=\App\Item::find($barcode);
-                $ppi=$request['ppi'.$i];
-                $singles=$request['singles'.$i];
-                $exp=$request['exp'.$i];
+        		$barcode = $request['barcode'.$i];
+        		$quantity = $request['quantity'.$i];
+                $item = Item::find($barcode);
+                $ppi = $request['ppi'.$i];
+                $singles = $request['singles'.$i];
+                $exp = $request['exp'.$i];
 
 				
 				if($barcode==0 || ($quantity==0 && $singles==0))
@@ -79,29 +88,20 @@ class SaleController extends Controller
 					continue;
 				}
 
-				
     			$sale->items()->attach($barcode,['ppi'=>$ppi,'quantity'=>$quantity,'singles'=>$singles,'exp'=>$exp]);
-                $stock=new \App\Stock();
-                $stock->item_id=$barcode;
-                $stock->exp=$exp;
-                $stock->type="sale";
-                $stock->source_id=$sale->id;
-                $stock->quantity=-($quantity+($singles/$item->items_per_box));
-                $stock->description="زیادکردنی وەصلی فرۆشتن";
-                $stock->save();
 			}
 		}
-    
-    $sale->save();
-		 //$sales=$sale;
+    event(new SaleCreatedEVent($sale));
 		return redirect('sale/print/'.$sale->id);
    }
    
    public function destroy($id)
    {
-      DB::table('sale_items')->where('sale_id',$id)->delete();
+     $sale = Sale::findOrFail($id);
+
+      DB::table('sale_items')->where('sale_id',$sale->id)->delete();
       Sale::destroy($id);
-      DB::table('stocks')->where('type','sale')->where('source_id',$id)->delete();
+      DB::table('stocks')->where('type',$sale->type)->where('source_id',$id)->delete();
 
       return redirect('/sale/seeSales');
    }
@@ -252,8 +252,8 @@ public function mandwbTotalByDate(Request $request)
         if(empty($barcode))
             return redirect('/sale/seeSales');
         $sales=Sale::whereHas('items',function($query) use ($barcode){
-		    $query->where('barcode',$barcode); 
-		})->paginate(25);
+		      $query->where('barcode',$barcode); 
+		    })->paginate(25);
 		return view('sales.seeSales',compact('sales'));
 	}
 
@@ -271,5 +271,11 @@ public function mandwbTotalByDate(Request $request)
       $id=Request('sale_id');
       return redirect('/sale/seeSales/'.$id);
     }
-		 
+
+    public function edit($id){
+      $sale=Sale::find($id);
+      return view('sales.updateSale',compact('sale'));
+    }
+     
+    
 }

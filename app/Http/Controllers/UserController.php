@@ -6,6 +6,23 @@ use Illuminate\Http\Request;
 use Hash;
 class UserController extends Controller
 {
+    public function edit($id){
+
+        $user=\App\User::find($id);
+	    return view('auth.updateUser',compact('user'));
+    }
+
+    public function showUsers(){
+
+        $users=\App\User::all();
+	    return view('auth.showUsers',compact('users'));
+    }
+
+    public function toggleUser($id){
+        $user=\App\User::find($id);
+	    $user->toggleStatus();
+	    return redirect('/users');
+    }
    public function updateUser(Request $request,$id)
     {
          $this->validate($request,[

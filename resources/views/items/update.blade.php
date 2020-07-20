@@ -40,7 +40,7 @@
 						</div>
 					</div>
 
-					<div class="row form-group">
+					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label"> Sale Price</label>
 						<div class="col-sm-9">
 							<input type="text" name="sale_price" value="{{$item->sale_price}}" class="form-control">
@@ -76,7 +76,7 @@
 						</div>
 					</div>
 
-					<div class="row form-group">
+					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label">Supplier</label>
 						<div class="col-sm-9">
 							<select class="form-control" name="supplier_id">

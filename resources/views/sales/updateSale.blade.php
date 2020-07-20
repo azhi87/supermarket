@@ -38,11 +38,26 @@
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
-							<div class="form-group col-md-5 has-success">
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group">
 									<span class="input-group-addon">Note</span>
 									<input id="description" name="description" value="{{$sale->description}}" class="form-control ">
 									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}" class="form-control ">
+								</div>
+							</div>
+							<div class="form-group col-md-2 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Type</strong></span>
+									<select required="required" name="type" class="form-control">
+											@if( $sale->type=='sale' )
+											<option value="sale" selected>Sale</option>
+											<option value="returned_sale" >Return</option>
+										
+										@else
+											<option value="sale" >Purchase</option>
+											<option value="returned_sale" selected>Return</option>
+										@endif
+									</select>
 								</div>
 							</div>
 

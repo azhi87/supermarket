@@ -38,10 +38,10 @@
                                         @foreach ($item->expiryStock() as $exp)
                                         <table class="table table-bordered">
                                             <tr class="text-center">
-                                                <td><label class="label label-info label-mini">{{$exp->expp}}</label></td>
-                                                <td class="text-primary"><strong>{{$exp->bought*$item->items_per_box}}</strong></td>
-                                                <td class="text-success"><strong>{{$exp->sold*-1*$item->items_per_box}}<strong></td>
-                                                <td class="text-danger"><strong>{{$exp->quantity*$item->items_per_box}}<strong></td>
+                                                <td width="25%"><label class="label label-info label-mini">{{$exp->expp}}</label></td>
+                                                <td width="25%"> <label class="text-primary"><strong>{{$exp->bought*$item->items_per_box}}</strong></td>
+                                                <td width="25%"> <label class="text-success"><strong>{{$exp->sold*-1*$item->items_per_box}}<strong></td>
+                                                <td width="25%"> <label class="text-danger"><strong>{{$exp->quantity*$item->items_per_box}}<strong></td>
                                             </tr>
                                         </table>
                                         @endforeach

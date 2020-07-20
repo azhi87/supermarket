@@ -4,10 +4,9 @@
 			<header>List of Drugs</header>
 		</div>
 
-		<div class="form-group row mt-2 ml-5">
-			<label class="col-sm-3 control-label">Search Items by name, barcode</label>
-			<div class="col-sm-9">
-				<input type="text" wire:model="query">
+		<div class="form-group row mt-2 ml-2">
+			<div class="col-md-12">
+				<input type="text" placeholder="Search by name,barcode" wire:model="query">
 			</div>
 		</div>
 

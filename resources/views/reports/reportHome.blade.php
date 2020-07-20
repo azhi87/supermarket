@@ -89,6 +89,36 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="col-md-4 col-sm-6 col-xs-10 ">
+							<div class="card card-topline-green">
+								<div class="card-head bg-light">
+									<header>Money By Date</header>
+									@include('layouts.errorMessages')
+								</div>
+								<div class="card-body " id="bar-parent">
+									<form method="POST" action="/reports/profit" id="contact_form">
+										{{csrf_field()}}
+													<fieldset class="form-group">
+														<label for="id">Category</label>
+														<select>
+														</select>
+													</fieldset>
+													<fieldset class="form-group">
+														<label for="formGroupExampleInput2">Barcode</label>
+														<input type="text" name="barcode"  class="form-control" required>
+													</fieldset>
+											<div class="form-group">
+											<div class="col-md-12">
+										<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+											</div>
+											</div>
+									</form>
+										
+								</div>
+							</div>
+						</div>
+
 </div>
 
 

@@ -2,37 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use DB;
 use App\Purchase;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Http\Request;
+use App\Events\PurchaseCreatedEvent;
+
 class PurchaseController extends Controller
 {
 	public function index($id=0)
 	{
 		if($id==0)
-		{
-			$purchases=Purchase::latest()->paginate(50);
-		}
+			$purchases=Purchase::latest()->paginate(25);
 		else
-		{
 			$purchases=Purchase::where('id',$id)->paginate(1);
-		}
 		
 		return view('purchases.seePurchase',compact('purchases'));
 	}
+
+	public function viewReturned()
+	{
+		$purchases=Purchase::where('type','returned_purchase')->latest()->paginate(25);
+		return view('purchases.seePurchase',compact('purchases'));
+	}
+
+
     public function add()
 	{
 		return view('purchases.addPurchase');
 	}
-	public function store(Request $request)
+	public function store(Request $request,$id = 0)
 	{
+
+		if($id !== 0){
+			$purchase=Purchase::findOrFail($id);
+			$purchase->items()->detach();
+			 DB::table('stocks')->where('type',$purchase->type)->where('source_id',$purchase->id)->delete();
+		}
+		
+		else {
+			$purchase=new Purchase();
+			$purchase->user_id=\Auth::user()->id;
+		}
 		$howManyItems=$request['howManyItems'];
-		$purchase=new Purchase();
+		
 		$purchase->supplier_id=$request['supplier_id'];
 		$purchase->invoice_no=$request['invoice_no'];
 		$purchase->total=$request['total'];
-		$purchase->user_id=\Auth::user()->id;
+		$purchase->type=$request['type'];
 		$purchase->save();
 		for($i=0; $i<=$howManyItems; $i++)
 		{
@@ -50,68 +67,17 @@ class PurchaseController extends Controller
 				$exp=$request['exp'.$i];
 				$bonus=$request['bonus'.$i];
 
-				if($barcode==0 ||  ($quantity==0 && $bonus==0))
+				if($barcode===0 ||  ($quantity===0 && $bonus===0))
 				{
 					continue;
 				}
-				 $purchase->items()->attach($barcode,['ppi'=>$ppi,'quantity'=>$quantity,'bonus'=>$bonus,'exp'=>$exp]);
-				 $stock=new \App\Stock();
-				 $stock->item_id=$barcode;
-				 $stock->exp=$exp;
-				 $stock->type="purchase";
-				 $stock->source_id=$purchase->id;
-				 $stock->quantity=($bonus+$quantity);
-				 $stock->description="Add Purchase Invoice";
-				 $stock->save();
-
-				
+				$purchase->items()->attach($barcode,['ppi'=>$ppi,'quantity'=>$quantity,'bonus'=>$bonus,'exp'=>$exp]);
 			}
 		}
+		event(new PurchaseCreatedEvent($purchase));
 		 return redirect('/purchase/see/'.$purchase->id);
 	}
-	public function update(Request $request,$id)
-	{
-		$howManyItems=$request['howManyItems'];
-		$purchase=Purchase::find($id);
-		$purchase->supplier_id=$request['supplier_id'];
-		$purchase->invoice_no=$request['invoice_no'];
-		$purchase->total=$request['total'];
-		$purchase->user_id=\Auth::user()->id;
-		$purchase->save();
-		$purchase->items()->detach();
-		DB::table('stocks')->where('type','purchase')->where('source_id',$purchase->id)->delete();
-		for($i=0; $i<=$howManyItems; $i++)
-		{
-			if($request->has('barcode'.$i))
-			{
-				$barcode=$request['barcode'.$i];
-			    $item=\App\Item::find($barcode);
-		        $item->sale_price_id=$request['sppi'.$i];
-		        $item->purchase_price=$request['ppi'.$i];
-				$item->save();
-				$quantity=$request['quantity'.$i];
-				$ppi=$request['ppi'.$i];
-				$exp=$request['exp'.$i];
-				$bonus=$request['bonus'.$i];
-
-				if($barcode==0 ||  ($quantity==0 && $bonus==0))
-				{
-					continue;
-				}
-				 $purchase->items()->attach($barcode,['ppi'=>$ppi,'quantity'=>$quantity,'bonus'=>$bonus,'exp'=>$exp]);
-				 $stock=new \App\Stock();
-				 $stock->item_id=$barcode;
-				 $stock->exp=$exp;
-				 $stock->type="purchase";
-				 $stock->source_id=$purchase->id;
-				 $stock->quantity=$quantity+$bonus;
-				 $stock->description="Update Purchase Invoice";
-				 $stock->save();
-				
-			}
-		}
-		 return redirect('/purchase/see/'.$purchase->id);
-	}
+	
 	public function edit($id)
 	{
 		$purchase=Purchase::find($id);
@@ -156,9 +122,10 @@ class PurchaseController extends Controller
 	
 	public function delete($id)
 	{
+		$purchase=Purchase::findOrFail($id);
 		DB::table('purchase_items')->where('purchase_id',$id)->delete();
 		Purchase::destroy($id);
-		DB::table('stocks')->where('type','purchase')->where('source_id',$id)->delete();
+		DB::table('stocks')->where('type',$purchase->type)->where('source_id',$id)->delete();
 	
 		\Session::flash('message','Successfuly Deleted');
 		\Session::flash('type','success');

@@ -104,12 +104,12 @@
           item+="</td>";
 
           item+="<td>";
-          item+="<input type='number' step='1' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' value='0' id='quantity"+i+"'  name='quantity"+i+"' class='form-control '>";
+          item+="<input type='number' step='1' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' value='1' id='quantity"+i+"'  name='quantity"+i+"' class='form-control '>";
           item+="</td> ";
 
 
           item+="<td>";
-          item+="<input type='number' step='1' id='singles"+i+"' name='singles"+i+"'  onkeyup='getSaleTotalPrice();' onblur='getSaleTotalPrice();' value='1'  class='form-control'>";
+          item+="<input type='number' step='0' id='singles"+i+"' name='singles"+i+"'  onkeyup='getSaleTotalPrice();' onblur='getSaleTotalPrice();' value='0'  class='form-control'>";
           item+="</td>";
 
 

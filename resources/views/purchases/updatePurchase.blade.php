@@ -20,7 +20,7 @@
 	<div class="col-sm-12">
 		<div class="card card-topline-green">
 			<div class="card-body bg-light">
-				<form action='/purchase/update/{{$purchase->id}}' method='post' role="form">
+			<form action='{{ route('store-purchase', $purchase->id )}}' method='post' role="form">
 					<div class="card-body" id="bar-parent">
 						{{csrf_field()}}
 						<div class="row">
@@ -37,7 +37,7 @@
 									<span class="input-group-addon">$</span>
 								</div>
 							</div>
-							<div class="col-md-4 col-sm-4 has-success">
+							<div class="form-group col-md-3 col-sm-3 has-success">
 								<div class="input-group">
 									<span class="input-group-addon"><strong>Supplier</strong></span>
 									<select required="required" type="text" name="supplier_id" class="form-control">
@@ -45,6 +45,21 @@
 										@foreach ($suppliers as $supplier)
 										<option value='{{$supplier->id}}'>{{$supplier->name}}</option>
 										@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group col-md-3 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Type</strong></span>
+									<select required="required" name="type" class="form-control">
+										@if( $purchase->type=='purchase' )
+											<option value="purchase" selected>Purchase</option>
+											<option value="returned_purchase" >Return</option>
+										@else
+											<option value="purchase" >Purchase</option>
+											<option value="returned_purchase" selected>Return</option>
+										@endif
 									</select>
 								</div>
 							</div>

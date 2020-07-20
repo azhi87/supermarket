@@ -38,13 +38,24 @@
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
-							<div class="form-group col-md-5 has-success">
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group">
 									<span class="input-group-addon"><strong>Note</strong></span>
 									<input type="text" id="description" name="description" class="form-control ">
 									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}" class="form-control ">
 								</div>
 							</div>
+
+							<div class="form-group col-md-2 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Type</strong></span>
+									<select required="required" name="type" class="form-control">
+										<option value="sale" selected>Sale</option>
+										<option value="returned_sale" >Return</option>
+									</select>
+								</div>
+							</div>
+
 							@include('layouts.errorMessages')
 							<div class="table-scrollable table-fixed">
 								<table class="table table-bordered text-center table-scrollable " id="repeatedSale">
@@ -74,10 +85,10 @@
 											<input type="number" step="250" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
 										</td>
 										<td>
-											<input type="number" step="1" value="0" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
+											<input type="number" step="1" value="1" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
 										</td>
 										<td>
-											<input type="number" step="1" id="singles0" name="singles0" value="1" class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" required>
+											<input type="number" step="1" id="singles0" name="singles0" value="0" class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" required>
 										</td>
 										<td>
 											<span name="items_per_box0" id="items_per_box0" class="badge badge-primary"></span>

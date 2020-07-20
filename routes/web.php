@@ -20,32 +20,16 @@ Route::get('/', function () {
     return view('main.index',compact('users'));
 });
 
-Route::get('/test', function () {
-    return view('main.test');
-});
-
-Route::get('/users/edit/{id}',function($id){
-	$user=\App\User::find($id);
-	return view('auth.updateUser',compact('user'));
-	});
-Route::post('/users/update/{id}','UserController@updateUser');
-Route::get('/users',function(){
-	$users=\App\User::all();
-	return view('auth.showUsers',compact('users'));
-});
-
-Route::get('/users/toggle/{id}',function($id){
-	$user=\App\User::find($id);
-	$user->toggleStatus();
-	 return redirect('/users');
-			});
 
 
-
+Route::get('/users/edit/{id}','UserController@edit')->name('edit-user');
+Route::post('/users/update/{id}','UserController@updateUser')->name('update-user');
+Route::get('/users','UserController@showUsers');
+Route::get('/users/toggle/{id}','UserController@toggleUser');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-		Route::get('/items/add','ItemController@create');
+	Route::get('/items/add','ItemController@create');
 	Route::get('/items/edit/{id}','ItemController@edit');
 	Route::post('/items/update/{id}','ItemController@store');
 	Route::post('/cats/add','ItemController@addCategory');
@@ -59,69 +43,32 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::post('/suppliers/store/{id?}','SupplierController@store');
 	Route::get('/suppliers/edit/{id}','SupplierController@edit');
 
-	Route::get('reports/stockValuation',function(){
-		$items=\App\Item::notDeleted()->get();
-		return view('reports.stockValuation',compact('items'));
-	});
-	
-	Route::post('/category/edit/{id}',function($id){
-        $cat=\App\Category::find($id);
-        $cat->category=Request('category');
-        $cat->save();
-        return redirect('/live-items')->withMessage('Category name was successfuly Update');
-        
-    	});
-
+	Route::get('reports/stockValuation','ReportController@stockValuation');
+	Route::post('/category/edit/{id}','CategoryController@update');
+      
 
 	Route::post('/stock/expiry','StockController@stockExpiry');
 	Route::get('/sale/ok/{id}','SaleController@ok');
 
-Route::get('/reports/stock',function(){
-			$items=\App\Item::notDeleted()->get();
-			return view('reports.stock',compact('items'));
-		})->middleware('auth');
+Route::get('/reports/stock','ReportController@showStock')->name('show-stock');
 
-Route::post('/stock',function(){
-			$cat=Request('cat');
-			$items=\App\Item::where('category_id',$cat)->get();
-			return view('reports.stock',compact('items'));
-		})->middleware('auth');
+Route::post('/stock','ReportController@stockByCategory')->name('show-stock-by-cat');
+Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-item-stock');
 		
 
 		
 	Route::post('/sale/search','SearchController@searchSale');
 	Route::post('/sale/searchId','SaleController@search');
-	// Route::get('/', 'EventController@index');
-	Route::post('/event/store','EventController@store');
-	Route::get('/event/delete/{id}', 'EventController@destroy');
-    Route::get('/sale/edit/{index}',function($index){
-			$sale=\App\Sale::find($index);
-			if(\Auth::user()->type=='mandwb' && ($sale->status==1 || $sale->user_id!=\Auth::user()->id))
-			{   
-			    return back();
-			}
-			return view('sales.updateSale',compact('sale'));
-	});
-	Route::get('dayEvents/{day}','EventController@dayEvents');
+	
+    Route::get('/sale/edit/{index}','SaleController@edit');
 	
 	Route::post('/sale/mandwbTotalByDate','SaleController@mandwbTotalByDate');
-	Route::get('/debts/{id?}','DebtController@index');
-	Route::get('/debt/print/{id}','DebtController@debtPrint');
-	Route::get('/customers/customerNameById','CustomerController@getDetails');
-	Route::get('/customers','CustomerController@index');
-	Route::get('/customers/{id}','CustomerController@index');
-	Route::post('/customers/search','CustomerController@search');
-	Route::get('/customer/customerItems/{id}','CustomerController@customerItems');
+	
 	Route::get('/purchases/ItemPrice','ItemController@getItemPrice');
 	Route::get('/purchase/getExpiryDates','ItemController@getExpiryDate');
 	Route::get('/purchases/ItemPurchasePrice','ItemController@getItemPurchasePrice');
 
-	Route::post('/debts/search','DebtController@search');
-	Route::post('/debt/store','DebtController@store');
-	Route::get('/returns/{id}','ReturnController@index');
-	Route::get('/debt/recent/print','DebtController@recent');
-	Route::post('/customers/store/{id}','CustomerController@store');
-
+	
 
 	Route::get('/sales/addSale','SaleController@index');
 	Route::post('/sale/create/{id?}','SaleController@create');
@@ -129,51 +76,37 @@ Route::post('/stock',function(){
 	Route::get('/sale/print/{index}','SaleController@salePrint');
 	Route::post('/sale/update/{id}','SaleController@store');
 
-	Route::get('/sale/home',function(){
-			return view('sales.saleHome');
-		});
-	Route::get('sale/search',function(){
-			return view('sales.searchSale');
-		});
+	Route::view('/sale/home','sales.saleHome');
+	Route::view('sale/search','sales.searchSale');
 	Route::get('/logout',function(){
 		\Auth::logout();
 		return redirect('/login');
 		});
 	
 	Route::post('/sale/searchByItem','SaleController@searchByItem')->name('search-sale-byItem');
+	Route::get('/sale/viewReturned','SaleController@viewReturned')->name('view-returned-sales');
+
+	
+	Route::view('/purchases/add','purchases.addPurchase');   	
+	Route::post('/purchase/create/{id?}','PurchaseController@store')->name('store-purchase');
+	Route::get('purchase/see/{id?}','PurchaseController@index');
+	Route::get('purchase/viewReturned/{id?}','PurchaseController@viewReturned')->name('view-returned-purchases');
+	Route::get('/purchase/search','PurchaseController@search')->name('search-purchase');
+	Route::post('/purchase/searchByItem','PurchaseController@searchByItem')->name('search-purchase-byItem');
+	Route::post('/purchase/search','PurchaseController@search');
+	Route::get('/purchase/delete/{id}','PurchaseController@delete');
+	Route::get('/purchase/edit/{id}','PurchaseController@edit');
+	Route::post('/purchase/update/{id}','PurchaseController@update');
 
 
 
-
-
-
-        	Route::get('/purchases/add',function(){
-	    	return view('purchases.addPurchase');
-            	});
-        Route::post('/debt/confirm/time','DebtController@debtConfirmTime');
-    	Route::post('/purchase/create','PurchaseController@store');
-    	Route::get('purchase/see/{id?}','PurchaseController@index');
-    	Route::get('/purchase/search','PurchaseController@search')->name('search-purchase');
-    	Route::post('/purchase/searchByItem','PurchaseController@searchByItem')->name('search-purchase-byItem');
-    	Route::post('/purchase/search','PurchaseController@search');
-    	Route::get('/purchase/delete/{id}','PurchaseController@delete');
-    	Route::get('/purchase/edit/{id}','PurchaseController@edit');
-    	Route::post('/purchase/update/{id}','PurchaseController@update');
-        Route::get('/returns/edit/{id}',function($id){
-		$returnedItem=\App\Ireturn::find($id);
-		return view('returns.returnsUpdate',compact('returnedItem'));
-	    });
-	       Route::get('/returns/payback/{id}','ReturnController@payback');
-
-	    Route::post('/returns/{id?}','ReturnController@store');
-
-
-	    Route::get('/expenses','ExpenseController@index');
+	Route::get('/expenses','ExpenseController@index');
 	Route::post('/expenses/store/{id}','ExpenseController@store');
 	Route::post('/expenses/store/','ExpenseController@store');
 	Route::post('/expenses/search','ExpenseController@search');
 	Route::post('/expenses/searchReason','ExpenseController@searchReason');
-	Route::get('/expenses/edit/{id}',function($id){
+		
+		Route::get('/expenses/edit/{id}',function($id){
 			$expense=\App\Expense::find($id);
 			return view('expenses.expenseUpdate',compact('expense'));
 		});
@@ -188,17 +121,11 @@ Route::post('/stock',function(){
 			});
 
 
-	Route::post('/reports/noTransactions','CustomerController@noTransactions');
 	Route::post('/reports/salesByDate','SaleController@salesByDate');
 
 	Route::post('/reports/mandwb','ItemController@mandwbReports');
-	Route::get('/items/itemSaleByGarak/{garak}','ItemController@itemSaleByGarak');
-	Route::post('/items/itemSaleByGarakByDate','ItemController@itemSaleByGarakByDate');
-
-	Route::post('/reports/drivers','SaleController@driverReport');
 	Route::post('/reports/mandwbSales','SaleController@mandwbSaleReport');
 	Route::post('/reports/income','SaleController@income');
-	Route::post('/reports/threshold','DebtController@thresholdReport');
 	Route::post('/reports/returnedItems','ReturnController@report');
 	Route::post('/reports/monthlyMandwb',function(){
 			$user_id=Request('user_id');
