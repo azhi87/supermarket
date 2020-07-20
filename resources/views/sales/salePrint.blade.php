@@ -7,22 +7,21 @@
 							<div class=" pull-left">
 								<div class="page-title">Invoice</div>
 							</div>
-							
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="white-box">
-								<h3><b>INVOICE</b> <span class="pull-right">#{{$sale->id}}</span></h3>
+								<h1 class="text-center">دەرمانخانەی خێزان</h1>
 								<hr>
 								<div class="row">
-									<div class="col-md-12 hidden">
-										<div class="pull-left">s
+									<div class="col-md-12">
+										<div class="pull-left">  
 											<address>
 												<img src="img/invoice_logo.png" alt="logo" class="logo-default" />
 												<p class="text-muted m-l-5">
-													D 103, RedStar Hospital, <br> Opp. Town Hall, <br>
-													Sardar Patel Road, <br> Ahmedabad - 380015
+												کۆتای شەقامی ابراهیم پاشا, تەنیشت فولکەی گۆزەکان Hall, <br>
+													تەلاری پزیشکی خێزانی تەندروست <br>
 												</p>
 											</address>
 										</div>
@@ -46,23 +45,24 @@
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th class="text-center">#</th>
-														<th>Drug Name</th>
-														<th class="text-right">Packs</th>
-														<th class="text-right">Sheets</th>
-														<th class="text-right">Price</th>
 														<th class="text-right">Subtotal</th>
+														<th class="text-right">Price</th>
+														<th class="text-right">Sheets</th>
+														<th class="text-right">ژ</th>
+														<th>ناوی دەرمان </th>
+														<th class="text-center">ژ</th>
+
 													</tr>
 												</thead>
 												<tbody>
 													@foreach($sale->items as $item)
 													<tr>
-														<td class="text-center">{{$loop->iteration}}</td>
-														<td>{{$item->name}}</td>
-														<td class="text-right">{{$item->pivot->quantity}}</td>
-														<td class="text-right">{{$item->pivot->singles}}</td>
-														<td class="text-right">{{$item->pivot->ppi}}</td>
 														<td class="text-right">{{number_format((($item->pivot->quantity)+($item->pivot->singles/$item->items_per_box))*$item->pivot->ppi,0)}}</td>
+														<td class="text-right">{{$item->pivot->ppi}}</td>
+														<td class="text-right">{{$item->pivot->singles}}</td>
+														<td class="text-right">{{$item->pivot->quantity}}</td>
+														<td>{{$item->name}}</td>
+														<td class="text-center">{{$loop->iteration}}</td>
 													</tr>
 													@endforeach
 													
