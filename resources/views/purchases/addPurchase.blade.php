@@ -90,7 +90,6 @@
 								</td>
 								<td>
 									<select id="barcode0" type="text" name="barcode0" onchange="getPurchaseItemPrice(this.value,this.id)" onblur="getPurchaseItemPrice(this.value,this.id)" class="form-control select3">
-										<option></option>
 									</select>
 								</td>
 								<td>
@@ -141,6 +140,9 @@
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	$(document).ready(function() {
 		$('.select3').select2({
+			width: '100%',
+			multiple: true,
+			maximumSelectionLength : 1,
 			ajax: {
 				url: "/drugs/searchAjax",
 				type: "post",

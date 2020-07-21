@@ -52,7 +52,11 @@
          $('.select3').select2();
           document.getElementById('howManyItems').value=i;
             $('#repeatedSale').append(item);
-           $('.select3').select2({
+          $('.select3').select2({
+             width: '100%',
+			allowClear: true,
+			multiple: true,
+			maximumSelectionSize: 1,
         ajax: { 
           url: "/drugs/searchAjax",
           type: "post",
@@ -134,7 +138,11 @@
           $('.select3').select2();
           document.getElementById('howManyItems').value=i;
             $('#repeatedSale').append(item);
-           $('.select3').select2({
+          $('.select3').select2({
+             width: '100%',
+            allowClear: true,
+            multiple: true,
+            maximumSelectionSize: 1,
         ajax: { 
           url: "/drugs/searchAjax",
           type: "post",
@@ -265,11 +273,11 @@
 
 }
 
-   $("#saleForm").bind("keypress", function (e) {
-     if (e.keyCode == 13) {
-        //  addSaleItem();
-         return false;
-     }});
+  //  $("#saleForm").bind("keypress", function (e) {
+  //    if (e.keyCode == 13) {
+  //       //  addSaleItem();
+  //       //  return false;
+  //    }});
 
 
  function getSaleItemPrice(barcode,id)
@@ -293,6 +301,12 @@
                           data: "barcode=" + barcode,
                           success: function(data2)
                           {  
+                            if (data2.length === 0)
+                            {
+                              alert('This item is not available in stock');
+                              $("barcode" + index).select2("val", "");
+                              return false;
+                              }
                              $("#exp"+index).empty();
                              $.each(data2,function(i,data2){
                              $("#exp"+index).append('<option value="'+data2.exp+'">'+data2.exp+ '('+data2.quantity.toFixed(1)+')</option>');

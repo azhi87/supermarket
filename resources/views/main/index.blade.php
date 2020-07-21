@@ -1,5 +1,8 @@
 @extends('layouts.master')
 @section('content')
+<div class="row mx-auto">
+<a href="{{ route('show-popular-items') }}" class="btn"> Item Popularity Report </a>
+</div>
 <div class="row">
 	<div class="col-md-4">
 		<div class="row">
@@ -147,7 +150,7 @@
 		@include('layouts.errorMessages')
 		<div class="card ">
 			<div class="panel-heading text-center">
-				<span> Change the Rate Dollar </span>
+				<span> Dollar exchange rate </span>
 			</div>
 			<div class="panel-body text-right">
 				<fieldset class="form-group">
@@ -164,7 +167,3 @@
 
 
 @endsection
-
-@section('afterFooter')
-{{-- {!! $calendar->script() !!}
- --}} @endsection

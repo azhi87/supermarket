@@ -23,6 +23,18 @@ class ReportController extends Controller
         return view('reports.stock',compact('items'));
     }
 
+
+    	public function income(Request $request) {
+
+            $from=$request['from'];
+            $to=$request['to'];
+            $sales=\App\Sale::whereDate('created_at','>=',$request['from'])
+                             ->whereDate('created_at','<=',$request['to'])
+                             ->get();
+        return view('reports.income',compact(['from','to','sales']));
+
+    }
+
     public function stockByItem(){
         $barcode = request('barcode');
         $items = Item::where('barcode',$barcode)->get();

@@ -77,9 +77,10 @@
 											<span class="badge badge-danger">1</span>
 										</td>
 										<td>
-											<select id="barcode0" type="text" name="barcode0" onchange="getSaleItemPrice(this.value,this.id)" onblur="getSaleItemPrice(this.value,this.id)" class="form-control select2 select3">
-												<option></option>
+											<select id="barcode0" type="text" name="barcode0" onchange="getSaleItemPrice(this.value,this.id)" onblur="getSaleItemPrice(this.value,this.id)" class="form-control select3">
 											</select>
+											
+
 										</td>
 										<td>
 											<input type="number" step="250" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
@@ -131,6 +132,9 @@
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	$(document).ready(function() {
 		$('.select3').select2({
+			width: '100%',
+			multiple: true,
+			maximumSelectionLength : 1,
 			ajax: {
 				url: "/drugs/searchAjax",
 				type: "post",

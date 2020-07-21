@@ -14,9 +14,13 @@ class Stock extends Model
     	$items=DB::table('stocks')->whereDate('exp','<=',$date)
                                 ->select('item_id as id','exp',DB::raw('sum(quantity) as quantity'))
                                 ->groupBy('item_id','exp')
+                                ->having("quantity",">",0)
                                 ->get();
 
 
         return $items;
+    }
+    public function item(){
+        return $this->belongsTo(Item::class);
     }
 }

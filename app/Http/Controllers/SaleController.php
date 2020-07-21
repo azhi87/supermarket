@@ -257,15 +257,7 @@ public function mandwbTotalByDate(Request $request)
 		return view('sales.seeSales',compact('sales'));
 	}
 
-		public function income(Request $request)
-    {
-          $from=$request['from'];
-          $to=$request['to'];
-        $sales=\App\Sale::whereDate('created_at','>=',$request['from'])
-                 ->whereDate('created_at','<=',$request['to'])->get();
-        return view('reports.income',compact(['from','to','sales']));
-
-    }
+  
     public function search()
     {
       $id=Request('sale_id');

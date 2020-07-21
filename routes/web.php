@@ -125,7 +125,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 
 	Route::post('/reports/mandwb','ItemController@mandwbReports');
 	Route::post('/reports/mandwbSales','SaleController@mandwbSaleReport');
-	Route::post('/reports/income','SaleController@income');
+	Route::post('/reports/income','ReportController@income')->name('income-money');
 	Route::post('/reports/returnedItems','ReturnController@report');
 	Route::post('/reports/monthlyMandwb',function(){
 			$user_id=Request('user_id');
@@ -144,6 +144,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	
 	Route::livewire('/live-items','add-item')->layout('layouts.master')->name('add-item');
 	Route::livewire('/show-items','show-item')->layout('layouts.master')->name('show-items');
+	Route::livewire('/show-popular-items','item-popularity')->layout('layouts.master')->name('show-popular-items');
 	
 		Route::get('/peripheralUpdates',function(){
 		return view('items.peripheralUpdates');
