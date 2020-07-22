@@ -34,15 +34,18 @@ class UpdateStockForSaleListener
                 $stock->exp = $item->pivot->exp;
                 $stock->type = $sale->type;
                 $stock->source_id = $sale->id;
+                $stock->rate = $sale->rate;
 
                  if($sale->type === 'sale'){
                     $stock->quantity = -($item->pivot->quantity + ($item->pivot->singles / $item->items_per_box));
                     $stock->description = "Add sale Invoice";
+                    $stock->ppi = $item->pivot->ppi;
                  }
 
                  else {
                         $stock->quantity = ($item->pivot->quantity + ($item->pivot->singles / $item->items_per_box));
                         $stock->description = "Return sale Invoice";
+                        $stock->ppi = -1 * $item->pivot->ppi;
                  }
 
 				 

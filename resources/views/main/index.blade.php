@@ -142,6 +142,22 @@
 							</div>
 						</div>
 
+
+						<div class="col-md-4 col-sm-6 col-xs-10 ">
+							<div class="card card-topline-green">
+								<div class="card-head bg-light">
+									<header>Drug Transactions</header>
+								</div>
+								<div class="card-body " id="bar-parent">
+							
+											<fieldset class="form-group">
+												<label for="formGroupExampleInput2">Barcode</label>
+												<select name="id" class="select3"></select>
+											</fieldset>
+								</div>
+							</div>
+						</div>
+
 	@if(Auth::user()->type=='admin')
 	<div class="col-md-3 col-sm-6">
 	<form method="post" action="/rate/add" id="contact_form">
@@ -166,4 +182,38 @@
 
 
 
+@endsection
+@section('afterFooter')
+<script>
+	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+	$(document).ready(function() {
+		$('.select3').select2({
+			width: '100%',
+			multiple: true,
+			maximumSelectionLength : 1,
+			ajax: {
+				url: "/drugs/searchAjax",
+				type: "post",
+				dataType: 'json',
+				data: function(params) {
+					return {
+						_token: CSRF_TOKEN,
+						search: params.term // search term
+					};
+				},
+				processResults: function(response) {
+					return {
+						results: response
+					};
+				},
+				cache: true
+			}
+
+		});
+
+	});
+	$('.select3').on("select2:select", function (e) {
+    window.open('/item/transactions/'+e.params.data.id);
+});
+</script>
 @endsection

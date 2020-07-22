@@ -32,20 +32,24 @@ class UpdateStockForPurchaseListener
 				 $stock = new \App\Stock();
 				 $stock->item_id = $item->id;
                  $stock->exp = $item->pivot->exp;
+                 $stock->rate = 0;
+                 $stock->type = $purchase->type;
+                 $stock->source_id = $purchase->id;
 
                  if($purchase->type === 'purchase'){
                     $stock->quantity= ( $item->pivot->bonus + $item->pivot->quantity );
                     $stock->description = "Add Purchase Invoice";
+                    $stock->ppi = -1 * $item->pivot->ppi;
                  }
 
                  else {
                         $stock->quantity = - ( $item->pivot->bonus + $item->pivot->quantity );
                         $stock->description = "Return Purchase Invoice";
+                        $stock->ppi = $item->pivot->ppi;
                  }
 
-				 $stock->type = $purchase->type;
-				 $stock->source_id = $purchase->id;
-				 $stock->description = "Add Purchase Invoice";
+				 
+				 
 				 $stock->save();
         }
     }

@@ -936,3 +936,14 @@ tr.group:hover {
     }
   }
 }
+
+.returned_sale, .returned_purchase{
+    background-color: #f0c5c3;
+}
+.sale{
+    background-color: #cafad8;
+}
+
+.purchase{
+    background-color: #cfe2e3;
+}

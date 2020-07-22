@@ -17,6 +17,8 @@ class ItemPopularity extends Component
         $this->updated();
     }
     public function updated(){
+        if(!is_numeric($this->days))
+            $this->days=1;
         $start_date=Carbon::today()->addDays(-1 * $this->days);
         $this->populars=Stock::where('type','sale')
                         ->whereDate('created_at','>=',$start_date)

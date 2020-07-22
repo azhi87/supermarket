@@ -72,7 +72,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 
 	Route::get('/sales/addSale','SaleController@index');
 	Route::post('/sale/create/{id?}','SaleController@create');
-	Route::get('/sale/seeSales/{id?}','SaleController@seeSales');
+	Route::get('/sale/seeSales/{id?}','SaleController@seeSales')->name('show-sales');
 	Route::get('/sale/print/{index}','SaleController@salePrint');
 	Route::post('/sale/update/{id}','SaleController@store');
 
@@ -89,7 +89,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	
 	Route::view('/purchases/add','purchases.addPurchase');   	
 	Route::post('/purchase/create/{id?}','PurchaseController@store')->name('store-purchase');
-	Route::get('purchase/see/{id?}','PurchaseController@index');
+	Route::get('purchase/see/{id?}','PurchaseController@index')->name('show-purchases');
 	Route::get('purchase/viewReturned/{id?}','PurchaseController@viewReturned')->name('view-returned-purchases');
 	Route::get('/purchase/search','PurchaseController@search')->name('search-purchase');
 	Route::post('/purchase/searchByItem','PurchaseController@searchByItem')->name('search-purchase-byItem');
@@ -145,6 +145,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::livewire('/live-items','add-item')->layout('layouts.master')->name('add-item');
 	Route::livewire('/show-items','show-item')->layout('layouts.master')->name('show-items');
 	Route::livewire('/show-popular-items','item-popularity')->layout('layouts.master')->name('show-popular-items');
+	Route::livewire('/item/transactions/{id?}','item-transactions')->layout('layouts.master')->name('show-item-transactions');
 	
 		Route::get('/peripheralUpdates',function(){
 		return view('items.peripheralUpdates');
