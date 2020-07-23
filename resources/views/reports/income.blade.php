@@ -23,6 +23,7 @@
         <tr class="custom_centered">
              <th>#</th>
             <th class="">Employee name</th>
+            <th class="">Date</th>
             <th class="">Amount (IQD)</th>
             <th class="">Description</th>
         </tr>
@@ -35,6 +36,7 @@
     <tr class="custom_centered">
          <td>{{$i++}}</td>
         <td class=" ">{{$sale->user->name}}</td>
+        <td class=" ">{{$sale->created_at->format('d-m-Y')}}</td>
         <td class=" ">{{number_format($sale->calculatedPaid,0)}}</td>
         <td class="">{{$sale->description}}</td>
     </tr>   
@@ -43,24 +45,18 @@
 
 
 </tbody>
+<tfoot>
+ <tr class="h5"> 
+   <td> Total : <span>{{ number_format($sales->sum('total'),0) }}</span></td>
+   <td> Discount : <span> {{ number_format($sales->sum('discount'),0) }} </span> </td>
+   <td> Grand total : <span> {{ number_format($sales->sum('total') - $sales->sum('discount'),0) }} </span> </td>
+ </tr>
+</tfoot>
 </table>
 
 </div>
 
-<div class="row text-center">
-       <p class="h3 text-center">Total : <span>{{$sales->sum('calculatedPaid')}}</span></p>
-</div>
 </div></div></div></div></div></div>
 
 
 @endsection
-
-@section('afterFooter')
- <script type="text/javascript">
-    $(document).ready(function () {
-  $("#menu-top li a").removeClass("menu-top-active");              
-  $('#report').addClass('menu-top-active');
-  });
- </script>
-
- @endsection

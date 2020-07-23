@@ -51,6 +51,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/sale/ok/{id}','SaleController@ok');
 
 Route::get('/reports/stock','ReportController@showStock')->name('show-stock');
+Route::post('/reports/supplierDebt','ReportController@supplierDebt')->name('supplier-debt-report');
 
 Route::post('/stock','ReportController@stockByCategory')->name('show-stock-by-cat');
 Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-item-stock');

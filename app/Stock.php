@@ -11,8 +11,9 @@ class Stock extends Model
     {
     	$date=Carbon::today();
     	$date->add($months,'month');
-    	$items=DB::table('stocks')->whereDate('exp','<=',$date)
-                                ->select('item_id as id','exp',DB::raw('sum(quantity) as quantity'))
+        $items=DB::table('stocks')->whereDate('exp','<=',$date)
+                                ->join('items','items.id','stocks.item_id')
+                                ->select('item_id as id', 'items.name as name', 'exp',DB::raw('sum(quantity) as quantity'))
                                 ->groupBy('item_id','exp')
                                 ->having("quantity",">",0)
                                 ->get();

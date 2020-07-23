@@ -125,15 +125,14 @@ class User extends Authenticatable
                                 ->sum('dinars');
     }
     
-    public function sumDebt()
-    {
-
-        return DB::table('staff_debts')->where('user_id',$this->id)->sum('amount');
-    } 
-   
    public function todayAmount()
    {
-     return DB::table('sales')->where('user_id',$this->id)->where('created_at','>=',Carbon::today())->sum('total');
+        return DB::table('sales')
+                ->where('user_id',$this->id)
+                ->where('created_at','<=',Carbon::today())
+                ->select(DB::raw('SUM(total) as total'), DB::raw(' SUM(discount) as discount'))
+                ->first();
+            
    }
    public function uevents()
    {

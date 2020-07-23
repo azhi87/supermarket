@@ -32,10 +32,16 @@ class AppServiceProvider extends ServiceProvider
 
           view()->composer(['items.add','items.update'],function($view){
         $view->with([
-            'cats'=>\App\Category::all(),
-            'items'=>\App\Item::latest()->paginate(35),
-            'suppliers'=>\App\Supplier::all(),
-            'items_all'=>\App\Item::all(),
+                'cats'=>\App\Category::all(),
+                'items'=>\App\Item::latest()->paginate(35),
+                'suppliers'=>\App\Supplier::all(),
+                'items_all'=>\App\Item::all(),
+            ]);
+             });
+
+         view()->composer(['reports.reportHome'],function($view){
+        $view->with([
+                'suppliers'=>\App\Supplier::all(),
             ]);
              });
 

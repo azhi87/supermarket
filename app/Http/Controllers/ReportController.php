@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Supplier;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -39,5 +40,14 @@ class ReportController extends Controller
         $barcode = request('barcode');
         $items = Item::where('barcode',$barcode)->get();
         return view('reports.stock',compact('items'));
+    }
+
+    public function supplierDebt(){
+        $supplier_id=request('supplier_id');
+        if($supplier_id !== -1)
+            $suppliers=Supplier::with('purchases')->where('id',$supplier_id)->get();
+        else
+            $suppliers=Supplier::with('purchases')->get();
+        return $suppliers;
     }
 }

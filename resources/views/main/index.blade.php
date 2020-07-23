@@ -18,17 +18,15 @@
 									<tr class="bg-info">
 										<th> Name </th>
 										<th> Total </th>
+										<th> Discount </th>
 									</tr>
 								</thead>
 								<?php $total = 0; ?>
 								@foreach ($users as $user)
 								<tr>
-									<?php
-									$valuation = $user->todayAmount();
-									$total += $valuation;
-									?>
 									<td> {{$user->name}}</td>
-									<td class="text-warning">{{number_format($user->todayAmount(),0)}}</td>
+									<td class="text-warning">{{number_format($user->todayAmount()->total,0)}}</td>
+									<td class="text-warning">{{number_format($user->todayAmount()->discount,0)}}</td>
 								</tr>
 								@endforeach
 							</table>
@@ -70,7 +68,7 @@
 								<tr>
 									<?php
 									?>
-									<td>@php echo (\App\Item::find($stock->id)->name) @endphp</td>
+									<td> {{ $stock->name }}</td>
 									<td class="text-primary"><strong>{{number_format($stock->quantity)}}</strong></td>
 									<td class="text-primary"><strong>{{($stock->exp)}}</strong></td>
 								</tr>
@@ -105,7 +103,7 @@
 								<tr>
 									<?php
 									?>
-									<td>@php echo (\App\Item::find($stock->id)->name) @endphp</td>
+									<td> {{ $stock->name }}</td>
 									<td class="text-danger"><strong>{{number_format($stock->quantity)}}</strong></td>
 									<td class="text-danger"><strong>{{($stock->exp)}}</strong></td>
 								</tr>
