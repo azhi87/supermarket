@@ -48,6 +48,6 @@ class ReportController extends Controller
             $suppliers=Supplier::with('purchases')->where('id',$supplier_id)->get();
         else
             $suppliers=Supplier::with('purchases')->get();
-        return $suppliers;
+        return view('reports.supplierDebt',compact('suppliers'));
     }
 }

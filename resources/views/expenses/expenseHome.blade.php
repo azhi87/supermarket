@@ -38,8 +38,10 @@
 					</div>
 
 					<div class="row form-group">
-						<label for="name">Reason</label>
-						<textarea class="form-control" name="reason" required=""></textarea>
+						<label class="col-sm-3 control-label">Reason</label>
+						<div class="col-sm-9">
+    						<textarea class="form-control" name="reason" required=""></textarea>
+	                    </div>
 					</div>
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-primary btn-lg btn-block"><b>Save</b></button>
@@ -67,7 +69,6 @@
 									<th class="hidden-print">Edit</th>
 								</tr>
 							</thead>
-
 							<tbody>
 								<?php if (isset($searchExpenses)) {
 									$expenses = $searchExpenses;
@@ -78,22 +79,24 @@
 								?>
 
 								@foreach ($expenses as $expense)
-
 								<tr class="text-center">
 									<td>{{$expense->user->name}}</td>
-									<td>{{$expense->created_at->format('Y-m-d')}}</td>
+									<td>{{$expense->created_at}}</td>
 									<td>{{number_format($expense->amount,2)}}</span></td>
 									<td>{{$expense->reason}}</td>
 									<td class="hidden-print"><a href="/expenses/edit/{{$expense->id}}"><span class="fa fa-edit fa-1x">
 											</span></a></td>
-
 								</tr>
 								@endforeach
 							</tbody>
+							<tfoot>
+							    <tr class="bg-info h5 text-light">
+							        <th>Total</th>
+							        <th colspan="2">{{number_format($expenses->sum('amount'),2)}}</th>
+							    </tr>
+							</tfoot>
 						</table>
 					</div>
-					<p class="text-center h3 color-red"><b> Total : {{number_format($expenses->sum('amount'),2)}} $</b></p>
-
 					@if ($expenses->has('links'))
 					{{ $expenses->links('vendor.pagination.bootstrap-4') }}
 					@endif

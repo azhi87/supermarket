@@ -163,6 +163,12 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	});
 	
 	
+	Route::get('/returns/payback/{id}','ReturnController@payback');
+	Route::get('/paybacks','PaybackController@index');
+  	Route::post('/paybacks/store/{id?}','PaybackController@store');
+  	Route::get('/paybacks/edit/{id}','PaybackController@edit');
+  	Route::get('/paybacks/print/{id}','PaybackController@printing');
+
 	Route::post('/drugs/searchAjax',function(){
  $search = request()->search;
 

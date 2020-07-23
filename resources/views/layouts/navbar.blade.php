@@ -102,7 +102,11 @@
                         <li class="mega-menu-dropdown ">
                             <a href="/suppliers" class="dropdown-toggle"><strong> Suppliers</strong><i class="material-icons"></i> 
                             </a>
-                        </li>                        
+                        </li>       
+                        <li class="mega-menu-dropdown ">
+                            <a href="/paybacks" class="dropdown-toggle"><strong> Paybacks</strong><i class="material-icons"></i> 
+                            </a>
+                        </li>       
                     </ul>
                 </div>
             </div>

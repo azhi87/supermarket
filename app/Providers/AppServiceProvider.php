@@ -51,11 +51,6 @@ class AppServiceProvider extends ServiceProvider
             ]);
              });
 
-          
-       
-
-
-     
           view()->composer('suppliers.suppliersHome',function($view){
           $view->with([
             'suppliers'=>\App\Supplier::paginate(15)
