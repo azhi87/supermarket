@@ -40,13 +40,6 @@
 						</div>
 					</div>
 
-					<div class="row form-group hidden">
-						<label class="col-sm-3 control-label"> Sale Price</label>
-						<div class="col-sm-9">
-							<input type="text" name="sale_price" value="{{$item->sale_price}}" class="form-control">
-						</div>
-					</div>
-
 					<div class="row form-group">
 						<label class="col-sm-3 control-label"> Sale Price IQD </label>
 						<div class="col-sm-9">
@@ -71,6 +64,21 @@
 								@else
 								<option value="{{$cat->id}}">{{$cat->category}}</option>
 								@endif
+								@endforeach
+							</select>
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Manufacturer</label>
+						<div class="col-sm-9">
+							<select class="form-control" name="manufacturer_id">
+								@foreach ($mans as $man)
+									@if($man->id === $item->manufacturer_id)
+										<option selected="selected" value={{$man->id}}>{{$man->name}}</option>
+									@else
+										<option value="{{$man->id}}">{{$man->name}}</option>
+									@endif
 								@endforeach
 							</select>
 						</div>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use \App\Category;
 use \App\Item;
+use \App\Category;
+use App\Manufacturer;
+use Livewire\Component;
+
 class AddItem extends Component
 {
     public $barcode;
@@ -12,11 +14,14 @@ class AddItem extends Component
     public $name_en;
     public $items_per_box;
     public $category_id;
+    public $manufacturer_id;
     public $description;
     public $cats;
+    public $mans;
     
     public function mount(){
         $this->cats=Category::all();
+        $this->mans=Manufacturer::all();
     }
     public function updated($field)
     {   
@@ -41,6 +46,7 @@ class AddItem extends Component
             'category_id'=>'required|exists:categories,id',
             'items_per_box'=>'required|numeric|min:1',
             'barcode'=>'required|unique:items,id',
+            'manufacturer_id' => 'numeric',
             
             ]);
             

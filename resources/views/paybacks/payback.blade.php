@@ -3,27 +3,19 @@
 
 <div class="col-md-12 col-sm-12">
 	<div class="card card-topline-green">
-		<div class="card-body bg-light " id="bar-parent1">
-			@include('layouts.errorMessages')
-			<form class="form-horizontal" method="POST" action="/paybacks/search">
-				{{csrf_field()}}
-				<div class="row form-group">
-					<label class="col-md-1 control-label">Supplier</label>
-					<div class="col-md-3">
-						<select type="text" name="supplier_id" class="form-control">
-						</select>
-					</div>
-
-					<label class="col-md-1 control-label">From</label>
-					<div class="col-md-2">
-						<input type="date" name="star_date" class="form-control" />
-					</div>
-					<label class="col-md-1 control-label">To</label>
-					<div class="col-md-2">
-						<input type="date" name="end_date" class="form-control" />
-					</div>
+		<div class="card-body bg-light">
+				<div class="row">
+				<label class="col-md-3 control-label"><span class="font-bold">Supplier Name:</span> {{ $supplier->name }}</label>
+				<label class="col-md-2 control-label">
+					<span class="font-bold">
+							<a href=" {{ route('show-supplier-purchases',$supplier->id) }}"> Purchases:</a>
+					</span> 
+							{{ number_format($supplier->purchases->sum('total'),2) }}
+				</label>
+				<label class="col-md-2 control-label"><span class="font-bold">Paybacks:</span> {{ number_format($supplier->paybacks->sum('paid'),2) }}</label>
+				<label class="col-md-2 control-label"><span class="font-bold">Discounts:</span> {{ number_format($supplier->paybacks->sum('discount'),2) }}</label>
+				<label class="col-md-2 control-label"><span class="font-bold">Current Debt: </span> {{ number_format($supplier->debt(),2) }}</label>
 				</div>
-			</form>
 		</div>
 	</div>
 </div>
@@ -38,17 +30,17 @@
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/paybacks/store">
 					{{csrf_field()}}
-					<div class="row form-group">
-						<label class="col-sm-3 control-label">Supplier</label>
-						<div class="col-sm-9">
-							<select type="text" name="supplier_id" class="form-control">
-							</select>
-						</div>
-					</div>
+				<input type='hidden' value = "{{ $supplier->id }}" name = "supplier_id"/>
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">Amount</label>
 						<div class="col-sm-9">
 							<input type="text" name="paid" class="form-control" required />
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Discount</label>
+						<div class="col-sm-9">
+							<input type="text" name="discount" class="form-control" value="0" required />
 						</div>
 					</div>
 					<div class="row form-group">
@@ -76,24 +68,19 @@
 									<th> User Name</th>
 									<th>Date</th>
 									<th>Amount </th>
+									<th>Discount </th>
 									<th>Note</th>
 									<th class="hidden-print">Edit</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php if (isset($searchPaybacks)) {
-									$paybacks = $searchPaybacks;
-									$update = 1;
-								} else {
-									$update = 0;
-								}
-								?>
-
-								@foreach($paybacks as $payback)
+							
+								@foreach($supplier->paybacks as $payback)
 								<tr class="text-center">
 									<td>{{$payback->user->name}}</td>
 									<td>{{$payback->created_at}}</td>
 									<td>{{number_format($payback->paid,2)}}</span></td>
+									<td>{{number_format($payback->discount,2)}}</span></td>
 									<td>{{$payback->description}}</td>
 									<td class="hidden-print"><a href="/payback/edit/{{$payback->id}}"><span class="fa fa-edit fa-1x">
 											</span></a></td>
@@ -104,14 +91,12 @@
 							<tfoot>
 							    <tr class="bg-info h5 text-light">
 							        <th>Total</th>
-							        <th colspan="2">{{number_format($paybacks->sum('paid'),2)}}</th>
+							        <th colspan="2">{{number_format($supplier->paybacks->sum('paid'),2)}}</th>
 							    </tr>
 							</tfoot>
 						</table>
 					</div>
-					@if ($paybacks->has('links'))
-					{{ $paybacks->links('vendor.pagination.bootstrap-4') }}
-					@endif
+					
 				</div>
 			</div>
 		</div>

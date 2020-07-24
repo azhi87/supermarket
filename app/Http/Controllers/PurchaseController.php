@@ -131,4 +131,8 @@ class PurchaseController extends Controller
 		\Session::flash('type','success');
 		return redirect('/purchase/see');
 	}
+	public function showSupplierPurchases($id){
+		$purchases=Purchase::with('items')->where('supplier_id',$id)->latest()->paginate(20);
+		return view('purchases.seePurchase',compact('purchases'));
+   }
 }

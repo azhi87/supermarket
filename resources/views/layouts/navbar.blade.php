@@ -47,9 +47,7 @@
                                                     <li>
                                                         <a href="/sale/seeSales" class="nav-link "><i class="fa fa-eye"></i> <span class="title"><strong>View Sales</strong></span></a>
                                                     </li>
-                                                    <!-- <li>
-                                                        <a href="/sale/search" class="nav-link "><i class="fa fa-search"></i><span class="title"><strong>Search Sales</strong></span></a>
-                                                    </li> -->
+                                                    
                                                 </ul>
                                             </div>
                                         </div>
@@ -58,7 +56,7 @@
                             </ul>
                         </li>
                          <li class="mega-menu-dropdown ">
-                            <a href="/sale/home" class="dropdown-toggle"> <strong>Purchases</strong><i class="material-icons"></i> 
+                         <a href=" {{ route('purchase-home') }}" class="dropdown-toggle"> <strong>Purchases</strong><i class="material-icons"></i> 
                                 <i class="fa fa-angle-down"></i>
                                 <span class="arrow "></span>
                             </a>
@@ -103,10 +101,7 @@
                             <a href="/suppliers" class="dropdown-toggle"><strong> Suppliers</strong><i class="material-icons"></i> 
                             </a>
                         </li>       
-                        <li class="mega-menu-dropdown ">
-                            <a href="/paybacks" class="dropdown-toggle"><strong> Paybacks</strong><i class="material-icons"></i> 
-                            </a>
-                        </li>       
+                      
                     </ul>
                 </div>
             </div>

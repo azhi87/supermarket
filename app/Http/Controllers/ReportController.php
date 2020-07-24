@@ -18,9 +18,9 @@ class ReportController extends Controller
 		return view('reports.stock',compact('items'));
     }
 
-    public function stock(){
-        $cat=Request('cat');
-        $items=\App\Item::where('category_id',$cat)->get();
+    public function showStockByManufacturer(){
+        $man_id=Request('manufacturer_id');
+        $items=Item::where('manufacturer_id',$man_id)->get();
         return view('reports.stock',compact('items'));
     }
 
@@ -44,10 +44,10 @@ class ReportController extends Controller
 
     public function supplierDebt(){
         $supplier_id=request('supplier_id');
-        if($supplier_id !== -1)
-            $suppliers=Supplier::with('purchases')->where('id',$supplier_id)->get();
+        if($supplier_id !== '-1')
+            $suppliers=Supplier::with(['purchases','paybacks'])->where('id',$supplier_id)->get();
         else
-            $suppliers=Supplier::with('purchases')->get();
+            $suppliers=Supplier::with(['purchases','paybacks'])->get();
         return view('reports.supplierDebt',compact('suppliers'));
     }
 }

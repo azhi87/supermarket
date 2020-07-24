@@ -53,7 +53,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reports/stock','ReportController@showStock')->name('show-stock');
 Route::post('/reports/supplierDebt','ReportController@supplierDebt')->name('supplier-debt-report');
 
-Route::post('/stock','ReportController@stockByCategory')->name('show-stock-by-cat');
+Route::post('/stock/manufacturer','ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
 Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-item-stock');
 		
 
@@ -93,11 +93,11 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::get('purchase/see/{id?}','PurchaseController@index')->name('show-purchases');
 	Route::get('purchase/viewReturned/{id?}','PurchaseController@viewReturned')->name('view-returned-purchases');
 	Route::get('/purchase/search','PurchaseController@search')->name('search-purchase');
+	Route::get('/purchase/supplier/{id}','PurchaseController@showSupplierPurchases')->name('show-supplier-purchases');
 	Route::post('/purchase/searchByItem','PurchaseController@searchByItem')->name('search-purchase-byItem');
-	Route::post('/purchase/search','PurchaseController@search');
 	Route::get('/purchase/delete/{id}','PurchaseController@delete');
 	Route::get('/purchase/edit/{id}','PurchaseController@edit');
-	Route::post('/purchase/update/{id}','PurchaseController@update');
+	Route::view('/purchase/home','purchases.purchaseHome')->name('purchase-home');
 
 
 
@@ -145,6 +145,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	
 	Route::livewire('/live-items','add-item')->layout('layouts.master')->name('add-item');
 	Route::livewire('/show-items','show-item')->layout('layouts.master')->name('show-items');
+	Route::livewire('/manufacturer/add','add-manufacturer')->layout('layouts.master')->name('add-manufacturer');
 	Route::livewire('/show-popular-items','item-popularity')->layout('layouts.master')->name('show-popular-items');
 	Route::livewire('/item/transactions/{id?}','item-transactions')->layout('layouts.master')->name('show-item-transactions');
 	
@@ -164,7 +165,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	
 	
 	Route::get('/returns/payback/{id}','ReturnController@payback');
-	Route::get('/paybacks','PaybackController@index');
+	Route::get('/paybacks/{id?}','PaybackController@index')->name('payback');
   	Route::post('/paybacks/store/{id?}','PaybackController@store');
   	Route::get('/paybacks/edit/{id}','PaybackController@edit');
   	Route::get('/paybacks/print/{id}','PaybackController@printing');

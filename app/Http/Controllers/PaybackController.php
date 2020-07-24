@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Supplier;
 use Illuminate\Http\Request;
 
 class PaybackController extends Controller
 {
-	public function index()
+	public function index($id=0)
 	{
-		$paybacks=\App\Payback::latest()->paginate(100);
-		return view('paybacks.payback',compact('paybacks'));
+			$supplier = Supplier::with('paybacks')->where('id',$id)->first();
+			return view('paybacks.payback',compact('supplier'));
 	} 
 	public function store(Request $request,$id=0)
 	{
@@ -18,20 +19,22 @@ class PaybackController extends Controller
 		{
 			$payback=new \App\Payback();
 		
-			$result='پارەدانەوەکە بە سەرکەوتوویی تۆمارکرا';
+			$result='Payment was Successfully stored';
 		}
 		else
 		{
 			$payback=\App\Payback::find($id);
-			$result='گۆڕانکاریەکە بە سەرکەوتوویی تۆمارکرا';
+			$result='Changes were successfully made';
 		}
-			$payback->user_id=$request['user_id'];
-		$payback->paid=$request['paid'];
-		$payback->description=$request['description'];
-		$payback->currency=$request['currency'];
-		$payback->save();
+			$payback->supplier_id=$request['supplier_id'];
+			$payback->user_id=\Auth::user()->id;
+			$payback->paid=$request['paid'];
+			$payback->discount = $request['discount'];
+			$payback->description=$request['description'];
+			$payback->currency='$';
+			$payback->save();
 		\Session::flash('message',$result);
-		return redirect('/paybacks');
+		return redirect('/paybacks/'.$payback->supplier_id);
 	}
 	public function edit($id)
 	{

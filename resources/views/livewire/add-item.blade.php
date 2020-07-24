@@ -44,6 +44,16 @@
 							</select>
 						</div>
 					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 control-label">Manufacturer</label>
+						<div class="col-sm-9">
+							<select class="form-control" wire:model.lazy='manufacturer_id'>
+								@foreach ($mans as $man)
+								<option value={{$man->id}}>{{ $man->name }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
 					<div class="form-group">
 						<div class="offset-md-3 col-md-9">
 							<button type="submit" class="btn btn-primary btn3d btn-block"><b>Save</b></button>
@@ -69,7 +79,9 @@
 							<b>Update Dosage Form </b></a>
 					</div>
 				</div>
+				@livewire('add-manufacturer')
 			</div>
+			
 		</div>
 	</div>
 

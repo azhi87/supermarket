@@ -35,13 +35,14 @@ class AppServiceProvider extends ServiceProvider
                 'cats'=>\App\Category::all(),
                 'items'=>\App\Item::latest()->paginate(35),
                 'suppliers'=>\App\Supplier::all(),
-                'items_all'=>\App\Item::all(),
+                'mans'=>\App\Manufacturer::all(),
             ]);
              });
 
          view()->composer(['reports.reportHome'],function($view){
         $view->with([
                 'suppliers'=>\App\Supplier::all(),
+                'mans'=>\App\Manufacturer::all(),
             ]);
              });
 
@@ -51,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
              });
 
-          view()->composer('suppliers.suppliersHome',function($view){
+          view()->composer(['suppliers.suppliersHome','paybacks.payback'],function($view){
           $view->with([
             'suppliers'=>\App\Supplier::paginate(15)
             ]);

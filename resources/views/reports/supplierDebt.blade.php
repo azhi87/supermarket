@@ -24,14 +24,14 @@
 								<tbody>
 									<?php $total = 0; ?>
 									@foreach($suppliers as $supplier)
-									<?php $total += $supplier->supplierDebt(); ?>
+									
 									<tr>
-										<td>{{$i++}}</td>
-										<td class="text-danger"> {{$supplier->name}}</td>
+										<td>{{ $loop->iteration }}</td>
+									<td class="text-primary"><a href=" {{ route('payback',$supplier->id) }}"> {{$supplier->name}}</a></td>
 										<td>{{number_format($supplier->purchases->sum('total'),2)}}</td>
-										<td>{{number_format($supplier->purchases->sum('discount'),2)}}</td>
+										<td>{{number_format($supplier->paybacks->sum('discount'),2)}}</td>
 										<td>{{number_format($supplier->paybacks->sum('paid'),2)}}</td>
-										<td class="">{{number_format($supplier->supplierDebt(),2)}}</td>
+									<td class="">{{ $supplier->purchases->sum('total') - ($supplier->paybacks->sum('total') + $supplier->paybacks->sum('discount')) }}</td>
 									</tr>
 									@endforeach
 								</tbody>

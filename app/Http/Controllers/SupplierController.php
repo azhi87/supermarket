@@ -5,24 +5,12 @@ use Illuminate\Http\Request;
 use App\Supplier;
 class SupplierController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware(function ($request, $next) {
-		if(\Auth::check())
-		{
-    		return $next($request);
-    	}
-    	else
-    	{
-    		return redirect('/login');
-    	}
-});
-	}
+
     public function index()
     {
-    	
     	return view('suppliers.suppliersHome');
-    }
+	}
+	
     public function search()
     {
     	$id=request('id');
@@ -68,4 +56,6 @@ class SupplierController extends Controller
    	$supplier=Supplier::find($id);
    	return view('suppliers.updateSupplier',compact('supplier'));
    }
+
+   
 }

@@ -49,22 +49,19 @@
                         <thead class="bg-success color-black">
                             <tr class="text-center">
                                 <th> Supplier Name</th>
+                                <th>Current Debt</th>
+                                <th>Discount</th>
                                 <th>Mobile#</th>
                                 <th>Address</th>
                                 <th class="hidden-print">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (isset($searchSuppliers)) {
-                                $suppliers = $searchSuppliers;
-                                $update = 1;
-                            } else {
-                                $update = 0;
-                            }
-                            ?>
+                           
                             @foreach ($suppliers as $supplier)
                             <tr class="text-center">
                                 <td>{{$supplier->name}}</td>
+                                <td><a href=" {{ route('payback',$supplier->id) }}"> {{ number_format($supplier->debt(),2) }} </a></td>
                                 <td>{{$supplier->mobile}}</td>
                                 <td>{{$supplier->address}}</td>
                                 <td class="hidden-print"><a href={{"/suppliers/edit/".$supplier->id}}><span class="fa fa-edit fa-1x "></span></a></td>
@@ -73,9 +70,7 @@
                         </tbody>
                     </table>
                     </div>
-                    @if ($update==0)
-                    {{ $suppliers->links('vendor.pagination.bootstrap-4') }}
-                    @endif
+                   
                 </div>
             </div>
         </div>

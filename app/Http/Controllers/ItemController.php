@@ -31,7 +31,7 @@ class ItemController extends Controller
    	 }
    	 $this->validate(request(),
    		[
-   	 	"sale_price"=>"required",
+   	 	"sale_price_id"=>"required",
    	 	"name"=>"required|min:1",
          "id"=>'unique:items',   		
    		]);
@@ -40,13 +40,12 @@ class ItemController extends Controller
 
    	
 	      
-      $item->barcode=request('barcode');
-      $item->name=request('name');
-      $item->manufacturer=request('manufacturer');
-	  $item->name_en=request('name_en');
-	  $item->items_per_box=request('items_per_box');
-      $item->sale_price=request('sale_price');
-   	  $item->sale_price_id=request('sale_price_id');
+         $item->barcode=request('barcode');
+         $item->name=request('name');
+         $item->name_en=request('name_en');
+         $item->manufacturer_id=request('manufacturer_id');
+         $item->items_per_box=request('items_per_box');
+         $item->sale_price_id=request('sale_price_id');
    	
    		if(null!==(Request('purchase_price')))
    		{
