@@ -7,7 +7,7 @@
 			<div class="card-head">
 				<header>Add Expense</header>
 			</div>
-			<div class="card-body bg-light " id="bar-parent1">
+			<div class="card-body bg-light" id="bar-parent1">
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/expenses/store" id="addForm">
 					{{csrf_field()}}
@@ -60,7 +60,7 @@
 				<div class="table-scrollable">
 					<div class="table-responsive">
 						<table class="table table-bordered text-center table-striped">
-							<thead class="bg-success">
+							<thead class="bg-info text-light">
 								<tr class="text-center">
 									<th> User Name</th>
 									<th>Date</th>
@@ -92,7 +92,7 @@
 							<tfoot>
 							    <tr class="bg-info h5 text-light">
 							        <th>Total</th>
-							        <th colspan="2">{{number_format($expenses->sum('amount'),2)}}</th>
+							        <th colspan="2">{{number_format($expenses->sum('amount'),2)}} $</th>
 							    </tr>
 							</tfoot>
 						</table>

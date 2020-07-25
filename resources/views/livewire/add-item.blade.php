@@ -39,7 +39,7 @@
 						<div class="col-sm-9">
 							<select class="form-control" wire:model.lazy='category_id'>
 								@foreach ($cats as $cat)
-								<option value={{$cat->id}}>{{$cat->category}}</option>
+								<option value="{{$cat->id}}">{{$cat->category}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -49,7 +49,7 @@
 						<div class="col-sm-9">
 							<select class="form-control" wire:model.lazy='manufacturer_id'>
 								@foreach ($mans as $man)
-								<option value={{$man->id}}>{{ $man->name }}</option>
+								<option value="{{$man->id}}">{{$man->name}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -61,6 +61,8 @@
 					</div>
 				</form>
 			</div>
+		</div>
+
 			<div class="col-md-12">
 				<div class="card card-topline-green">
 					<div class="card-head">
@@ -86,8 +88,7 @@
 				</div>
 			</div>
 			@livewire('add-manufacturer')
-		</div>
 	</div>
-@livewire('show-item')
+            @livewire('show-item')
 </div>
 

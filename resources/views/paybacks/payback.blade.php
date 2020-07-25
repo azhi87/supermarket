@@ -1,26 +1,24 @@
 @extends('layouts.master')
 @section('content')
 
-<div class="col-md-12 col-sm-12">
-	<div class="card card-topline-green">
-		<div class="card-body bg-light">
-				<div class="row">
-				<label class="col-md-3 control-label"><span class="font-bold">Supplier Name:</span> {{ $supplier->name }}</label>
-				<label class="col-md-2 control-label">
-					<span class="font-bold">
-							<a href=" {{ route('show-supplier-purchases',$supplier->id) }}"> Purchases:</a>
-					</span> 
-							{{ number_format($supplier->purchases->sum('total'),2) }}
-				</label>
-				<label class="col-md-2 control-label"><span class="font-bold">Paybacks:</span> {{ number_format($supplier->paybacks->sum('paid'),2) }}</label>
-				<label class="col-md-2 control-label"><span class="font-bold">Discounts:</span> {{ number_format($supplier->paybacks->sum('discount'),2) }}</label>
-				<label class="col-md-2 control-label"><span class="font-bold">Current Debt: </span> {{ number_format($supplier->debt(),2) }}</label>
-				</div>
-		</div>
-	</div>
-</div>
-
 <div class="row">
+        <div class="col-md-12 col-sm-12">
+    	<div class="card card-topline-green">
+    		<div class="card-body bg-light">
+    				<div class="row h5">
+    				<label class="col-md-3 control-label text-primary">Supplier Name:  {{ $supplier->name }}</label>
+    				<label class="col-md-2 control-label text-info">
+    							<a href=" {{ route('show-supplier-purchases',$supplier->id) }}">Purchases:</a>
+    							{{ number_format($supplier->purchases->sum('total'),2) }}
+    				</label>
+    				<label class="col-md-2 control-label text-success">Paybacks: {{ number_format($supplier->paybacks->sum('paid'),2) }}</label>
+    				<label class="col-md-2 control-label text-warning">Discounts: {{ number_format($supplier->paybacks->sum('discount'),2) }}</label>
+    				<label class="col-md-2 control-label text-danger">Current Debt:  {{ number_format($supplier->debt(),2) }}</label>
+    				</div>
+    		</div>
+    	</div>
+    </div>
+
 	<div class="col-md-4 col-sm-12">
 		<div class="card card-topline-green">
 			<div class="card-head">
@@ -30,7 +28,7 @@
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/paybacks/store">
 					{{csrf_field()}}
-				<input type='hidden' value = "{{ $supplier->id }}" name = "supplier_id"/>
+				    <input type='hidden' value = "{{ $supplier->id }}" name = "supplier_id"/>
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">Amount</label>
 						<div class="col-sm-9">
@@ -63,9 +61,9 @@
 				<div class="table-scrollable">
 					<div class="table-responsive">
 						<table class="table table-bordered text-center table-striped">
-							<thead class="bg-success">
+							<thead class="bg-info text-light">
 								<tr class="text-center">
-									<th> User Name</th>
+									<th>User Name</th>
 									<th>Date</th>
 									<th>Amount </th>
 									<th>Discount </th>
@@ -74,17 +72,16 @@
 								</tr>
 							</thead>
 							<tbody>
-							
-								@foreach($supplier->paybacks as $payback)
+								@foreach($supplier->paybacks->sortbydesc('created_at') as $payback)
 								<tr class="text-center">
 									<td>{{$payback->user->name}}</td>
 									<td>{{$payback->created_at}}</td>
-									<td>{{number_format($payback->paid,2)}}</span></td>
-									<td>{{number_format($payback->discount,2)}}</span></td>
+									<td>{{number_format($payback->paid,2)}}</td>
+									<td>{{number_format($payback->discount,2)}}</td>
 									<td>{{$payback->description}}</td>
-									<td class="hidden-print"><a href="/payback/edit/{{$payback->id}}"><span class="fa fa-edit fa-1x">
-											</span></a></td>
-
+									<td class="hidden-print"><a href="/payback/edit/{{$payback->id}}">
+									    <span class="fa fa-edit fa-1x"></span></a>
+									</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -96,7 +93,6 @@
 							</tfoot>
 						</table>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -111,5 +107,4 @@
 		$('#debtHeader').addClass('menu-top-active');
 	});
 </script>
-
 @endsection

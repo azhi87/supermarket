@@ -46,7 +46,7 @@
                 <div class="table-scrollable">
                     <div class="table-responsive">    
                     <table class="table table-bordered table-striped ">
-                        <thead class="bg-success color-black">
+                        <thead class="bg-info text-light">
                             <tr class="text-center">
                                 <th> Supplier Name</th>
                                 <th>Current Debt</th>
@@ -60,7 +60,7 @@
                             @foreach ($suppliers as $supplier)
                             <tr class="text-center">
                                 <td>{{$supplier->name}}</td>
-                                <td><a href=" {{ route('payback',$supplier->id) }}"> {{ number_format($supplier->debt(),2) }} </a></td>
+                                <td><a href=" {{ route('payback',$supplier->id) }}"><strong> {{ number_format($supplier->debt(),2) }} </strong></a></td>
                                 <td>{{$supplier->mobile}}</td>
                                 <td>{{$supplier->address}}</td>
                                 <td class="hidden-print"><a href={{"/suppliers/edit/".$supplier->id}}><span class="fa fa-edit fa-1x "></span></a></td>
