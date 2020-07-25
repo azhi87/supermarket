@@ -25,7 +25,7 @@
   <link href="{{asset('public/css/select2.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/select2-bootstrap.min.css')}}" rel="stylesheet" />
   <!-- Theme Styles -->
-  <link href="{{asset('public/css/theme_style.css')}}" rel="stylesheet" />
+  <link href="{{asset('public/css/theme_style1.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/style.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/plugins.min.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/formlayout.css')}}" rel="stylesheet" />

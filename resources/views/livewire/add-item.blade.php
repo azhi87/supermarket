@@ -60,30 +60,34 @@
 						</div>
 					</div>
 				</form>
-				<hr>
-
-				<div class="form-group row col-md-12">
-					<form method="POST" action="/cats/add">
-						{{csrf_field()}}
-						<div class="input-group has-warning">
-							<input type="text" name="cat" class="form-control" placeholder="Add new Dosage Form">
-							<span class="input-group-btn">
-								<button class="btn btn-primary" type="submit"><b>Add</b></button>
-							</span>
-						</div>
-					</form>
-				</div>
-				<div class="form-group">
-					<div class="offset-md-3 col-md-9">
-						<a type="button" href="/peripheralUpdates" class="btn btn-info btn-primary">
-							<b>Update Dosage Form </b></a>
+			</div>
+			<div class="col-md-12">
+				<div class="card card-topline-green">
+					<div class="card-head">
+						<header>Add Dosage</header>
+					</div>
+					<div class="card-body bg-light " id="bar-parent1">
+						<form class="form-horizontal" method="POST" action="/cats/add">
+							{{csrf_field()}}
+							<div class="input-group has-warning">
+								<input type="text" name="cat" class="form-control" placeholder="Add new Dosage Form">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="submit"><b>Add</b></button>
+								</span>
+							</div>
+							<div class="form-group">
+								<div class="offset-md-3 col-md-9">
+									<a type="button" href="/peripheralUpdates" class="btn btn-info btn-primary">
+										<b>Update Dosage Form </b></a>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
-				@livewire('add-manufacturer')
 			</div>
-			
+			@livewire('add-manufacturer')
 		</div>
 	</div>
+@livewire('show-item')
+</div>
 
-
-	@livewire('show-item')

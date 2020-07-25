@@ -1,23 +1,24 @@
-        <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header navbar navbar-fixed-top bg-light">
             <div class="page-header-inner ">
                 <!-- logo start -->
                 <div class="page-logo">
                     <a href="/">
                         <span class="logo-icon fa fa-stethoscope fa-rotate-45"></span>
-                        <span class="logo-default">PHARMACY</span> </a>
+                        <span class="logo-default">E-PHARMACY</span> </a>
                 </div>
+                <ul class="nav navbar-nav navbar-left in">
+	                   <li class="pt-3 pl-3 h3" ><strong>KEZHAZN PHARMACY</strong></li>
+            	</ul>
                 <!-- start header menu -->
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
-                      
                         <!-- start manage user dropdown -->
                         <li class="dropdown dropdown-user">
                                 <li  class="dropdown dropdown-user">
                                     <a href="/logout">
                                         <i class="icon-logout"></i> Log Out </a>
                                 </li>
-                            </li>
-
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -13,7 +13,7 @@
 								@csrf
 								<input type="text" name="sale_id" class="form-control" placeholder="Search by Invoice ID">
 								<span class="input-group-btn">
-									<button type="submit" class="btn btn-info btn-flat">Search!</button>
+									<button type="submit" class="btn btn-primary btn-flat">Search!</button>
 								</span>
 							</div>
 						</form>

@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body ">
                         <div class="table-scrollable">
-                            <table class="table text-center bg-light table-bordered">
+                            <table class="table text-center bg-light table-bordered  table-striped">
                                 <thead>
                                     <tr>
                                         <th>Barcode</th>
@@ -29,7 +29,6 @@
                                     </tr>
                                 </thead>
                                 @foreach ($items->sortBy('category_id') as $item)
-
                                 <tr class="text-center">
 
                                     <td>{{$item->barcode}}</td>
@@ -48,7 +47,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
                             </table>
                         </div>
                     </div>
