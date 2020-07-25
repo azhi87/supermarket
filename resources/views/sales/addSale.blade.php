@@ -128,6 +128,14 @@
 @endsection
 
 @section('afterFooter')
+@if(Session::has('sale-id'))
+	<script>
+		$(document).ready(function(){
+			printExternal('{{ route('print-sale', session('sale-id')) }}');
+	});
+		
+	</script>
+@endif
 <script>
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 	$(document).ready(function() {
@@ -146,8 +154,14 @@
 					};
 				},
 				processResults: function(response) {
+					if (response.length == 1) {
+						$("#barcode0").append($("<option />")
+							.attr("value", response[0].id)
+							.html(response[0].text)
+						).val(response[0].id).trigger("change").select2("close");
+					}
 					return {
-						results: response
+						results: result
 					};
 				},
 				cache: true

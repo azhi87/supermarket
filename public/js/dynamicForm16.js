@@ -68,6 +68,12 @@
             };
           },
           processResults: function (response) {
+            if (response.length == 1) {
+						$("#barcode"+i).append($("<option />")
+							.attr("value",response[0].id)
+							.html(response[0].text)
+						).val(response[0].id).trigger("change").select2("close");
+					}
             return {
               results: response
             };
@@ -154,6 +160,12 @@
             };
           },
           processResults: function (response) {
+            if (response.length == 1) {
+						$("#barcode"+i).append($("<option />")
+							.attr("value",response[0].id)
+							.html(response[0].text)
+						).val(response[0].id).trigger("change").select2("close");
+					}
             return {
               results: response
             };
@@ -305,6 +317,7 @@
                             {
                               alert('This item is not available in stock');
                               $("barcode" + index).select2("val", "");
+                              $("barcode" + index).trigger('change');
                               return false;
                               }
                              $("#exp"+index).empty();
@@ -391,9 +404,8 @@ function getCustomerName()
     $('#totalPaid').val(totalPaid);
 }
 function printExternal(url) {
-    
     var printWindow = window.open( url, 'Print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');
-    printWindow.addEventListener('load', function(){
+        printWindow.addEventListener('load', function(){
         printWindow.print();
         printWindow.close();
     }, true);

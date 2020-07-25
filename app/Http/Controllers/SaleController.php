@@ -28,7 +28,7 @@ class SaleController extends Controller
    		}
    		else
    		{
-   			$sales=Sale::where('id',$id)->paginate(1);
+   			$sales=Sale::with('items')->where('id',$id)->paginate(1);
    		}
    		return view('sales.seeSales',compact('sales'));
    }
@@ -52,12 +52,11 @@ class SaleController extends Controller
           $sale->user_id=\Auth::user()->id;
           $sale->status=1;
       }
-      else
-      {
-        $sale=Sale::find($id);
-        $sale->items()->detach();
-        DB::table('stocks')->where('type',$sale->type)->where('source_id',$sale->id)->delete();
-        $sale->items()->detach();
+      else{
+            $sale=Sale::find($id);
+            $sale->items()->detach();
+            DB::table('stocks')->where('type',$sale->type)->where('source_id',$sale->id)->delete();
+            $sale->items()->detach();
       }
 
       $howManyItems=$request['howManyItems'];
@@ -77,12 +76,11 @@ class SaleController extends Controller
 			{
         		$barcode = $request['barcode'.$i];
         		$quantity = $request['quantity'.$i];
-                $item = Item::find($barcode);
-                $ppi = $request['ppi'.$i];
-                $singles = $request['singles'.$i];
-                $exp = $request['exp'.$i];
+            $item = Item::find($barcode);
+            $ppi = $request['ppi'.$i];
+            $singles = $request['singles'.$i];
+            $exp = $request['exp'.$i];
 
-				
 				if($barcode==0 || ($quantity==0 && $singles==0))
 				{
 					continue;
@@ -92,7 +90,8 @@ class SaleController extends Controller
 			}
 		}
     event(new SaleCreatedEVent($sale));
-		return redirect('sale/print/'.$sale->id);
+    session()->flash('sale-id',$sale->id);
+		return redirect(route('add-sale'));
    }
    
    public function destroy($id)

@@ -80,6 +80,7 @@
 
 						@if(Auth::user()->type=="admin")
 						<div class="text-center hidden-print">
+							<a class="btn btn-circle btn-success btn-lg" onclick="printExternal('/sale/print/{{ $sale->id }}')"><span class="fa fa-print fa-2x"></span></a>
 							<a class="btn btn-circle btn-danger btn-lg" onclick='confirmDelete("{{$sale->id}}")'><span class="fa fa-trash-o fa-2x"></span></a>
 							<a class="btn btn-circle btn-primary btn-lg" href="/sale/edit/{{$sale->id}}"><span class="fa fa-edit fa-2x"></span></a>
 						</div>

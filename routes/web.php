@@ -71,10 +71,10 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 
 	
 
-	Route::get('/sales/addSale','SaleController@index');
+	Route::get('/sales/addSale','SaleController@index')->name('add-sale');
 	Route::post('/sale/create/{id?}','SaleController@create');
 	Route::get('/sale/seeSales/{id?}','SaleController@seeSales')->name('show-sales');
-	Route::get('/sale/print/{index}','SaleController@salePrint');
+	Route::get('/sale/print/{index}','SaleController@salePrint')->name('print-sale');
 	Route::post('/sale/update/{id}','SaleController@store');
 
 	Route::view('/sale/home','sales.saleHome');

@@ -50,7 +50,6 @@
                             <tr class="text-center">
                                 <th> Supplier Name</th>
                                 <th>Current Debt</th>
-                                <th>Discount</th>
                                 <th>Mobile#</th>
                                 <th>Address</th>
                                 <th class="hidden-print">Edit</th>
