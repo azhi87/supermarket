@@ -12,7 +12,7 @@
 		<div class="card-body bg-light">
 			<div class="table-scrollable">
 				<table class="table table-bordered table-striped ">
-					<thead class="bg-success">
+					<thead class="text-light bg-info">
 						<tr class="text-center">
 							<th>Barcode</th>
 							<th>Drug Name</th>
