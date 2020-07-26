@@ -77,7 +77,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::get('/sale/print/{index}','SaleController@salePrint')->name('print-sale');
 	Route::post('/sale/update/{id}','SaleController@store');
 
-	Route::view('/sale/home','sales.saleHome');
+	Route::view('/sale/home','sales.saleHome')->name('sale-home');
 	Route::view('sale/search','sales.searchSale');
 	Route::get('/logout',function(){
 		\Auth::logout();
@@ -200,6 +200,3 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	
 });
 	
-	
-
-

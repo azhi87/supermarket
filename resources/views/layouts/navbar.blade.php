@@ -32,7 +32,7 @@
                         </li>
                         
                         <li class="mega-menu-dropdown">
-                            <a href="/" class="dropdown-toggle"> <strong>Sales</strong><i class="material-icons"></i> 
+                        <a href=" {{route('sale-home')}} " class="dropdown-toggle"> <strong>Sales</strong><i class="material-icons"></i> 
                                 <i class="fa fa-angle-down"></i>
                                 <span class="arrow "></span>
                             </a>

@@ -30,14 +30,15 @@
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input readonly type="number" step="0.001" min="0" readonly id="total" name="total" value="{{$sale->total+$sale->discount}}" class="form-control ">
+
+									<input type="number" step="0.001" min="0" readonly id="total" name="total" value="{{ abs($sale->total + $sale->discount) }}" class="form-control ">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon">Discount</span>
-									<input type="number" step="0.001" min="0" id="discout" name="discount" value="{{$sale->discount}}" class="form-control ">
+									<input type="number" step="0.001" min="0" id="discout" name="discount" value="{{ $sale->discount }}" class="form-control ">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
@@ -126,7 +127,7 @@
 											<span name="items_per_box{{$i}}" id="items_per_box{{$i}}" class="badge badge-primary">{{$item->items_per_box}}</span>
 										</td>
 										<td>
-											<span class="badge badge-primary" id="subtotal{{$i}}">{{number_format((($item->pivot->quantity*$item->items_per_box)+($item->pivot->singles))*$item->pivot->ppi,0)}}</span>
+											<span class="badge badge-primary" id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
 										</td>
 										<td width="175px;">
 											<select name="exp{{$i}}" id="exp{{$i}}" class="form-control" required>
@@ -159,6 +160,7 @@
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button  name="save" class="btn-lg btn-primary" type="submit" >
 							<i caption="Add" class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
+
 					</div>
 				</form>
 			</div>

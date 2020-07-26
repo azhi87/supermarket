@@ -112,25 +112,15 @@ class User extends Authenticatable
         return false;
        }
     }
-    public function totalUnconfirmedDollars()
-    {
-        return DB::table('debts')->where('user_id',$this->id)
-                                ->where('status','1')
-                                ->sum('dollars');
-    }
-     public function totalUnconfirmedDinars()
-    {
-        return DB::table('debts')->where('user_id',$this->id)
-                                ->where('status','1')
-                                ->sum('dinars');
-    }
+
+
     
    public function todayAmount()
    {
         return DB::table('sales')
                 ->where('user_id',$this->id)
-                ->where('created_at','>=',Carbon::today())
-                ->select(DB::raw('SUM(total) as total'), DB::raw(' SUM(discount) as discount'))
+                ->where('created_at', '>=', Carbon::today())
+                ->selectRaw('SUM(total) as total,SUM(discount) as discount')
                 ->first();
             
    }
