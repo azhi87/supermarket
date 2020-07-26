@@ -1,5 +1,13 @@
 @extends('layouts.master')
 @section('content')
+<style>
+	.table td,
+	.card .table td,
+	.card .dataTable td{
+		padding: 5px 8px;
+		vertical-align: middle;
+	}
+</style>
 @include('purchases.header')
 <div class="row">
 	<div class="col-sm-12">
@@ -29,7 +37,7 @@
 					<div class="card-body col-md-12">
 						<div class="table-scrollable">
 							<table class="table text-center table-striped">
-								<thead class="bg-info color-black">
+								<thead class="bg-info text-light">
 									<tr class="custom_centered">
 										<th>ID No.</th>
 										<th>Invoice No.</th>
@@ -51,10 +59,10 @@
 										<td><strong>{{$purchase->created_at}}</strong></td>
 										<td>{{$purchase->user->name}}</td>			
 <td>
-<a class="btn btn-lg btn-circle btn-primary" href="/purchase/edit/{{$purchase->id}}"><span class="fa fa-edit "></span></a>
+<a class="btn btn-md btn-circle btn-primary" href="/purchase/edit/{{$purchase->id}}"><span class="fa fa-edit "></span></a>
 </td>
 <td>
-<a class="btn btn-lg btn-circle btn-danger" onclick='confirmDelete("{{$purchase->id}}")'><span class="fa fa-trash-o "></span></a>
+<a class="btn btn-md btn-circle btn-danger" onclick='confirmDelete("{{$purchase->id}}")'><span class="fa fa-trash-o "></span></a>
 </td>
 									</tr>
 									@endforeach

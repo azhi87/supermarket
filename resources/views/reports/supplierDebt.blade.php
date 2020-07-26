@@ -27,11 +27,11 @@
 									
 									<tr>
 										<td>{{ $loop->iteration }}</td>
-									<td class="text-primary"><a href=" {{ route('payback',$supplier->id) }}"> {{$supplier->name}}</a></td>
+									<td class="text-primary"><a href=" {{ route('payback',$supplier->id) }}"><strong> {{$supplier->name}}</strong></a></td>
 										<td>{{number_format($supplier->purchases->sum('total'),2)}}</td>
 										<td>{{number_format($supplier->paybacks->sum('discount'),2)}}</td>
 										<td>{{number_format($supplier->paybacks->sum('paid'),2)}}</td>
-									<td class="">{{ $supplier->purchases->sum('total') - ($supplier->paybacks->sum('total') + $supplier->paybacks->sum('discount')) }}</td>
+									<td class="text-primary"><strong>{{ $supplier->purchases->sum('total') - ($supplier->paybacks->sum('paid') + $supplier->paybacks->sum('discount')) }}</strong></td>
 									</tr>
 									@endforeach
 								</tbody>

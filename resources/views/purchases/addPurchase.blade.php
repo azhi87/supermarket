@@ -2,17 +2,20 @@
 @section('content')
 <style>
 	.table td,
-	.table th,
 	.card .table td,
-	.card .table th,
-	.card .dataTable td,
-	.card .dataTable th {
+	.card .dataTable td{
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
+	.table th,
+	.card .table th,
+	.card .dataTable th{
+		padding: 5px 8px;
+		vertical-align: middle;
+	}
 	.select2-results {
-		max-height: 50px;
+		max-height: 150px;
 	}
 </style>
 @include('purchases.header')
@@ -72,14 +75,15 @@
 					@include('layouts.errorMessages')
 					<div class="table-scrollable table-fixed">
 						<table class="table table-bordered text-center" id="repeatedSale">
-							<thead class="bg-info">
-								<tr class="custom_centered sm">
+							<thead class="bg-info text-light">
+								<tr class="text-center">
 									<th>No.</th>
-									<th width="30%">Barcode (Name)</th>
+									<th width="25%">Barcode (Name)</th>
 									<th>Purchase Price ($)</th>
-									<th>Sale Price (Per Packet IQD)</th>
+									<th>Sale Price(PerPack IQD)</th>
 									<th>Packs</th>
 									<th>Bonus (packs)</th>
+									<th>Subtotal</th>
 									<th>Expire date</th>
 									<th>Remove</th>
 								</tr>
@@ -105,6 +109,9 @@
 									<input type="number" step="1" id="bonus0" name="bonus0" value="0" class="form-control" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>
 								</td>
 								<td>
+									<span class="badge badge-primary" id="subtotal0"></span>
+								</td>
+								<td>
 									<input type="date" name="exp0" id="exp0" class="form-control " required>
 								</td>
 								<td>
@@ -119,7 +126,7 @@
 
 					<div class="no-print text-center">
 						<input type="hidden" value="0" id="howManyItems" name="howManyItems" />
-						<button class="btn-lg btn-success btn-circle" type="button" onclick="addItem()">
+						<button class="btn-lg btn-info btn-circle" type="button" onclick="addItem()">
 							<i caption="Add" class="fa fa-plus-circle fa-2x"></i></button>
 					</div>
 					<br>
