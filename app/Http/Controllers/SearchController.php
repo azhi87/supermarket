@@ -27,14 +27,14 @@ class SearchController extends Controller
     }
     public function searchSale(Request $request)
     {
-     $query=Sale::query();
+        $query=Sale::query();
         if (!empty($request['sale_id']) )
             $query->where('id',$request['sale_id']);
             
         if (!\Auth::user()->type=='admin') 
             $query->where('user_id',Auth::user()->id);
             
-        elseif(!empty($request['user_id']))
+        elseif($request['user_id'] !== '-1')
             $query->where('user_id',$request['user_id']);
 
         if (!empty($request['from'])) 
@@ -120,4 +120,3 @@ class SearchController extends Controller
     }
 }
     
-

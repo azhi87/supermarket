@@ -161,7 +161,7 @@
 						).val(response[0].id).trigger("change").select2("close");
 					}
 					return {
-						results: result
+						results: response
 					};
 				},
 				cache: true
