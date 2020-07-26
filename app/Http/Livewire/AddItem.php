@@ -55,6 +55,7 @@ class AddItem extends Component
         $this->name='';
         $this->name_en='';
         $this->category_id=1;
+        $this->manufacturer_id=1;
         $this->items_per_box='';
         $this->barcode='';
         $this->emit('refreshItems');

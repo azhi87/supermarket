@@ -38,6 +38,7 @@
 						<label class="col-sm-3 control-label">Dosage Form</label>
 						<div class="col-sm-9">
 							<select class="form-control" wire:model.lazy='category_id'>
+								<option></option>
 								@foreach ($cats as $cat)
 								<option value="{{$cat->id}}">{{$cat->category}}</option>
 								@endforeach
@@ -47,7 +48,8 @@
 					<div class="form-group row">
 						<label class="col-sm-3 control-label">Manufacturer</label>
 						<div class="col-sm-9">
-							<select class="form-control" wire:model.lazy='manufacturer_id'>
+							<select class="form-control" wire:model.lazy='manufacturer_id' required>
+								<option></option>
 								@foreach ($mans as $man)
 								<option value="{{$man->id}}">{{$man->name}}</option>
 								@endforeach
