@@ -12,7 +12,7 @@
 	}
 
 	.select2-results {
-		max-height: 50px;
+		max-height: 100px;
 	}
 </style>
 @include('sales.header')
@@ -117,7 +117,8 @@
 					</div>
 					<br>
 					<div class="text-center no-print">
-						<input type="submit" name="submit" value="Save" class="btn-primary text-center btn-lg btn-block" />
+						<input type="submit" name="save" value="Save" class="btn-primary text-center btn-lg" />
+						<input type="submit" name="save-print" value="Save and Print" class="btn-success text-center btn-lg" />
 					</div>
 				</form>
 			</div>

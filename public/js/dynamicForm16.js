@@ -265,8 +265,9 @@
 
                       }
 
-                      subtotal = ppi * total_quantity;
+                      subtotal = Math.round(ppi * total_quantity);
                       if (subtotal % 250 !== 0) {
+                          alert(subtotal);
                           subtotal = (250 - (subtotal % 250)) + subtotal;
                       }
 

@@ -63,13 +63,13 @@
 									@foreach ($sale->items as $item)
 									<tr class="text-center h5">
 										<td><span class="badge bg-danger">{{$i}}</span></td>
-										<td>{{$item->barcode}}</td>
-										<td>{{$item->name}}</td>
-										<td class="">{{$item->pivot->quantity}}</td>
-										<td class="">{{$item->pivot->singles}}</td>
-										<td class="">{{number_format($item->pivot->ppi,0)}}</td>
-										<td class="">{{number_format((($item->pivot->quantity*$item->items_per_box)+($item->pivot->singles))*$item->pivot->ppi,0)}}</td>
-										<td class="">{{$item->pivot->exp}}</td>
+										<td>{{ $item->barcode }}</td>
+										<td>{{ $item->name }}</td>
+										<td>{{ $item->pivot->quantity }}</td>
+										<td>{{ $item->pivot->singles }}</td>
+										<td>{{ number_format($item->pivot->ppi,0) }}</td>
+										<td>{{ number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity)) * $item->pivot->ppi,0) }}</td>
+										<td>{{ $item->pivot->exp }}</td>
 									</tr>
 									<?php $i++; ?>
 									@endforeach

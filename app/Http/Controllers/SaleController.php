@@ -41,6 +41,7 @@ class SaleController extends Controller
   
    public function create(Request $request,$id=0)
    {
+    
       $this->validate($request,[
         "total"=>"required",
         ]);
@@ -90,8 +91,16 @@ class SaleController extends Controller
 			}
 		}
     event(new SaleCreatedEVent($sale));
-    session()->flash('sale-id',$sale->id);
-		return redirect(route('add-sale'));
+     
+     if(isset($request['save-print'])){
+       return redirect(route('print-sale',$sale->id));
+      }
+      elseif(isset($request['save'])){
+        session()->flash('message','Successful');
+        return redirect(route('add-sale'));
+     }
+     
+	
    }
    
    public function destroy($id)

@@ -54,8 +54,8 @@ class AddItem extends Component
         session()->flash('message','Success');
         $this->name='';
         $this->name_en='';
-        $this->category_id=1;
-        $this->manufacturer_id=1;
+        $this->category_id='';
+        $this->manufacturer_id='';
         $this->items_per_box='';
         $this->barcode='';
         $this->emit('refreshItems');
