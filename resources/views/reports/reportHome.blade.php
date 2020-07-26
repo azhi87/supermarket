@@ -65,9 +65,9 @@
 			<div class="card-body " id="bar-parent">
 				<form method="POST" action="{{ route('show-item-stock') }}" id="contact_form">
 					{{csrf_field()}}
-					<fieldset class="form-group">
+					<fieldset class="form-group" id="stock">
 						<label for="formGroupExampleInput2">Barcode</label>
-						<input type="text" name="barcode" class="form-control" required>
+						<select name="barcode" id="" class="select3"></select>
 					</fieldset>
 
 					<div class="form-group">
@@ -86,7 +86,7 @@
 			<div class="card-head bg-light">
 				<header>Drug Transactions</header>
 			</div>
-			<div class="card-body " id="bar-parent">
+			<div class="card-body " id="transaction">
 				<fieldset class="form-group">
 					<label for="formGroupExampleInput2">Barcode</label>
 					<select name="id" class="select3"></select>
@@ -222,8 +222,8 @@
 		});
 
 	});
-	$('.select3').on("select2:select", function(e) {
+	$('#transaction .select3').on("select2:select", function(e) {
 		window.open('/item/transactions/' + e.params.data.id);
 	});
 </script>
-@endsection]
+@endsection
