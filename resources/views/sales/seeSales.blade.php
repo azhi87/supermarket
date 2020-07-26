@@ -46,8 +46,8 @@
 
 						<div class="table-scrollable table-fixed">
 							<table class="table table-striped table-bordered text-center" id="dataTables-example">
-								<tbody class="bg-info">
-									<tr class="text-center color-bottom-txt">
+								<tbody class="bg-info text-light">
+									<tr class="text-center">
 										<th class="text-center">#</th>
 										<th class="text-center">Barcode</th>
 										<th class="text-center">Name</th>

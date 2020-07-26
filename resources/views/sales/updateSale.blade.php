@@ -1,20 +1,23 @@
 @extends('layouts.master')
+@section('content')
 <style>
 	.table td,
-	.table th,
 	.card .table td,
-	.card .table th,
-	.card .dataTable td,
-	.card .dataTable th {
+	.card .dataTable td{
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
+	.table th,
+	.card .table th,
+	.card .dataTable th{
+		padding: 5px 8px;
+		vertical-align: middle;
+	}
 	.select2-results {
-		max-height: 50px;
+		max-height: 150px;
 	}
 </style>
-@section('content')
 @include('sales.header')
 <div class="row">
 	<div class="col-sm-12">
@@ -24,21 +27,28 @@
 					<div class="card-body" id="bar-parent">
 						{{csrf_field()}}
 						<div class="row">
-							<div class="form-group has-success">
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input type="number" step="0.001" min="0" readonly id="total" name="total" value="{{$sale->total+$sale->discount}}" class="form-control ">
+									<input readonly type="number" step="0.001" min="0" readonly id="total" name="total" value="{{$sale->total+$sale->discount}}" class="form-control ">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
-							<div class="form-group has-success">
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon">Discount</span>
 									<input type="number" step="0.001" min="0" id="discout" name="discount" value="{{$sale->discount}}" class="form-control ">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
-							<div class="form-group col-md-3 has-success">
+							<div class="form-group col-md-4 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon">Total After Discount</span>
+									<input readonly type="number" step="0.001" min="0" id="discout" name="discount" value="{{$sale->discount}}" class="form-control ">
+									<span class="input-group-addon">IQD</span>
+								</div>
+							</div>
+							<div class="form-group col-md-3 has-success hidden">
 								<div class="input-group">
 									<span class="input-group-addon">Note</span>
 									<input id="description" name="description" value="{{$sale->description}}" class="form-control ">
@@ -71,8 +81,8 @@
 							@include('layouts.errorMessages')
 							<div class="table-scrollable table-fixed">
 								<table class="table table-bordered text-center table-scrollable" id="repeatedSale">
-									<thead class="bg-success">
-										<tr class="custom_centered">
+									<thead class="bg-info text-light">
+										<tr >
 											<th>No.</th>
 											<th width="30%">Barcode</th>
 											<th>Price IQD</th>
@@ -139,13 +149,16 @@
 
 					<div class="no-print text-center">
 						<input type="hidden" value="{{$i-1}}" id="howManyItems" name="howManyItems" />
-						<button class="btn-lg btn-success btn-circle" type="button" onclick="addSaleItem()">
-							<i caption="Add" class="fa fa-plus-circle fa-2x"></i></button>
+						<button class="btn-lg btn-info btn-circle" type="button" onclick="addSaleItem()">
+							<i caption="Add" class="fa fa-plus-circle fa-1x"></i></button>
 					</div>
 					<br>
 					<div class="text-center no-print">
-						<input type="submit" name="submit" value="save" class="btn-primary text-center btn-lg btn-block" />
-
+                        <button name="save-print" class="btn-lg btn-info" type="submit" >
+							<i caption="Add" class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button  name="save" class="btn-lg btn-primary" type="submit" >
+							<i caption="Add" class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
 					</div>
 				</form>
 			</div>

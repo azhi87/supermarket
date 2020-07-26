@@ -2,17 +2,20 @@
 @section('content')
 <style>
 	.table td,
-	.table th,
 	.card .table td,
-	.card .table th,
-	.card .dataTable td,
-	.card .dataTable th {
+	.card .dataTable td{
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
+	.table th,
+	.card .table th,
+	.card .dataTable th{
+		padding: 5px 8px;
+		vertical-align: middle;
+	}
 	.select2-results {
-		max-height: 100px;
+		max-height: 150px;
 	}
 </style>
 @include('sales.header')
@@ -24,21 +27,25 @@
 						{{csrf_field()}}
 					<div class="card-body" id="bar-parent">
 						<div class="row">
-							<div class="form-group has-success">
+							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input type="double" min="0" id="total" name="total" class="form-control ">
-									<span class="input-group-addon">IQD</span>
-								</div>
-							</div>
-							<div class="form-group has-success">
-								<div class="input-group ">
-									<span class="input-group-addon"><strong>Discount</strong></span>
-									<input type="number" step="0.01" min="0" value="0" id="discout" name="discount" class="form-control ">
-									<span class="input-group-addon">IQD</span>
+									<input type="double" min="0" id="total" name="total" class="form-control " readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Discount</strong></span>
+									<input type="number" step="0.01" min="0" value="0" id="discout" name="discount" class="form-control ">
+								</div>
+							</div>
+							<div class="form-group col-md-4 has-success">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Total After Discount</strong></span>
+									<input type="number" step="0.01" min="0" value="0"  name="" class="form-control " readonly>
+								</div>
+							</div>
+							<div class="form-group col-md-3 has-success hidden">
 								<div class="input-group">
 									<span class="input-group-addon"><strong>Note</strong></span>
 									<input type="text" id="description" name="description" class="form-control ">
@@ -59,8 +66,8 @@
 							@include('layouts.errorMessages')
 							<div class="table-scrollable table-fixed">
 								<table class="table table-bordered text-center table-scrollable " id="repeatedSale">
-									<thead class="bg-success">
-										<tr class="custom_centered">
+									<thead class="bg-info text-light">
+										<tr>
 											<th>No.</th>
 											<th width="30%">Barcode</th>
 											<th>Price IQD</th>
@@ -79,8 +86,6 @@
 										<td>
 											<select id="barcode0" type="text" name="barcode0" onchange="getSaleItemPrice(this.value,this.id)" onblur="getSaleItemPrice(this.value,this.id)" class="form-control select3">
 											</select>
-											
-
 										</td>
 										<td>
 											<input type="number" step="250" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
@@ -112,13 +117,16 @@
 
 					<div class="no-print text-center">
 						<input type="hidden" value="0" id="howManyItems" name="howManyItems" />
-						<button class="btn-lg btn-success btn-circle" type="button" onclick="addSaleItem()">
-							<i caption="Add" class="fa fa-plus-circle fa-2x"></i></button>
+						<button class="btn-lg btn-info btn-circle" type="button" onclick="addSaleItem()">
+							<i caption="Add" class="fa fa-plus-circle fa-1x"></i></button>
 					</div>
 					<br>
 					<div class="text-center no-print">
-						<input type="submit" name="save" value="Save" class="btn-primary text-center btn-lg" />
-						<input type="submit" name="save-print" value="Save and Print" class="btn-success text-center btn-lg" />
+                        <button name="save-print" class="btn-lg btn-info" type="submit" >
+							<i caption="Add" class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button  name="save" class="btn-lg btn-primary" type="submit" >
+							<i caption="Add" class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
 					</div>
 				</form>
 			</div>

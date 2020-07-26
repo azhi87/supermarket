@@ -1,4 +1,22 @@
 @extends('layouts.master')
+<style>
+	.table td,
+	.card .table td,
+	.card .dataTable td{
+		padding: 0px 8px;
+		vertical-align: middle;
+	}
+
+	.table th,
+	.card .table th,
+	.card .dataTable th{
+		padding: 5px 8px;
+		vertical-align: middle;
+	}
+	.select2-results {
+		max-height: 150px;
+	}
+</style>
 @section('content')
 
 <div class="row">

@@ -38,7 +38,7 @@
 							</div>
 							<div class="table-scrollable table-fixed">
 								<table class="table table-bordered text-center table-striped table-scrollable " id="repeatedSale">
-									<thead class="bg-info">
+									<thead class="bg-info text-light">
 										<tr class="text-center">
 											<th>#</th>
 											<th>Barcode</th>
