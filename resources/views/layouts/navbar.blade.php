@@ -90,10 +90,10 @@
                             </a>
                         </li>
 
-                        <li class="mega-menu-dropdown ">
+                        {{-- <li class="mega-menu-dropdown ">
                             <a href="/reports/stock" class="dropdown-toggle"><strong>Stock </strong><i class="material-icons"></i> 
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="mega-menu-dropdown ">
                             <a href="/live-items" class="dropdown-toggle"><strong>Drugs </strong><i class="material-icons"></i>
                             </a>

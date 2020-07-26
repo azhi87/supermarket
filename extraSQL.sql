@@ -104,7 +104,7 @@ COMMIT;
         INSERT INTO stocks
                 (item_id,quantity,type,source_id,description,created_at,updated_at,ppi,exp,rate)
         SELECT
-                item_id,((pi.singles/items_per_box)+pi.quantity),'purchase',purchase_id,'add purchase item' ,purchases.created_at,purchases.updated_at,-1 * ppi,pi.exp,0
+                item_id,(pi.bonus + pi.quantity),'purchase',purchase_id,'add purchase item' ,purchases.created_at,purchases.updated_at,-1 * ppi,pi.exp,0
         FROM purchase_items pi
                             join items i on pi.item_id=i.id
                             join purchases on pi.purchase_id=purchases.id
@@ -115,7 +115,7 @@ COMMIT;
       INSERT INTO stocks
             (item_id,quantity,type,source_id,description,created_at,updated_at,ppi,exp,rate)
     SELECT
-             item_id,-1 * ((pi.singles/items_per_box)+pi.quantity),'returned_purchase',purchase_id,'return purchase titem' ,purchases.created_at,purchases.updated_at,ppi,pi.exp,0
+             item_id,-1 * (pi.bonus + pi.quantity),'returned_purchase',purchase_id,'return purchase titem' ,purchases.created_at,purchases.updated_at,ppi,pi.exp,0
     FROM purchase_items pi
                         join items i on pi.item_id=i.id
                         join purchases on pi.purchase_id=purchases.id

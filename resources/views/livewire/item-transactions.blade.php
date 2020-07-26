@@ -100,7 +100,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-scrollable">
-						<table class="table text-center table-striped">
+						<table class="table text-center">
 							<thead class="bg-info text-light">
 								<tr>
 									<th> # </th>

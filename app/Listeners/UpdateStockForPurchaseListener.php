@@ -37,13 +37,13 @@ class UpdateStockForPurchaseListener
                  $stock->source_id = $purchase->id;
 
                  if($purchase->type === 'purchase'){
-                    $stock->quantity= ( $item->pivot->singles + $item->pivot->quantity );
+                    $stock->quantity= ( $item->pivot->bonus + $item->pivot->quantity );
                     $stock->description = "Add Purchase Invoice";
                     $stock->ppi = -1 * $item->pivot->ppi;
                  }
 
                  else {
-                        $stock->quantity = - ( $item->pivot->singles + $item->pivot->quantity );
+                        $stock->quantity = - ( $item->pivot->bonus + $item->pivot->quantity );
                         $stock->description = "Return Purchase Invoice";
                         $stock->ppi = $item->pivot->ppi;
                  }

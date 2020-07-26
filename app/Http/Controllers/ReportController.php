@@ -38,7 +38,7 @@ class ReportController extends Controller
 
     public function stockByItem(){
         $barcode = request('barcode');
-        $items = Item::where('barcode',$barcode)->get();
+        $items = Item::where('id',$barcode)->get();
         return view('reports.stock',compact('items'));
     }
 
