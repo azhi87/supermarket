@@ -46,6 +46,8 @@ class UpdateStockForSaleListener
                         $stock->quantity = ($item->pivot->quantity + ($item->pivot->singles / $item->items_per_box));
                         $stock->description = "Return sale Invoice";
                         $stock->ppi = -1 * $item->pivot->ppi;
+                        $sale->total = -1 * abs($sale->total);
+                        $sale->save();
                  }
 
 				 

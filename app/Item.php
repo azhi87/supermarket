@@ -7,6 +7,7 @@ use \App\Sale;
 use App\Stock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class Item extends Model
 {
@@ -32,6 +33,7 @@ class Item extends Model
     public function expiryDates()
     {
         return DB::table('stocks')->where('item_id',$this->id)
+                                ->whereDate('exp','>=',Carbon::today())
                                 ->select('exp',DB::raw('sum(quantity) as quantity'))
                                 ->groupBy('exp')
                                 ->having(DB::raw('sum(quantity)'),'>',0)

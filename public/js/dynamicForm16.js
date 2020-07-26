@@ -267,7 +267,6 @@
 
                       subtotal = Math.round(ppi * total_quantity);
                       if (subtotal % 250 !== 0) {
-                          alert(subtotal);
                           subtotal = (250 - (subtotal % 250)) + subtotal;
                       }
 
@@ -324,7 +323,7 @@
                           data: "barcode=" + barcode,
                           success: function (data2) {
                               if (data2.length === 0) {
-                                  alert('This item is not available in stock');
+                                  swal('This item is not available in stock');
                                   $("barcode" + index).val('');
                                   $("barcode" + index).trigger('change');
                                   $("#exp" + index).empty();

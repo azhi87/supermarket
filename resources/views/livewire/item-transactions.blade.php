@@ -21,19 +21,15 @@
 											<th> Sale </th>
 											<td> {{ number_format(abs($transactions->where('type','sale')->sum('quantity')),0)}} </td>
 											<td>
-												{{ number_format(abs($transactions->where('type','sale')->sum(function($transaction){
-                                                    return $transaction->quantity * $transaction->ppi;
-                                            })),0)}}
+												{{ number_format(abs($transactions->where('type','sale')->sum('ppi')),0)}}
 											</td>
 											<td> IQD </td>
 										</tr>
 										<tr>
 											<th> Returned sale </th>
-											<td> {{ number_format(abs($transactions->where('type','returned_sale')->sum('quantity')),0)}} </td>
+											<td> {{ number_format(abs($transactions->where('type','returned_sale')->sum('quantity')),0) }} </td>
 											<td>
-												{{ number_format(abs($transactions->where('type','returned_sale')->sum(function($transaction){
-                                                    return $transaction->quantity * $transaction->ppi;
-                                            })),0)}}
+												{{ number_format(abs($transactions->where('type','returned_sale')->sum('ppi')),0) }}
 											</td>
 											<td> IQD </td>
 										</tr>
@@ -64,9 +60,7 @@
 											<th> Purchase </th>
 											<td> {{ number_format(abs($transactions->where('type','purchase')->sum('quantity')),0)}} </td>
 											<td>
-												{{ number_format(abs($transactions->where('type','purchase')->sum(function($transaction){
-                                                    return $transaction->quantity * $transaction->ppi;
-                                            })),0)}}
+												{{ number_format(abs($transactions->where('type','purchase')->sum('ppi')),0)}}
 											</td>
 											<td> $ </td>
 										</tr>
@@ -74,9 +68,7 @@
 											<th> Returned Purchase </th>
 											<td> {{ number_format(abs($transactions->where('type','returned_purchase')->sum('quantity')),0)}} </td>
 											<td>
-												{{ number_format(abs($transactions->where('type','returned_purchase')->sum(function($transaction){
-                                                    return $transaction->quantity * $transaction->ppi;
-                                            })),0)}}
+												{{ number_format(abs($transactions->where('type','returned_purchase')->sum('ppi')),0)}}
 											</td>
 											<td> $ </td>
 										</tr>
@@ -104,10 +96,10 @@
 							<thead class="bg-info text-light">
 								<tr>
 									<th> # </th>
-									<th> Name </th>
-									<th> Quantity </th>
-									<th> Price </th>
 									<th> Type </th>
+									<th> Quantity </th>
+									<th> Bonus </th>
+									<th> Price </th>
 									<th> Date </th>
 									<th> Expirey date </th>
 									<th> Description </th>
@@ -118,10 +110,11 @@
 							@foreach ($transactions as $transaction)
 							<tr style="line-height:12px;" class="{{ $transaction->type }}">
 								<td> {{ $loop->iteration }}</td>
-								<td> {{ $transaction->item->name }} </td>
-								<td> {{ abs( $transaction->quantity ) }} </td>
-								<td> {{ abs( $transaction->ppi * $transaction->quantity ) }} </td>
 								<td> {{ $transaction->type }} </td>
+								<td> {{ abs( $transaction->quantity - $transaction->bonus ) }} </td>
+								<td> {{ abs( $transaction->bonus ) }} </td>
+								<td> {{ abs( number_format($transaction->ppi,2) ) }} </td>
+								
 								<td> {{ $transaction->created_at->format('d-m-Y') }} </td>
 								<td> {{ $transaction->exp }} </td>
 								<td> {{ $transaction->description }} </td>

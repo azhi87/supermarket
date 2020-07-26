@@ -43,7 +43,8 @@ class SaleController extends Controller
    {
     
       $this->validate($request,[
-        "total"=>"required",
+        'total' => 'required|min:0.1',
+        'discount' => 'lte:total',
         ]);
 
       if($id==0)

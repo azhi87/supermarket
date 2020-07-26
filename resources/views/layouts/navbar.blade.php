@@ -7,7 +7,7 @@
                         <span class="logo-default">E-PHARMACY</span> </a>
                 </div>
                 <ul class="nav navbar-nav navbar-left in">
-	                   <li class="pt-3 pl-3 h3" ><strong>KEZHAZN PHARMACY</strong></li>
+	                   <li class="pt-3 pl-3 h3" ><strong>KHEZAN PHARMACY</strong></li>
             	</ul>
                 <!-- start header menu -->
                 <div class="top-menu">
@@ -32,7 +32,7 @@
                         </li>
                         
                         <li class="mega-menu-dropdown">
-                            <a href="/" class="dropdown-toggle"> <strong>Sales</strong><i class="material-icons"></i> 
+                        <a href=" {{route('sale-home')}} " class="dropdown-toggle"> <strong>Sales</strong><i class="material-icons"></i> 
                                 <i class="fa fa-angle-down"></i>
                                 <span class="arrow "></span>
                             </a>

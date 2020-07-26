@@ -31,7 +31,7 @@
 											<td><span>&nbsp;Total : </span> {{$purchase->total}} $</td>
 											<td><span class="bd">&nbsp; Date : </span>{{ $purchase->created_at }}</td>
 											<td><span>&nbsp; User : </span>{{$purchase->user->name}}</td>
-											<td class="{{ $purchase->type === 'purchase' ? 'bg-success' : 'bg-danger' }}">{{ $purchase->type }}</td>
+											<td class="{{ $purchase->type === 'purchase' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($purchase->type) }}</td>
 										</tr>
 									</tbody>
 								</table>

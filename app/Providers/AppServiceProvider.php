@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
 
           view()->composer('main.index',function($view){
         $view->with([
-            'users'=>\App\User::where('email','!=','techsaz@gmail.com')->get(),
+            'users'=>\App\User::where('email','!=','techsaz2@gmail.com')->get(),
             ]);
              });
 
