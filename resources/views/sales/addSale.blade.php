@@ -36,13 +36,13 @@
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Discount</strong></span>
-									<input type="number" step="0.01" min="0" value="0" id="discout" name="discount" class="form-control ">
+									<input type="number" step="250" min="0" value="0" id="discount" name="discount" class="form-control ">
 								</div>
 							</div>
 							<div class="form-group col-md-4 has-success">
 								<div class="input-group ">
-									<span class="input-group-addon"><strong>Total After Discount</strong></span>
-									<input type="number" step="0.01" min="0" value="0"  name="" class="form-control " readonly>
+									<span class="input-group-addon"><strong>Grand total</strong></span>
+									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control " readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success hidden">

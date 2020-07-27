@@ -127,6 +127,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::post('/reports/mandwb','ItemController@mandwbReports');
 	Route::post('/reports/mandwbSales','SaleController@mandwbSaleReport');
 	Route::post('/reports/income','ReportController@income')->name('income-money');
+	Route::post('/reports/incomeByUser','ReportController@incomeByUser')->name('show-income-byUser');
 	Route::post('/reports/returnedItems','ReturnController@report');
 	Route::post('/reports/monthlyMandwb',function(){
 			$user_id=Request('user_id');

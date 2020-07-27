@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Item;
 use App\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 
 class ReportController extends Controller
 {
@@ -35,6 +37,21 @@ class ReportController extends Controller
         return view('reports.income',compact(['from','to','sales']));
 
     }
+    public function incomeByUser(Request $request) {
+
+    $from=$request['from'];
+    $to=$request['to'];
+    $user_id=$request['user_id'];
+    $user=User::find($user_id)->name;
+    $sales=DB::table('sales')
+                ->whereDate('created_at','>=',$from)
+                ->whereDate('created_at','<=',$to)
+                ->where('user_id',$user_id)
+                ->select('total','discount','type')
+                ->get();
+        return view('reports.incomeByUser',compact(['from','to','sales','user']));
+
+        }
 
     public function stockByItem(){
         $barcode = request('barcode');

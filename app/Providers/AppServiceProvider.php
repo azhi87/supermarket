@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $view->with([
                 'suppliers'=>\App\Supplier::all(),
                 'mans'=>\App\Manufacturer::all(),
+                'users'=>\App\User::all(),
             ]);
              });
 

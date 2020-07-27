@@ -39,6 +39,8 @@
               item += "<input type='number' step='1' onkeyup='getPurchaseTotalPrice();' value='0' required onblur='getPurchaseTotalPrice();' name='bonus" + i + "' id='bonus" + i + "' class='form-control '>";
               item += "</td>";
 
+              item += "<td> <span class = 'badge badge-primary' id='subtotal" + i + "'></span></td >";
+
               item += "<td>";
               item += "<input type='date' name='exp" + i + "' id='exp" + i + "' class='form-control' required>";
               item += "</td> ";
@@ -219,12 +221,7 @@
 
                       $("#ppi" + index).attr('value', data.price);
                       $("#sppi" + index).attr('value', data.sale_price);
-                      //$("#name"+index).attr('text',data.name);
-                      //$("#ppi"+index).text(data.price);
                       $("#name" + index).text(data.name);
-                      // $("#items_per_box"+index).val(data.items_per_box);
-                      // $("#currency"+index).val(data.currency);
-                      //alert("price: " + data.price + "\nName: " + data.name);
                       getPurchaseTotalPrice();
                       addItem();
                   },
@@ -243,6 +240,7 @@
               var quantity = 0;
               var singles = 0;
               var items_per_box = 0;
+              var discount = $('#discount').val();
               i = parseInt($('#howManyItems').val());
               for (j = 0; j <= i; j++) {
                   if (($("#ppi" + j).val()) && ($("#quantity" + j).val())) {
@@ -269,11 +267,11 @@
                       if (subtotal % 250 !== 0) {
                           subtotal = (250 - (subtotal % 250)) + subtotal;
                       }
-
                       $(("#subtotal" + j)).text(subtotal);
                       total = total + (+subtotal);
                   }
               }
+              $('#grandTotal').attr('value', total - discount);
               $('#total').attr('value', total);
           }
 
@@ -281,15 +279,18 @@
               var total = 0;
               var ppi = 0;
               var quantity = 0;
+              let subtotal = 0;
               i = parseInt($('#howManyItems').val());
               for (j = 0; j <= i; j++) {
                   if (($("#ppi" + j).val()) && ($("#quantity" + j).val())) {
                       ppi = $("#ppi" + j).val();
                       quantity = $("#quantity" + j).val();
-                      total = total + (+ppi * +quantity);
+                      subtotal = (+ppi * +quantity);
+                      total += subtotal;
+                      $(("#subtotal" + j)).text(subtotal.toFixed(2));
                   }
               }
-              console.log(total);
+
               $("#total").attr('value', (total).toFixed(2)); //only for purchase
 
 
@@ -351,26 +352,6 @@
 
           }
 
-
-
-
-
-
-          function calculateTotalPaid(rate) {
-              if (rate == 0) {
-                  rate = parseFloat($('#rate').val());
-              }
-              var dinars = parseFloat($('#dinars').val());
-              var dollars = parseFloat($('#dollars').val());
-              if (isNaN(dinars)) {
-                  dinars = 0;
-              }
-              if (isNaN(dollars)) {
-                  dollars = 0;
-              }
-              var totalPaid = ((dinars / rate) + dollars).toFixed(2);
-              $('#totalPaid').val(totalPaid);
-          }
 
           function printExternal(url) {
               var printWindow = window.open(url, 'Print', 'left=200, top=200, width=950, height=500, toolbar=0, resizable=0');

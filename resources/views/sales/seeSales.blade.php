@@ -38,6 +38,7 @@
 									<tr class="info h5">
 										<td><span>&nbsp;Invoice No. :</span><strong>{{$sale->id}}</strong></td>
 										<td><span>&nbsp;Total  : </span> {{ number_format( abs($sale->total),0) }}</td>
+										<td><span>&nbsp;Discount  : </span> {{ number_format( abs($sale->discount),0) }}</td>
 										<td><span>&nbsp;Date:</span>{{$sale->created_at->format('d/m/yy')}}</td>
 										<td><span>&nbsp; User : </span>{{$sale->user->name}}</td>
 										<td class="{{ $sale->type === 'sale' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($sale->type) }}</td>
