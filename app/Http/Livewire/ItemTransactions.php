@@ -11,7 +11,7 @@ class ItemTransactions extends Component
     public $query;
     public function mount($id){
         $this->item_id=$id;
-         $this->transactions=Stock::where('item_id',$this->item_id)
+         $this->transactions=Stock::with('item')->where('item_id',$this->item_id)
                         ->get();
     }
   

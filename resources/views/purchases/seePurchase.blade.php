@@ -28,7 +28,7 @@
 									<tbody>
 										<tr class="info h5">
 											<td><span class="bd">&nbsp;Invoice No.: </span><strong>{{$purchase->invoice_no}}</strong></td>
-											<td><span>&nbsp;Total : </span> {{$purchase->total}} $</td>
+											<td><span>&nbsp;Total : </span> {{ number_format(abs($purchase->total),2)}} $</td>
 											<td><span class="bd">&nbsp; Date : </span>{{ $purchase->created_at }}</td>
 											<td><span>&nbsp; User : </span>{{$purchase->user->name}}</td>
 											<td class="{{ $purchase->type === 'purchase' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($purchase->type) }}</td>

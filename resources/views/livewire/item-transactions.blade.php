@@ -1,4 +1,7 @@
 <div>
+	<div class="row mx-auto">
+		<h4>Barcode : {{ $transactions->first()->item->name }}   <small> {{ $transactions->first()->item->barcode }} </small></h4>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
@@ -113,7 +116,7 @@
 								<td> {{ $transaction->type }} </td>
 								<td> {{ abs( $transaction->quantity - $transaction->bonus ) }} </td>
 								<td> {{ abs( $transaction->bonus ) }} </td>
-								<td> {{ abs( number_format($transaction->ppi,2) ) }} </td>
+								<td> {{  number_format(abs($transaction->ppi), 2) }} </td>
 								
 								<td> {{ $transaction->created_at->format('d-m-Y') }} </td>
 								<td> {{ $transaction->exp }} </td>

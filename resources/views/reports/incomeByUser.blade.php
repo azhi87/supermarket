@@ -16,10 +16,10 @@
 										<th class="">Employee name</th>
 										<th class="">Start date</th>
 										<th class="">End date</th>
-										<th class="">Total Sold (IQD)</th>
-										<th class="">Total Discount (IQD)</th>
-										<th class="">Total Returns (IQD)</th>
-										<th class="">Grand total (IQD)</th>
+										<th class="">Sold (IQD)</th>
+										<th class="">Discount (IQD)</th>
+										<th class="">Returns (IQD)</th>
+										<th class="">Total (IQD)</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -28,10 +28,10 @@
 										<td class=" ">{{ $user }}</td>
 										<td class=" ">{{ $from }}</td>
 										<td class=" ">{{ $to }}</td>
-										<td class=" ">{{number_format($sales->where('type','sale')->sum('total'),0)}}</td>
+										<td class=" ">{{number_format($sales->where('type','sale')->sum('total') + $sales->where('type','sale')->sum('discount'),0)}}</td>
 										<td class=" ">{{number_format($sales->where('type','sale')->sum('discount'),0)}}</td>
 										<td class=" ">{{number_format(abs($sales->where('type','returned_sale')->sum('total')),0)}}</td>
-										<td class=" ">{{number_format( $sales->sum('total') - $sales->sum('discount') ,0)}}</td>
+										<td class=" ">{{number_format( $sales->sum('total'),0)}}</td>
 									</tr>
 								</tbody>
 								<tfoot>
