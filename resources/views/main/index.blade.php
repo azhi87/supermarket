@@ -15,11 +15,12 @@
 								<th> Total </th>
 							</tr>
 						</thead>
-						@php $total = 0; @endphp
+						@php $total = 0;  @endphp
 						@foreach ($users as $user)
+						@php $total+=$user->todayAmount()->total;@endphp
 						<tr>
 							<td><strong>{{$user->name}}</strong></td>
-							<td class="text-primary"><strong>{{number_format($total+=$user->todayAmount()->total,0)}}</strong></td>
+							<td class="text-primary"><strong>{{number_format($user->todayAmount()->total,0)}}</strong></td>
 						</tr>
 						@endforeach
 						<tfoot>

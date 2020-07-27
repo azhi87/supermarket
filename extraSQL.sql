@@ -123,3 +123,7 @@ COMMIT;
                         join items i on pi.item_id=i.id
                         join purchases on pi.purchase_id=purchases.id
                         where purchases.type="returned_purchase";
+    
+    update sales set total = -1 * total where type = 'returned_sale'
+
+update purchases set total = -1 * total where type = 'returned_purchase'

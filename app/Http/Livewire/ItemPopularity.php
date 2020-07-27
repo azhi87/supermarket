@@ -11,9 +11,8 @@ class ItemPopularity extends Component
 {
     public $populars;
     public $leastPopulars;
-    public $days;
+    public $days=30;
     public function mount(){
-        $this->days=30;
         $this->updated();
     }
     public function updated(){
