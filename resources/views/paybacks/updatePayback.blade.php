@@ -8,7 +8,7 @@
 			<div class="card-head">
 				<header>Update Payback</header>
 			</div>
-			<div class="card-body bg-light " id="bar-parent1">
+			<div class="card-body bg-light" id="bar-parent1">
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/paybacks/store/{{$payback->id}}">
 					{{csrf_field()}}

@@ -36,7 +36,7 @@
 							<div class="form-group col-md-3 col-sm-3 has-success ">
 								<div class="input-group has-success">
 									<span class="input-group-addon"><strong>Total Price</strong></span>
-									<input required="required" value="{{$purchase->total}}" type="text" id="total" name="total" class="form-control">
+									<input required="required" value="{{$purchase->total}}" type="text" id="total" name="total" class="form-control" readonly>
 									<span class="input-group-addon">$</span>
 								</div>
 							</div>
@@ -125,7 +125,7 @@
 									<input type="number" step="1" value="{{$item->pivot->bonus}}" id="bonus{{$i}}" name="bonus{{$i}}" class="form-control" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>
 								</td>
 								<td>
-									<span class="badge badge-primary" id="subtotal0"></span>
+									<span class="badge badge-primary" id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
 								</td>
 								<td>
 									<input type="date" value="{{$item->pivot->exp}}" name="exp{{$i}}" id="exp{{$i}}" class="form-control text-right">

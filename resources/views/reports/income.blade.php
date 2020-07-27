@@ -17,29 +17,32 @@
 										<th class="">Employee name</th>
 										<th class="">Date</th>
 										<th class="">Sale ID</th>
-										<th class="">Amount (IQD)</th>
-										<th class="">Description</th>
+										<th class="">Type</th>
+										<th class="">Total Sold (IQD)</th>
+										<th class="">Total Discount (IQD)</th>
+										<th class="">Grand total (IQD)</th>
+
 									</tr>
 								</thead>
 								<tbody>
 									<?php $i = 1; ?>
 									@foreach ($sales as $sale)
-
-									<tr class="custom_centered">
+									<tr class="text-center">
 										<td>{{$i++}}</td>
 										<td class=" ">{{$sale->user->name}}</td>
 										<td class=" ">{{$sale->created_at}}</td>
-										<td class=" ">{{number_format($sale->id,0)}}</td>
-										<td class=" ">{{number_format($sale->calculatedPaid,0)}}</td>
-										<td class="">{{$sale->description}}</td>
+										<td class=" ">{{$sale->id}}</td>
+										<td class=" ">{{$sale->type}}</td>
+										<td class=" ">{{number_format($sale->dinars,0)}}</td>
+										<td class=" ">{{number_format($sale->discount,0)}}</td>
+										<td class=" ">{{number_format($sale->total,0)}}</td>
 									</tr>
 									@endforeach
 								</tbody>
 								<tfoot>
-									<tr class="h5 text-light bg-info">
-										<td> Total : <span>{{ number_format($sales->sum('total'),0) }}</span></td>
-										<td> Discount : <span> {{ number_format($sales->sum('discount'),0) }} </span> </td>
-										<td> Grand total : <span> {{ number_format($sales->sum('total') - $sales->sum('discount'),0) }} </span> </td>
+									<tr class="h4 text-light">
+									    <td colspan="7"></td>
+										<td class="text-success"><strong> Grand total : {{ number_format($sales->sum('total'),0) }} </strong> </td>
 									</tr>
 								</tfoot>
 							</table>

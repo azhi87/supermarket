@@ -13,21 +13,19 @@
 							<tr class="bg-info text-light">
 								<th> Name </th>
 								<th> Total </th>
-								<th> Discount </th>
 							</tr>
 						</thead>
 						<?php $total = 0; ?>
 						@foreach ($users as $user)
 						<tr>
-							<td> {{$user->name}}</td>
-							<td class="text-primary">{{number_format($user->todayAmount()->total,0)}}</td>
-							<td class="text-primary">{{number_format($user->todayAmount()->discount,0)}}</td>
+							<td><strong>{{$user->name}}</strong></td>
+							<td class="text-primary"><strong>{{number_format($user->todayAmount()->total,0)}}</strong></td>
 						</tr>
 						@endforeach
 						<tfoot>
 							<tr>
-								<th>Total</th>
-								<td colspan="2" class="h4 text-danger"> {{number_format($total,0)}}</td>
+								<th><strong>Total</strong></th>
+								<td colspan="2" class="h4 text-danger"><strong> {{number_format($total,0)}}</strong></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -118,11 +116,6 @@
 			</form>
 		</div>
 	</div>
-
 	@endif
-
 </div>
-
-
-
 @endsection

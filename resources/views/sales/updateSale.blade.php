@@ -30,22 +30,25 @@
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-
-									<input type="number" step="0.001" min="0" readonly id="total" name="total" value="{{ abs($sale->total + $sale->discount) }}" class="form-control ">
+									<input type="double" min="0" id="total" name="total"  readonly
+									 value="{{ abs($sale->total + $sale->discount) }}" class="form-control" 
+									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon">Discount</span>
-									<input type="number" step="0.001" min="0" id="discout" name="discount" value="{{ $sale->discount }}" class="form-control ">
+									<input type="number" step="250" min="0" value="{{ $sale->discount }}" id="discount" name="discount"
+									  class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-4 has-success">
 								<div class="input-group ">
-									<span class="input-group-addon">Total After Discount</span>
-									<input readonly type="number" step="0.001" min="0" id="discout" name="discount" value="{{$sale->discount}}" class="form-control ">
+									<span class="input-group-addon">Gran Total</span>
+									<input type="double" min="0" id="grandTotal" value="{{ abs($sale->total) }}" class="form-control" readonly
+									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>

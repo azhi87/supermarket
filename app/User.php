@@ -120,7 +120,7 @@ class User extends Authenticatable
         return DB::table('sales')
                 ->where('user_id',$this->id)
                 ->where('created_at', '>=', Carbon::today())
-                ->selectRaw('SUM(total) as total,SUM(discount) as discount')
+                ->selectRaw('SUM(total) as total,SUM(discount) as discount,SUM(dinars) as dinars')
                 ->first();
             
    }

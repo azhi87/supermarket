@@ -6,14 +6,14 @@
     	<div class="card card-topline-green">
     		<div class="card-body bg-light">
     				<div class="row h5">
-    				<label class="col-md-3 control-label text-primary">Supplier Name:  {{ $supplier->name }}</label>
-    				<label class="col-md-2 control-label text-info">
-    							<a href=" {{ route('show-supplier-purchases',$supplier->id) }}">Purchases:</a>
-    							{{ number_format($supplier->purchases->sum('total'),2) }}
+    				<label class="col-md-3 control-label text-primary">Supplier Name: <strong> {{ $supplier->name }}</strong></label>
+    				<label class="col-md-2 control-label text-info" >
+    							<a href=" {{ route('show-supplier-purchases',$supplier->id) }}" style="text-decoration: underline;">Purchases:</a>
+    						<strong>	{{ number_format($supplier->purchases->sum('total'),2) }}</strong>
     				</label>
-    				<label class="col-md-2 control-label text-success">Paybacks: {{ number_format($supplier->paybacks->sum('paid'),2) }}</label>
-    				<label class="col-md-2 control-label text-warning">Discounts: {{ number_format($supplier->paybacks->sum('discount'),2) }}</label>
-    				<label class="col-md-2 control-label text-danger">Current Debt:  {{ number_format($supplier->debt(),2) }}</label>
+    				<label class="col-md-2 control-label text-success">Paybacks:<strong>{{ number_format($supplier->paybacks->sum('paid'),2) }}</strong></label>
+    				<label class="col-md-2 control-label text-info">Discounts: <strong>{{ number_format($supplier->paybacks->sum('discount'),2) }}</strong></label>
+    				<label class="col-md-2 control-label text-danger">Current Debt:<strong>  {{ number_format($supplier->debt(),2) }}</strong></label>
     				</div>
     		</div>
     	</div>
@@ -85,7 +85,7 @@
 								</tr>
 								@endforeach
 							</tbody>
-							<tfoot>
+							<tfoot class="hidden">
 							    <tr class="bg-info h5 text-light">
 							        <th>Total</th>
 							        <th colspan="2">{{number_format($supplier->paybacks->sum('paid'),2)}}</th>

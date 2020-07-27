@@ -60,7 +60,7 @@
                             @foreach ($suppliers as $supplier)
                             <tr class="text-center">
                                 <td>{{$supplier->name}}</td>
-                                <td><a href=" {{ route('payback',$supplier->id) }}"><strong> {{ number_format($supplier->debt(),2) }} </strong></a></td>
+                                <td><a href=" {{ route('payback',$supplier->id) }}" style="text-decoration: underline;"><strong> {{ number_format($supplier->debt(),2) }} </strong></a></td>
                                 <td>{{$supplier->mobile}}</td>
                                 <td>{{$supplier->address}}</td>
                                 <td class="hidden-print"><a href={{"/suppliers/edit/".$supplier->id}}><span class="fa fa-edit fa-1x "></span></a></td>

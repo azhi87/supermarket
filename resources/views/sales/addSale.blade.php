@@ -30,19 +30,22 @@
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input type="double" min="0" id="total" name="total" class="form-control " readonly>
+									<input type="double" min="0" id="total" name="total" class="form-control" 
+									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Discount</strong></span>
-									<input type="number" step="250" min="0" value="0" id="discount" name="discount" class="form-control ">
+									<input type="number" step="250" min="0" value="0" id="discount" name="discount"
+									class="form-control" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();">
 								</div>
 							</div>
 							<div class="form-group col-md-4 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Grand total</strong></span>
-									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control " readonly>
+									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control "
+									onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();"  readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success hidden">
@@ -52,7 +55,6 @@
 									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}" class="form-control ">
 								</div>
 							</div>
-
 							<div class="form-group col-md-2 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Type</strong></span>

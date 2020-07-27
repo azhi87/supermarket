@@ -11,7 +11,7 @@
 										<tr>
 											<th> Type </th>
 											<th> Quantity</th>
-											<th> Price</th>
+											<th> Total Price</th>
 											<th> Currency </th>
 										</tr>
 
@@ -50,7 +50,7 @@
 										<tr>
 											<th> Type </th>
 											<th> Quantity</th>
-											<th> Price</th>
+											<th> Total Price</th>
 											<th> Currency </th>
 										</tr>
 
