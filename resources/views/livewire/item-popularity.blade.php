@@ -1,6 +1,6 @@
 <div>
 <div class="row">
-    <div class="mx-auto"
+    <div class="mx-auto bg-light"
     <h4>Showing data for the past <input type="number" wire:model="days" style="width:70px;text-align:center;" /> days</h4>
     </div>
 </div>
@@ -18,7 +18,7 @@
 						<div class="table-scrollable">
 							<table class="table text-center table-striped">
 								<thead>
-									<tr class="bg-info">
+									<tr class="bg-info text-light">
 										<th> # </th>
 										<th> Name </th>
 										<th> Packs sold </th>
@@ -51,7 +51,7 @@
 						<div class="table-scrollable">
 							<table class="table text-center table-striped">
 								<thead>
-									<tr class="bg-info">
+									<tr class="bg-info text-light">
 										<th> # </th>
 										<th> Name </th>
 										<th> Packs sold </th>

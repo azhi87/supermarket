@@ -39,7 +39,7 @@
 										<td><span>&nbsp;Invoice No. :</span><strong>{{$sale->id}}</strong></td>
 										<td><span>&nbsp;Total  : </span> {{ number_format( abs($sale->total),0) }}</td>
 										<td><span>&nbsp;Discount  : </span> {{ number_format( abs($sale->discount),0) }}</td>
-										<td><span>&nbsp;Date:</span>{{$sale->created_at->format('d/m/yy')}}</td>
+										<td><span>&nbsp;Date:</span>{{$sale->created_at}}</td>
 										<td><span>&nbsp; User : </span>{{$sale->user->name}}</td>
 										<td class="{{ $sale->type === 'sale' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($sale->type) }}</td>
 								</tbody>
@@ -47,7 +47,7 @@
 						</div>
 
 						<div class="table-scrollable table-fixed">
-							<table class="table table-striped table-bordered text-center" id="dataTables-example">
+							<table class="table table-striped table-bordered text-center h6" id="dataTables-example">
 								<tbody class="bg-info text-light">
 									<tr class="text-center">
 										<th class="text-center">#</th>
@@ -63,7 +63,7 @@
 								<tbody>
 									<?php $i = 1; ?>
 									@foreach ($sale->items as $item)
-									<tr class="text-center h5">
+									<tr class="text-center h6">
 										<td><span class="badge bg-danger">{{$i}}</span></td>
 										<td>{{ $item->barcode }}</td>
 										<td>{{ $item->name }}</td>

@@ -41,10 +41,10 @@
 									class="form-control" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();">
 								</div>
 							</div>
-							<div class="form-group col-md-4 has-success">
-								<div class="input-group ">
+							<div class="form-group col-md-4 has-warning">
+								<div class="input-group">
 									<span class="input-group-addon"><strong>Grand total</strong></span>
-									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control "
+									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control text-danger bg-light" style="font-weight: bold;"
 									onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();"  readonly>
 								</div>
 							</div>

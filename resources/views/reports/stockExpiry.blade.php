@@ -3,14 +3,14 @@
 	.table td,
 	.card .table td,
 	.card .dataTable td{
-		padding: 0px 8px;
+		padding: 10px 8px;
 		vertical-align: middle;
 	}
 
 	.table th,
 	.card .table th,
 	.card .dataTable th{
-		padding: 5px 8px;
+		padding: 15px 8px;
 		vertical-align: middle;
 	}
 	.select2-results {
@@ -29,8 +29,8 @@
 					</div>
 					<div class="card-body ">
 						<div class="table-scrollable">
-							<table class="table text-center bg-light table-bordered table-striped">
-								<thead>
+							<table class="table text-center bg-light table-bordered table-striped table-hover">
+								<thead class="bg-info text-light">
 									<tr>
 										<th>Barcode</th>
 										<th>Drug Name</th>

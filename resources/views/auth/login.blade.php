@@ -1,71 +1,150 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>Pharmacy System</title>
-    <!-- google font -->
-    <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />-->
-    <!-- icons -->
-    <link  href="{{asset('/public/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="{{asset('/public/css/material-design-iconic-font.min.css')}}">
-    <!-- bootstrap -->
-    <link href="{{asset('/public/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-    <!-- style -->
-    <link rel="stylesheet" href="{{asset('/public/css/extra_pages.css')}}">
-    <!-- favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Login Page</title>
+<style>
+    html,
+    body {
+        background-image: url('/public/img/cover.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+    }
+
+    .container {
+        height: 100%;
+        align-content: center;
+    }
+
+    .card {
+        height: 325px;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 425px;
+        background-color: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .social_icon span {
+        font-size: 60px;
+        margin-left: 10px;
+        color: #FFC312;
+    }
+
+    .social_icon span:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+    .card-header h3 {
+        color: white;
+    }
+
+    .social_icon {
+        position: absolute;
+        right: 20px;
+        top: -45px;
+    }
+
+    .input-group-prepend span {
+        width: 50px;
+        background-color: #FFC312;
+        color: black;
+        border: 0 !important;
+    }
+
+    input:focus {
+        outline: 0 0 0 0 !important;
+        box-shadow: 0 0 0 0 !important;
+    
+    }
+
+    .remember {
+        color: white;
+    }
+
+    .remember input {
+        width: 20px;
+        height: 20px;
+        margin-left: 15px;
+        margin-right: 5px;
+    }
+
+    .login_btn {
+        color: black;
+        background-color: #FFC312;
+        width: 100px;
+    }
+
+    .login_btn:hover {
+        color: black;
+        background-color: white;
+    }
+
+    .links {
+        color: white;
+    }
+
+    .links a {
+        margin-left: 4px;
+    }
+</style>
+    <!--Bootsrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 </head>
-
 <body>
-    <div class="limiter">
-        <div class="container-login100 page-background">
-            <div class="wrap-login100">
-                <form class="login100-form validate-form" method="post" action="{{ route('login') }}">
-                        @csrf
-                        <span class="login100-form-logo">
-                        <img alt="" src="img/hospital.png">
-                    </span>
-                    <span class="login100-form-title p-b-34 p-t-27">
-                      <strong>  Log in </strong>
-                    </span>
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder="Email" required="">
-                        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-                         @error('email')
-                                    <h6 class="label label-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </h6>
-                                @enderror
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Sign In</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <span><a href="https://www.facebook.com/Medicalitsuli" target="_blank"><i class="fab fa-facebook-square"></i></a></span>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="password" placeholder="Password" required="">
-                        <span class="focus-input100" data-placeholder="&#xf191;"></span>
-                        @error('password')
-                                    <h6 class="font-red" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </h6>
-                                @enderror
-                    </div>
-
-                        <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
-                    <strong>       {{ __('Login') }}   </strong>
-                        </button>
-                    </div>
-
-                </form>
+                </div>
+                <div class="card-body">
+                    <form novalidate="" class="form" role="form" method="POST" action="{{ route('login') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="input-group form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input id="email" type="email" placeholder="Email Address" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                        </div>
+                        <label>
+                            @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong class="text-white">{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif
+                        </label>
+                        <div class="input-group form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input id="password" placeholder="Password " type="password" class="form-control" name="password" required>
+                        </div>
+                        <label>
+                            @if ($errors->has('password'))
+                            <span class="help-block">
+                                <strong class="text-white">{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+                        </label>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn float-right login_btn btn-warning">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <!-- start js include path -->
-    <script src="{{asset('/public/js/jquery.min.js')}}"></script>
-    <!-- bootstrap -->
-    <script src="{{asset('/public/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('/public/js/login.js')}}"></script>
-    <!-- end js include path -->
 </body>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </html>

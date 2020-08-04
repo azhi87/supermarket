@@ -44,10 +44,10 @@
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
-							<div class="form-group col-md-4 has-success">
+							<div class="form-group col-md-4 has-warning">
 								<div class="input-group ">
 									<span class="input-group-addon">Gran Total</span>
-									<input type="double" min="0" id="grandTotal" value="{{ abs($sale->total) }}" class="form-control" readonly
+									<input type="double" min="0" id="grandTotal" value="{{ abs($sale->total) }}" style="font-weight: bold;" class="form-control text-danger" readonly
 									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
 									<span class="input-group-addon">IQD</span>
 								</div>
@@ -63,14 +63,14 @@
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
-											@if( $sale->type=='sale' )
-											<option value="sale" selected>Sale</option>
-											<option value="returned_sale" >Return</option>
-										
-										@else
-											<option value="sale" >Purchase</option>
-											<option value="returned_sale" selected>Return</option>
-										@endif
+									    <option value="{{$sale->type}}" selected>{{$sale->type}}</option>
+										<!--	@if( $sale->type=='sale' )-->
+										<!--	<option value="sale" selected>Sale</option>-->
+										<!--	<option value="returned_sale" >Return</option>-->
+										<!--@else-->
+										<!--	<option value="sale" >Purchase</option>-->
+										<!--	<option value="returned_sale" selected>Return</option>-->
+										<!--@endif-->
 									</select>
 								</div>
 							</div>

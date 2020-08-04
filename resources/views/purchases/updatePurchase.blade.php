@@ -52,20 +52,29 @@
 								</div>
 							</div>
 
-							<div class="form-group col-md-3 has-success">
-								<div class="input-group ">
+							<div class="form-group col-md-3 has-warning">
+								<div class="input-group">
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
-										@if( $purchase->type=='purchase' )
-											<option value="purchase" selected>Purchase</option>
-											<option value="returned_purchase" >Return</option>
-										@else
-											<option value="purchase" >Purchase</option>
-											<option value="returned_purchase" selected>Return</option>
-										@endif
+											<option value="{{$purchase->type}}" selected>{{$purchase->type}}</option>
+										<!--@if( $purchase->type=='purchase')-->
+										<!--	<option value="purchase" selected>Purchase</option>-->
+										<!--	<option value="returned_purchase" >Return</option>-->
+										<!--@else-->
+										<!--	<option value="purchase">Purchase</option>-->
+										<!--	<option value="returned_purchase" selected>Return</option>-->
+										<!--@endif-->
 									</select>
 								</div>
 							</div>
+
+						    <div class="form-group col-md-12 col-sm-12 has-success ">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Note</strong></span>
+									<input  type="text" name="note" value="{{$purchase->note}}" class="form-control ">
+								</div>
+							</div>
+								
 						</div>
 					</div>
 

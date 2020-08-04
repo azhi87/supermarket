@@ -24,7 +24,7 @@ class ItemPopularity extends Component
                         ->select(DB::raw('sum(quantity) as quantity'),'item_id')
                         ->groupBy('item_id')
                         ->orderBy('quantity')
-                        ->limit(10)
+                        ->limit(100)
                         ->get();
 
          $this->leastPopulars=Stock::where('type','sale')
@@ -32,8 +32,9 @@ class ItemPopularity extends Component
                         ->select(DB::raw('sum(quantity) as quantity'),'item_id')
                         ->groupBy('item_id')
                         ->orderBy('quantity','desc')
-                        ->limit(10)
+                        ->limit(100)
                         ->get();
+
     }
     public function render()
     {

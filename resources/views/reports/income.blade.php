@@ -40,9 +40,12 @@
 									@endforeach
 								</tbody>
 								<tfoot>
+
 									<tr class="h4 text-light">
-									    <td colspan="7"></td>
-										<td class="text-success"><strong> Grand total : {{ number_format($sales->sum('total'),0) }} </strong> </td>
+										<td colspan="2" class="text-info"><strong> Total : {{ number_format($sales->where('type','sale')->sum('total'),0) }} </strong> </td>
+										<td colspan="2" class="text-primary"><strong> Discount : {{ number_format($sales->sum('discount'),0) }} </strong> </td>
+										<td colspan="2" class="text-danger"><strong> Return : {{ number_format($sales->where('type','returned_sale')->sum('total')) }} </strong> </td>
+										<td colspan="2" class="text-success"><strong> Grand total : {{ number_format($sales->sum('total'),0) }} </strong> </td>
 									</tr>
 								</tfoot>
 							</table>

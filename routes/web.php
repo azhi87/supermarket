@@ -46,17 +46,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('reports/stockValuation','ReportController@stockValuation');
 	Route::post('/category/edit/{id}','CategoryController@update');
       
-
 	Route::post('/stock/expiry','StockController@stockExpiry');
 	Route::get('/sale/ok/{id}','SaleController@ok');
 
-Route::get('/reports/stock','ReportController@showStock')->name('show-stock');
-Route::post('/reports/supplierDebt','ReportController@supplierDebt')->name('supplier-debt-report');
-
-Route::post('/stock/manufacturer','ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
-Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-item-stock');
-		
-
+    Route::get('/reports/stock','ReportController@showStock')->name('show-stock');
+    Route::post('/reports/supplierDebt','ReportController@supplierDebt')->name('supplier-debt-report');
+    
+    Route::post('/stock/manufacturer','ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
+    Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-item-stock');
 		
 	Route::post('/sale/search','SearchController@searchSale');
 	Route::post('/sale/searchId','SaleController@search');
@@ -68,8 +65,6 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::get('/purchases/ItemPrice','ItemController@getItemPrice');
 	Route::get('/purchase/getExpiryDates','ItemController@getExpiryDate');
 	Route::get('/purchases/ItemPurchasePrice','ItemController@getItemPurchasePrice');
-
-	
 
 	Route::get('/sales/addSale','SaleController@index')->name('add-sale');
 	Route::post('/sale/create/{id?}','SaleController@create');
@@ -87,7 +82,6 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::post('/sale/searchByItem','SaleController@searchByItem')->name('search-sale-byItem');
 	Route::get('/sale/viewReturned','SaleController@viewReturned')->name('view-returned-sales');
 
-	
 	Route::view('/purchases/add','purchases.addPurchase');   	
 	Route::post('/purchase/create/{id?}','PurchaseController@store')->name('store-purchase');
 	Route::get('purchase/see/{id?}','PurchaseController@index')->name('show-purchases');
@@ -99,19 +93,16 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::get('/purchase/edit/{id}','PurchaseController@edit');
 	Route::view('/purchase/home','purchases.purchaseHome')->name('purchase-home');
 
-
-
 	Route::get('/expenses','ExpenseController@index');
 	Route::post('/expenses/store/{id}','ExpenseController@store');
 	Route::post('/expenses/store/','ExpenseController@store');
 	Route::post('/expenses/search','ExpenseController@search');
 	Route::post('/expenses/searchReason','ExpenseController@searchReason');
 		
-		Route::get('/expenses/edit/{id}',function($id){
+	Route::get('/expenses/edit/{id}',function($id){
 			$expense=\App\Expense::find($id);
 			return view('expenses.expenseUpdate',compact('expense'));
 		});
-
 
 	Route::post('/reports/supplierSale',function(){
 			$to=Request('to');
@@ -120,7 +111,6 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 			$name=\App\Supplier::find(Request('supplier_id'))->name;
 			return view('reports.supplierSale',compact(['items','from','to','name']));
 			});
-
 
 	Route::post('/reports/salesByDate','SaleController@salesByDate');
 
@@ -150,10 +140,9 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 	Route::livewire('/show-popular-items','item-popularity')->layout('layouts.master')->name('show-popular-items');
 	Route::livewire('/item/transactions/{id?}','item-transactions')->layout('layouts.master')->name('show-item-transactions');
 	
-		Route::get('/peripheralUpdates',function(){
+	Route::get('/peripheralUpdates',function(){
 		return view('items.peripheralUpdates');
 	});
-	
 	
 	Route::post('/rate/add','RateController@create');
 	Route::post('/rate',function(){
@@ -164,7 +153,6 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
 			return redirect('/');
 	});
 	
-	
 	Route::get('/returns/payback/{id}','ReturnController@payback');
 	Route::get('/paybacks/{id?}','PaybackController@index')->name('payback');
   	Route::post('/paybacks/store/{id?}','PaybackController@store');
@@ -172,7 +160,7 @@ Route::post('/stock/stockByItem','ReportController@stockByItem')->name('show-ite
   	Route::get('/paybacks/print/{id}','PaybackController@printing');
 
 	Route::post('/drugs/searchAjax',function(){
- $search = request()->search;
+    $search = request()->search;
 
       if($search == '')
       {

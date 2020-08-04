@@ -11,14 +11,9 @@
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/expenses/store" id="addForm">
 					{{csrf_field()}}
-
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">IQD</label>
 						<div class="col-sm-9">
-							<select type="text" name="currency" class="form-control hidden">
-								<option value="IQD">IQD</option>
-								{{-- <option value="$">$</option> --}}
-							</select>
 							<input type="text" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)" id="dinars" name="amount" class="form-control" />
 							<input type="hidden" id="dollars" value="0" class="form-control" />
 						</div>
@@ -33,7 +28,7 @@
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">Dollar</label>
 						<div class="col-sm-9">
-							<input type="text" id="totalPaid" name="amount" class="form-control" required />
+							<input type="text" id="totalPaid" name="amount" class="form-control" />
 						</div>
 					</div>
 

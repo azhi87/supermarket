@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-           view()->composer(['purchases.addPurchase','purchases.updatePurchase'],function($view){
+           view()->composer(['purchases.addPurchase','purchases.updatePurchase','purchases.seePurchase','purchases.purchaseReports'],function($view){
           $view->with([
             'suppliers'=>\App\Supplier::all(),
             ]);

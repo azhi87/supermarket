@@ -52,13 +52,20 @@
 								</div>
 							</div>
 
-							<div class="form-group col-md-3 has-success">
+							<div class="form-group col-md-3 has-warning">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
 										<option value="purchase" selected>Purchase</option>
 										<option value="returned_purchase" >Return</option>
 									</select>
+								</div>
+							</div>
+							
+							<div class="form-group col-md-12 col-sm-12 has-success ">
+								<div class="input-group ">
+									<span class="input-group-addon"><strong>Note</strong></span>
+									<input  type="text" name="note" class="form-control ">
 								</div>
 							</div>
 							
@@ -97,7 +104,7 @@
 									</select>
 								</td>
 								<td>
-									<input type="number" step="0.001" min="0" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
+									<input type="number" step="0.01" min="0" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
 								</td>
 								<td>
 									<input type="number" step="250" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="sppi0" id="sppi0" class="form-control ">

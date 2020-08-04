@@ -119,4 +119,22 @@
 	</div>
 	@endif
 </div>
+
+
+	    <!-- start footer -->
+    <div class="page-footer">
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+      </div>
+
+      <div class="page-footer-inner">&copy; E-Pharmacy Supported By MedicalIT Group (+964-770-025-7717)
+          </div>
+      <div class="page-footer-inner">&copy; E-Pharmacy Developed By TechSaz Group For IT Solutions
+            </div>
+      <div class="page-footer-inner">
+        <a href="https://techsaz.net" target="_blank" class="makerCss">Techsaz Webiste</a>
+      </div>
+    </div>
+
+    <!-- end footer -->			
 @endsection

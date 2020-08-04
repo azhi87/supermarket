@@ -27,17 +27,21 @@
 								<table class="table table-striped table-bordered text-center" id="dataTables-example">
 									<tbody>
 										<tr class="info h5">
-											<td><span class="bd">&nbsp;Invoice No.: </span><strong>{{$purchase->invoice_no}}</strong></td>
+											<td><span >&nbsp;Invoice No.: </span><strong>{{$purchase->invoice_no}}</strong></td>
 											<td><span>&nbsp;Total : </span> {{ number_format(abs($purchase->total),2)}} $</td>
-											<td><span class="bd">&nbsp; Date : </span>{{ $purchase->created_at }}</td>
+											<td><span >&nbsp; Date : </span>{{ $purchase->created_at }}</td>
 											<td><span>&nbsp; User : </span>{{$purchase->user->name}}</td>
+											<td><span>&nbsp; Supplier : </span><strong>{{$purchase->supplier->name}}</strong></td>
 											<td class="{{ $purchase->type === 'purchase' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($purchase->type) }}</td>
+										</tr>
+										<tr class="h5">
+											<td><span>&nbsp;Note: </span><strong>{{$purchase->note}}</strong></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 							<div class="table-scrollable table-fixed">
-								<table class="table table-bordered text-center table-striped table-scrollable " id="repeatedSale">
+								<table class="table table-bordered text-center table-striped table-scrollable h6" id="repeatedSale">
 									<thead class="bg-info text-light">
 										<tr class="text-center">
 											<th>#</th>
@@ -53,15 +57,15 @@
 									<tbody>
 										<?php $i = 1; ?>
 										@foreach ($purchase->items as $item)
-										<tr class="text-center h5">
+										<tr class="text-center h6">
 											<td><span class="badge bg-danger">{{$i}}</span></td>
 											<td>{{$item->barcode}}</td>
 											<td>{{$item->name}}</td>
-											<td class="">{{$item->pivot->quantity}}</td>
-											<td class="">{{$item->pivot->bonus}}</td>
-											<td class="">{{$item->pivot->ppi}}</td>
-											<td class="">{{$item->pivot->quantity*$item->pivot->ppi}}</td>
-											<td class="">{{$item->pivot->exp}}</td>
+											<td>{{$item->pivot->quantity}}</td>
+											<td>{{$item->pivot->bonus}}</td>
+											<td>{{$item->pivot->ppi}}</td>
+											<td>{{$item->pivot->quantity*$item->pivot->ppi}}</td>
+											<td>{{$item->pivot->exp}}</td>
 										</tr>
 										<?php $i++; ?>
 										@endforeach

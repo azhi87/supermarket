@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Pharmacy System</title>
+  <title></title>
   <!-- google font -->
   <link href="https://fonts.googleapis.com/css?family=Merriweather:600&display=swap" rel="stylesheet">
   <!-- icons -->
