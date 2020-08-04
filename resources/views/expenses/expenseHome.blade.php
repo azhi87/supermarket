@@ -18,17 +18,17 @@
 							<input type="hidden" id="dollars" value="0" class="form-control" />
 						</div>
 					</div>
-					<div class="row form-group">
+					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label">Rate</label>
 						<div class="col-sm-9">
 							<input type="text" id="rate" value="{{$rate->rate}}" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)" class="form-control" readonly="" />
 						</div>
 					</div>
 
-					<div class="row form-group">
+					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label">Dollar</label>
 						<div class="col-sm-9">
-							<input type="text" id="totalPaid" name="amount" class="form-control" />
+							<input type="text" id="totalPaid"  class="form-control" />
 						</div>
 					</div>
 
@@ -59,7 +59,7 @@
 								<tr class="text-center">
 									<th> User Name</th>
 									<th>Date</th>
-									<th>Amount-$ </th>
+									<th>Amount </th>
 									<th>Reason</th>
 									<th class="hidden-print">Edit</th>
 								</tr>

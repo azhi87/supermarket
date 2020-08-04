@@ -15,7 +15,7 @@
 			<div class="card-body bg-light">
 			    <div class="row">
 				<div class="col-md-12 col-sm-12">
-					<form method="POST" action="{{route('search-purchase')}}">
+					<form method="GET" action="{{route('search-purchase')}}">
 						{{csrf_field()}}
 						<div class="form-group input-group input-group-sm">
 							<span class="input-group-addon"><strong>from</strong></span>
@@ -27,6 +27,7 @@
 							<span class="input-group-addon"><strong>Supplier</strong></span>
 							<select required="required" name="supplier_id" class="form-control">
 										@foreach ($suppliers as $supplier)
+										<option value="-1">All</option>
 										<option value="{{$supplier->id}}">{{$supplier->name}}</option>
 										@endforeach
 							</select>

@@ -88,7 +88,8 @@ class PurchaseController extends Controller
 	{
         $id=$request['purchase_id'];
         $from =$request['start_date'];
-        $to=$request['end_date'];
+		$to=$request['end_date'];
+		$supplier_id = $request['supplier_id'];
         
 		$query=Purchase::query();
 		
@@ -100,9 +101,11 @@ class PurchaseController extends Controller
 
 
 		if(!empty($to))
-		    $query->whereDate('created_at','<=',$to);
+			$query->whereDate('created_at','<=',$to);
+		if($supplier_id != '-1')
+			$query->where('supplier_id',$supplier_id);
 
-		$purchases=$query->paginate(500);
+		$purchases=$query->paginate(20);
 		return view('purchases.purchaseReports',compact('purchases'));
 	}
 	
