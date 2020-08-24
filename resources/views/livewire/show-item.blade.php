@@ -17,9 +17,7 @@
 							<th>Barcode</th>
 							<th>Drug Name</th>
 							<th>Scientific Name</th>
-							@if(Auth::user()->type=='admin')
 							<th class="hidden-print">Edit</th>
-							@endif
 						</tr>
 					</thead>
 
@@ -29,7 +27,8 @@
 							<td>{{$item->barcode}}</td>
 							<td>{{$item->name}}</td>
 							<td>{{$item->name_en}}</td>
-							<td class="hidden-print"><a href={{"/items/edit/".$item->id}}><span class="fa fa-edit fa-1x"></span></a>
+							<td class="hidden-print"><a href={{ route('edit-item', $item->id)}}><span
+										class="fa fa-edit fa-1x"></span></a>
 							</td>
 						</tr>
 						@endforeach

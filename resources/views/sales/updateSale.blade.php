@@ -3,17 +3,18 @@
 <style>
 	.table td,
 	.card .table td,
-	.card .dataTable td{
+	.card .dataTable td {
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
 	.table th,
 	.card .table th,
-	.card .dataTable th{
+	.card .dataTable th {
 		padding: 5px 8px;
 		vertical-align: middle;
 	}
+
 	.select2-results {
 		max-height: 150px;
 	}
@@ -30,40 +31,44 @@
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input type="double" min="0" id="total" name="total"  readonly
-									 value="{{ abs($sale->total + $sale->discount) }}" class="form-control" 
-									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
+									<input type="double" min="0" id="total" name="total" readonly
+										value="{{ abs($sale->total + $sale->discount) }}" class="form-control"
+										onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon">Discount</span>
-									<input type="number" step="250" min="0" value="{{ $sale->discount }}" id="discount" name="discount"
-									  class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
+									<input type="number" step="250" min="0" value="{{ $sale->discount }}" id="discount"
+										name="discount" class="form-control " onkeyup="getSaleTotalPrice();"
+										onblur="getSaleTotalPrice();">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-4 has-warning">
 								<div class="input-group ">
 									<span class="input-group-addon">Gran Total</span>
-									<input type="double" min="0" id="grandTotal" value="{{ abs($sale->total) }}" style="font-weight: bold;" class="form-control text-danger" readonly
-									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" >
+									<input type="double" min="0" id="grandTotal" value="{{ abs($sale->total) }}"
+										style="font-weight: bold;" class="form-control text-danger" readonly
+										onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();">
 									<span class="input-group-addon">IQD</span>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success hidden">
 								<div class="input-group">
 									<span class="input-group-addon">Note</span>
-									<input id="description" name="description" value="{{$sale->description}}" class="form-control ">
-									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}" class="form-control ">
+									<input id="description" name="description" value="{{$sale->description}}"
+										class="form-control ">
+									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}"
+										class="form-control ">
 								</div>
 							</div>
 							<div class="form-group col-md-2 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
-									    <option value="{{$sale->type}}" selected>{{$sale->type}}</option>
+										<option value="{{$sale->type}}" selected>{{$sale->type}}</option>
 										<!--	@if( $sale->type=='sale' )-->
 										<!--	<option value="sale" selected>Sale</option>-->
 										<!--	<option value="returned_sale" >Return</option>-->
@@ -86,7 +91,7 @@
 							<div class="table-scrollable table-fixed">
 								<table class="table table-bordered text-center table-scrollable" id="repeatedSale">
 									<thead class="bg-info text-light">
-										<tr >
+										<tr>
 											<th>No.</th>
 											<th width="30%">Barcode</th>
 											<th>Price IQD</th>
@@ -106,11 +111,15 @@
 											<span class="badge badge-danger">{{$i+1}}</span>
 										</td>
 										<td>
-											<select id="barcode{{$i}}" type="text" name="barcode{{$i}}" onchange="getSaleItemPrice(this.value,this.id)" onblur="getSaleItemPrice(this.value,this.id)" class="form-control select3">
+											<select id="barcode{{$i}}" type="text" name="barcode[{{$i}}]"
+												onchange="getSaleItemPrice(this.value,this.id)"
+												onblur="getSaleItemPrice(this.value,this.id)"
+												class="form-control select3">
 												<option value="0"></option>
 												@foreach ($drugs as $drug)
 												@if($drug->id==$item->id)
-												<option value="{{$drug->id}}" selected="selected">{{$drug->name}}</option>
+												<option value="{{$drug->id}}" selected="selected">{{$drug->name}}
+												</option>
 												@else
 												<option value="{{$drug->id}}">{{$drug->name}}</option>
 												@endif
@@ -118,27 +127,39 @@
 											</select>
 										</td>
 										<td>
-											<input type="number" step="250" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" value={{$item->pivot->ppi}} name="ppi{{$i}}" id="ppi{{$i}}" class="form-control " required>
+											<input type="number" step="250" onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" value={{$item->pivot->ppi}}
+												name="ppi[{{$i}}]" id="ppi{{$i}}" class="form-control " required>
 										</td>
 										<td>
-											<input type="number" step="1" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" id="quantity{{$i}}" value={{$item->pivot->quantity}} name="quantity{{$i}}" class="form-control" required>
+											<input type="number" step="1" onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" id="quantity{{$i}}"
+												value={{$item->pivot->quantity}} name="quantity[{{$i}}]"
+												class="form-control" required>
 										</td>
 										<td>
-											<input type="number" step="1" id="singles{{$i}}" value={{$item->pivot->singles}} name="singles{{$i}}" class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" required>
+											<input type="number" step="1" id="singles{{$i}}"
+												value={{$item->pivot->singles}} name="singles[{{$i}}]"
+												class="form-control " onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" required>
 										</td>
 										<td>
-											<span name="items_per_box{{$i}}" id="items_per_box{{$i}}" class="badge badge-primary">{{$item->items_per_box}}</span>
+											<span name="items_per_box[{{$i}}]" id="items_per_box{{$i}}"
+												class="badge badge-primary">{{$item->items_per_box}}</span>
 										</td>
 										<td>
-											<span class="badge badge-primary" id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
+											<span class="badge badge-primary"
+												id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
 										</td>
 										<td width="175px;">
-											<select name="exp{{$i}}" id="exp{{$i}}" class="form-control" required>
+											<select name="exp[{{$i}}]" id="exp{{$i}}" class="form-control" required>
 												<option>{{$item->pivot->exp}}</option>
 											</select>
-										</td>
+											<input type="hidden" name="batch_no[{{ $i }}]"
+												value="{{ $item->pivot->batch_no }}" id="batch_no{{ $i }}" /> </td>
 										<td>
-											<button class="btn btn-danger btn-circle" type="button">
+											<button class="btn btn-danger btn-circle" type="button"
+												onclick="removeItem({{ $i }})">
 												<i caption="delete" class="fa fa-minus-circle fa-1x"></i></button>
 										</td>
 									</tr>
@@ -158,11 +179,12 @@
 					</div>
 					<br>
 					<div class="text-center no-print">
-                        <button name="save-print" class="btn-lg btn-info" type="submit" >
+						<button name="save-print" class="btn-lg btn-info" type="submit">
 							<i caption="Add" class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;</button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button  name="save" class="btn-lg btn-primary" type="submit" >
-							<i caption="Add" class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button name="save" class="btn-lg btn-primary" type="submit">
+							<i caption="Add"
+								class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
 
 					</div>
 				</form>

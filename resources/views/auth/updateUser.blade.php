@@ -14,21 +14,24 @@
 					<div class="row form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 						<label for="name" class="col-md-4 control-label">Full Name </label>
 						<div class="col-md-8">
-							<input id="name" type="text" class="form-control" name="name" class="form-control" value="{{ $user->name}}" required autofocus>
+							<input id="name" type="text" class="form-control" name="name" class="form-control"
+								value="{{ $user->name}}" required autofocus>
 						</div>
 					</div>
 
 					<div class="row form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
 						<label for="mobile" class="col-md-4 control-label">Mobile# </label>
 						<div class="col-md-8">
-							<input id="mobile" type="text" class="form-control" name="mobile" value="{{$user->mobile}}" required autofocus>
+							<input id="mobile" type="text" class="form-control" name="mobile" value="{{$user->mobile}}"
+								required autofocus>
 						</div>
 					</div>
 
 					<div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 						<label for="email" class="col-md-4 control-label">Email</label>
 						<div class="col-md-8">
-							<input id="email" type="email" class="form-control" name="email" value="{{$user->email}}" required>
+							<input id="email" type="email" class="form-control" name="email" value="{{$user->email}}"
+								required>
 						</div>
 					</div>
 
@@ -37,9 +40,8 @@
 						<div class="col-md-8">
 							<select type="type" class="form-control" name="type" required>
 								<option selected="selected" value="{{$user->type}}">{{$user->typeText()}}</option>
-								<option value="mandwb">Casher</option>
-								<option value="accountant_high"> High Accountant</option>
-								<option value="admin" selected>Admin</option>
+								<option value="staff"> Staff</option>
+								<option value="admin">Admin</option>
 							</select>
 						</div>
 					</div>
@@ -52,9 +54,10 @@
 					</div>
 
 					<div class="row form-group">
-						<label for="password-confirm" class="col-md-4 control-label">Confirm Password  </label>
+						<label for="password-confirm" class="col-md-4 control-label">Confirm Password </label>
 						<div class="col-md-8">
-							<input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+							<input id="password-confirm" type="password" class="form-control"
+								name="password_confirmation">
 						</div>
 					</div>
 

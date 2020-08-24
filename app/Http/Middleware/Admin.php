@@ -15,6 +15,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if (auth()->user()->type !== 'admin') {
+            return back()->withErrors('Insufficient Priviliges');
+        } else
+            return $next($request);
     }
 }

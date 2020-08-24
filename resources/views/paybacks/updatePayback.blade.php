@@ -15,7 +15,14 @@
 					<div class="form-group">
 						<label for="name">Amount $ </label>
 						<div class="input-group">
-							<input type="text" name="paid" value="{{$payback->paid}}" class="form-control" required/>
+							<input type="text" name="paid" value="{{$payback->paid}}" class="form-control" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name">Discount $ </label>
+						<div class="input-group">
+							<input type="text" name="paid" value="{{$payback->discount}}" class="form-control"
+								required />
 						</div>
 					</div>
 					<div class="form-group">

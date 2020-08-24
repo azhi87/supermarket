@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <div class="row">
+	@can('view-money-reports', auth()->user())
 
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="card card-topline-green">
@@ -20,7 +21,8 @@
 					</fieldset>
 					<div class="form-group">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+							<button type="submit"
+								class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
 						</div>
 					</div>
 				</form>
@@ -35,13 +37,13 @@
 				<header>Income By User</header>
 			</div>
 			<div class="card-body " id="bar-parent">
-			<form method="POST" action=" {{route('show-income-byUser')}}" id="contact_form">
+				<form method="POST" action=" {{route('show-income-byUser')}}" id="contact_form">
 					{{csrf_field()}}
 					<fieldset class="form-group">
 						<label for="id">Employee</label>
 						<select name="user_id" class="form-control">
 							@foreach ($users as $user)
-								<option value="{{ $user->id }}">{{ $user->name }}</option>
+							<option value="{{ $user->id }}">{{ $user->name }}</option>
 							@endforeach
 						</select>
 					</fieldset>
@@ -56,7 +58,8 @@
 					</fieldset>
 					<div class="form-group">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+							<button type="submit"
+								class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
 						</div>
 					</div>
 				</form>
@@ -84,7 +87,8 @@
 					</fieldset>
 					<div class="form-group">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+							<button type="submit"
+								class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
 						</div>
 					</div>
 				</form>
@@ -92,8 +96,37 @@
 			</div>
 		</div>
 	</div>
-	
-		<div class="col-md-3 col-sm-6 col-xs-12 ">
+	<div class="col-md-3 col-sm-6 col-xs-12 ">
+		<div class="card card-topline-green">
+			<div class="card-head bg-light">
+				<header>Debt Report</header>
+				@include('layouts.errorMessages')
+			</div>
+			<div class="card-body " id="bar-parent">
+				<form method="POST" action="{{ route('supplier-debt-report') }}" id="contact_form">
+					{{csrf_field()}}
+					<fieldset class="form-group">
+						<label for="formGroupExampleInput2">Supplier</label>
+						<select class="form-control" name="supplier_id">
+							<option value="-1">All Suppliers</option>
+							@foreach($suppliers as $supplier)
+							<option value="{{ $supplier->id }}"> {{ $supplier->name }} </option>
+							@endforeach
+						</select>
+					</fieldset>
+
+					<div class="form-group">
+						<div class="col-md-12">
+							<button type="submit"
+								class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	@endcan
+	<div class="col-md-3 col-sm-6 col-xs-12 ">
 		<div class="card card-topline-green">
 			<div class="card-head bg-light">
 				<header>Search Stock</header>
@@ -109,7 +142,8 @@
 
 					<div class="form-group">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
+							<button type="submit"
+								class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
 						</div>
 					</div>
 				</form>
@@ -200,34 +234,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-3 col-sm-6 col-xs-12 ">
-		<div class="card card-topline-green">
-			<div class="card-head bg-light">
-				<header>Debt Report</header>
-				@include('layouts.errorMessages')
-			</div>
-			<div class="card-body " id="bar-parent">
-				<form method="POST" action="{{ route('supplier-debt-report') }}" id="contact_form">
-					{{csrf_field()}}
-					<fieldset class="form-group">
-						<label for="formGroupExampleInput2">Supplier</label>
-						<select class="form-control" name="supplier_id">
-							<option value="-1">All Suppliers</option>
-							@foreach($suppliers as $supplier)
-							<option value="{{ $supplier->id }}"> {{ $supplier->name }} </option>
-							@endforeach
-						</select>
-					</fieldset>
 
-					<div class="form-group">
-						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary btn3d btn-block"><strong>Search</strong></button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 </div>
 
 @endsection

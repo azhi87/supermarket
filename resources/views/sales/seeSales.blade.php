@@ -11,92 +11,101 @@
 						<form method="POST" class="form-inline pull-right" action="/sale/searchId">
 							<div class="input-group input-group-sm">
 								@csrf
-								<input type="text" name="sale_id" class="form-control" placeholder="Search by Invoice ID">
+								<input type="text" name="sale_id" class="form-control"
+									placeholder="Search by Invoice ID">
 								<span class="input-group-btn">
 									<button type="submit" class="btn btn-primary btn-flat">Search!</button>
 								</span>
 							</div>
 						</form>
-					<div class="col-md-4 col-md-offset-4 col-sm-6">
-					    <form method="POST" action="{{route('search-sale-byItem')}}">
-						{{csrf_field()}}
-						<div class="form-group input-group input-group-sm">
-							<span class="input-group-addon">Barcode</span>
-							<input type="text" name="barcode" class="form-control" />
-							<span class="input-group-btn">
-								<button type="submit" class="btn-primary btn-flat">Search!</button>
-							</span>
-						</div>	
-				        </form>
-				    </div>
-
-					@foreach ($sales as $sale)
-					<div class="panel-body border border-secondary">
-						<div class="table-scrollable table-fixed">
-							<table class="table table-striped table-bordered text-center" id="dataTables-example">
-								<tbody>
-									<tr class="info h5">
-										<td><span>&nbsp;Invoice No. :</span><strong>{{$sale->id}}</strong></td>
-										<td><span>&nbsp;Total  : </span> {{ number_format( abs($sale->total),0) }}</td>
-										<td><span>&nbsp;Discount  : </span> {{ number_format( abs($sale->discount),0) }}</td>
-										<td><span>&nbsp;Date:</span>{{$sale->created_at}}</td>
-										<td><span>&nbsp; User : </span>{{$sale->user->name}}</td>
-										<td class="{{ $sale->type === 'sale' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($sale->type) }}</td>
-								</tbody>
-							</table>
+						<div class="col-md-4 col-md-offset-4 col-sm-6">
+							<form method="POST" action="{{route('search-sale-byItem')}}">
+								{{csrf_field()}}
+								<div class="form-group input-group input-group-sm">
+									<span class="input-group-addon">Barcode</span>
+									<input type="text" name="barcode" class="form-control" />
+									<span class="input-group-btn">
+										<button type="submit" class="btn-primary btn-flat">Search!</button>
+									</span>
+								</div>
+							</form>
 						</div>
 
-						<div class="table-scrollable table-fixed">
-							<table class="table table-striped table-bordered text-center h6" id="dataTables-example">
-								<tbody class="bg-info text-light">
-									<tr class="text-center">
-										<th class="text-center">#</th>
-										<th class="text-center">Barcode</th>
-										<th class="text-center">Name</th>
-										<th class="text-center">Packs</th>
-										<th class="text-center"> Sheets</th>
-										<th class="text-center">Price</th>
-										<th class="text-center">Subtotal</th>
-										<th class="text-center"> Expiry</th>
-									</tr>
-								</tbody>
-								<tbody>
-									<?php $i = 1; ?>
-									@foreach ($sale->items as $item)
-									<tr class="text-center h6">
-										<td><span class="badge bg-danger">{{$i}}</span></td>
-										<td>{{ $item->barcode }}</td>
-										<td>{{ $item->name }}</td>
-										<td>{{ $item->pivot->quantity }}</td>
-										<td>{{ $item->pivot->singles }}</td>
-										<td>{{ number_format($item->pivot->ppi,0) }}</td>
-										<td>{{ number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity)) * $item->pivot->ppi,0) }}</td>
-										<td>{{ $item->pivot->exp }}</td>
-									</tr>
-									<?php $i++; ?>
-									@endforeach
-
-								</tbody>
-							</table>
-						</div>
-
-						@if(Auth::user()->type=="admin")
-							<div class="text-center hidden-print">
-								<a class="btn btn-circle btn-success btn-lg" onclick="printExternal('/sale/print/{{ $sale->id }}')"><span class="fa fa-print fa-2x"></span></a>
-								<a class="btn btn-circle btn-danger btn-lg" onclick='confirmDelete("{{$sale->id}}")'><span class="fa fa-trash-o fa-2x"></span></a>
-								<a class="btn btn-circle btn-primary btn-lg" href="/sale/edit/{{$sale->id}}"><span class="fa fa-edit fa-2x"></span></a>
+						@foreach ($sales as $sale)
+						<div class="panel-body border border-secondary">
+							<div class="table-scrollable table-fixed">
+								<table class="table table-striped table-bordered text-center" id="dataTables-example">
+									<tbody>
+										<tr class="info h5">
+											<td><span>&nbsp;Invoice No. :</span><strong>{{$sale->id}}</strong></td>
+											<td><span>&nbsp;Total : </span> {{ number_format( abs($sale->total),0) }}
+											</td>
+											<td><span>&nbsp;Discount : </span>
+												{{ number_format( abs($sale->discount),0) }}</td>
+											<td><span>&nbsp;Date:</span>{{$sale->created_at}}</td>
+											<td><span>&nbsp; User : </span>{{$sale->user->name}}</td>
+											<td class="{{ $sale->type === 'sale' ? 'bg-success' : 'bg-danger' }}">
+												{{ ucfirst($sale->type) }}</td>
+									</tbody>
+								</table>
 							</div>
-						@endif
-					</div>
 
-					<br />
-					@endforeach
-					{{ $sales->links('vendor.pagination.bootstrap-4') }}
+							<div class="table-scrollable table-fixed">
+								<table class="table table-striped table-bordered text-center h6"
+									id="dataTables-example">
+									<tbody class="bg-info text-light">
+										<tr class="text-center">
+											<th class="text-center">#</th>
+											<th class="text-center">Barcode</th>
+											<th class="text-center">Name</th>
+											<th class="text-center">Packs</th>
+											<th class="text-center"> Sheets</th>
+											<th class="text-center">Price</th>
+											<th class="text-center">Subtotal</th>
+											<th class="text-center"> Expiry</th>
+										</tr>
+									</tbody>
+									<tbody>
+										<?php $i = 1; ?>
+										@foreach ($sale->items as $item)
+										<tr class="text-center h6">
+											<td><span class="badge bg-danger">{{$i}}</span></td>
+											<td>{{ $item->barcode }}</td>
+											<td>{{ $item->name }}</td>
+											<td>{{ $item->pivot->quantity }}</td>
+											<td>{{ $item->pivot->singles }}</td>
+											<td>{{ number_format($item->pivot->ppi,0) }}</td>
+											<td>{{ number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity)) * $item->pivot->ppi,0) }}
+											</td>
+											<td>{{ $item->pivot->exp }}</td>
+										</tr>
+										<?php $i++; ?>
+										@endforeach
+
+									</tbody>
+								</table>
+							</div>
+
+							<div class="text-center hidden-print">
+								<a class="btn btn-circle btn-success btn-lg"
+									onclick="printExternal('{{ route('print-sale',$sale->id) }}')"><span
+										class="fa fa-print fa-2x"></span></a>
+								<a class="btn btn-circle btn-danger btn-lg"
+									onclick='confirmDelete("{{$sale->id}}")'><span
+										class="fa fa-trash-o fa-2x"></span></a>
+								<a class="btn btn-circle btn-primary btn-lg"
+									href="{{ route('edit-sale',$sale->id) }}"><span class="fa fa-edit fa-2x"></span></a>
+							</div>
+						</div>
+
+						<br />
+						@endforeach
+						{{ $sales->links('vendor.pagination.bootstrap-4') }}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	<div class="modal-dialog">

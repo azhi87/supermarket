@@ -8,7 +8,7 @@ class Purchase extends Model
 {
     public function items()
     {
-        return $this->belongsToMany('App\Item','purchase_items')->withPivot('quantity','ppi','bonus','exp')->withTimestamps();
+        return $this->belongsToMany('App\Item', 'purchase_items')->withPivot('quantity', 'ppi', 'bonus', 'exp', 'batch_no')->withTimestamps();
     }
     public function user()
     {
@@ -18,5 +18,4 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\Supplier');
     }
- 
 }

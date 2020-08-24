@@ -3,17 +3,18 @@
 <style>
 	.table td,
 	.card .table td,
-	.card .dataTable td{
+	.card .dataTable td {
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
 	.table th,
 	.card .table th,
-	.card .dataTable th{
+	.card .dataTable th {
 		padding: 5px 8px;
 		vertical-align: middle;
 	}
+
 	.select2-results {
 		max-height: 150px;
 	}
@@ -36,11 +37,12 @@
 							<div class="form-group col-md-3 col-sm-3 has-success ">
 								<div class="input-group has-success">
 									<span class="input-group-addon"><strong>Total Price</strong></span>
-									<input required="required" type="text" id="total" name="total" class="form-control" readonly="readonly">
+									<input required="required" type="text" id="total" name="total" class="form-control"
+										readonly="readonly">
 									<span class="input-group-addon">$</span>
 								</div>
 							</div>
-							
+
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Supplier</strong></span>
@@ -57,18 +59,18 @@
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
 										<option value="purchase" selected>Purchase</option>
-										<option value="returned_purchase" >Return</option>
+										<option value="returned_purchase">Return</option>
 									</select>
 								</div>
 							</div>
-							
+
 							<div class="form-group col-md-12 col-sm-12 has-success ">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Note</strong></span>
-									<input  type="text" name="note" class="form-control ">
+									<input type="text" name="note" class="form-control ">
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -86,12 +88,13 @@
 								<tr class="text-center">
 									<th>No.</th>
 									<th width="25%">Barcode (Name)</th>
-									<th>Purchase Price ($)</th>
+									<th>Price ($)</th>
 									<th>Sale Price(PerPack IQD)</th>
 									<th>Packs</th>
 									<th>Bonus (packs)</th>
 									<th>Subtotal</th>
 									<th>Expire date</th>
+									<th>batch_no</th>
 									<th>Remove</th>
 								</tr>
 							</thead>
@@ -100,26 +103,39 @@
 									<span class="badge badge-danger">1</span>
 								</td>
 								<td>
-									<select id="barcode0" type="text" name="barcode0" onchange="getPurchaseItemPrice(this.value,this.id)" onblur="getPurchaseItemPrice(this.value,this.id)" class="form-control select3">
+									<select id="barcode0" type="text" name="barcode[]"
+										onchange="getPurchaseItemPrice(this.value,this.id)"
+										onblur="getPurchaseItemPrice(this.value,this.id)" class="form-control select3">
 									</select>
 								</td>
 								<td>
-									<input type="number" step="0.01" min="0" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
+									<input type="number" step="0.01" min="0" onkeyup="getPurchaseTotalPrice();"
+										onblur="getPurchaseTotalPrice();" name="ppi[]" id="ppi0" class="form-control "
+										required>
 								</td>
 								<td>
-									<input type="number" step="250" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" name="sppi0" id="sppi0" class="form-control ">
+									<input type="number" step="250" onkeyup="getPurchaseTotalPrice();"
+										onblur="getPurchaseTotalPrice();" name="sppi[]" id="sppi0"
+										class="form-control ">
 								</td>
 								<td>
-									<input type="number" step="0.1" value="1" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
+									<input type="number" step="0.1" value="1" onkeyup="getPurchaseTotalPrice();"
+										onblur="getPurchaseTotalPrice();" id="quantity0" name="quantity[]"
+										class="form-control" required>
 								</td>
 								<td>
-									<input type="number" step="1" id="bonus0" name="bonus0" value="0" class="form-control" onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>
+									<input type="number" step="1" id="bonus0" name="bonus[]" value="0"
+										class="form-control" onkeyup="getPurchaseTotalPrice();"
+										onblur="getPurchaseTotalPrice();" required>
 								</td>
 								<td>
 									<span class="badge badge-primary" id="subtotal0"></span>
 								</td>
 								<td>
-									<input type="date" name="exp0" id="exp0" class="form-control " required>
+									<input type="date" name="exp[]" id="exp0" class="form-control " required>
+								</td>
+								<td>
+									<input type="text" name="batch_no[]" id="batch_no0" class="form-control ">
 								</td>
 								<td>
 									<button class="btn btn-danger btn-circle" type="button">
@@ -138,7 +154,8 @@
 					</div>
 					<br>
 					<div class="text-center no-print">
-						<input type="submit" name="submit" value="Save" class="btn-primary text-center btn-lg btn-block" />
+						<input type="submit" name="submit" value="Save"
+							class="btn-primary text-center btn-lg btn-block" />
 					</div>
 				</form>
 			</div>

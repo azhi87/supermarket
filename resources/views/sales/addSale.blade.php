@@ -3,17 +3,18 @@
 <style>
 	.table td,
 	.card .table td,
-	.card .dataTable td{
+	.card .dataTable td {
 		padding: 0px 8px;
 		vertical-align: middle;
 	}
 
 	.table th,
 	.card .table th,
-	.card .dataTable th{
+	.card .dataTable th {
 		padding: 5px 8px;
 		vertical-align: middle;
 	}
+
 	.select2-results {
 		max-height: 150px;
 	}
@@ -24,35 +25,38 @@
 		<div class="card card-topline-green">
 			<div class="card-body bg-light">
 				<form action='/sale/create' method='post' role="form" id="saleForm">
-						{{csrf_field()}}
+					{{csrf_field()}}
 					<div class="card-body" id="bar-parent">
 						<div class="row">
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Total</strong></span>
-									<input type="double" min="0" id="total" name="total" class="form-control" 
-									 onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" readonly>
+									<input type="double" min="0" id="total" name="total" class="form-control"
+										onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success">
 								<div class="input-group ">
 									<span class="input-group-addon"><strong>Discount</strong></span>
 									<input type="number" step="250" min="0" value="0" id="discount" name="discount"
-									class="form-control" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();">
+										class="form-control" onkeyup="getSaleTotalPrice();"
+										onblur="getSaleTotalPrice();">
 								</div>
 							</div>
 							<div class="form-group col-md-4 has-warning">
 								<div class="input-group">
 									<span class="input-group-addon"><strong>Grand total</strong></span>
-									<input type="double" min="0" id="grandTotal" name="grandTotal" class="form-control text-danger bg-light" style="font-weight: bold;"
-									onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();"  readonly>
+									<input type="double" min="0" id="grandTotal" name="grandTotal"
+										class="form-control text-danger bg-light" style="font-weight: bold;"
+										onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-3 has-success hidden">
 								<div class="input-group">
 									<span class="input-group-addon"><strong>Note</strong></span>
 									<input type="text" id="description" name="description" class="form-control ">
-									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}" class="form-control ">
+									<input type="hidden" id="rate" name="rate" value="{{$rate->rate}}"
+										class="form-control ">
 								</div>
 							</div>
 							<div class="form-group col-md-2 has-success">
@@ -60,7 +64,7 @@
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
 										<option value="sale" selected>Sale</option>
-										<option value="returned_sale" >Return</option>
+										<option value="returned_sale">Return</option>
 									</select>
 								</div>
 							</div>
@@ -86,26 +90,38 @@
 											<span class="badge badge-danger">1</span>
 										</td>
 										<td>
-											<select id="barcode0" type="text" name="barcode0" onchange="getSaleItemPrice(this.value,this.id)" onblur="getSaleItemPrice(this.value,this.id)" class="form-control select3">
+											<select id="barcode0" type="text" name="barcode[]"
+												onchange="getSaleItemPrice(this.value,this.id)"
+												onblur="getSaleItemPrice(this.value,this.id)"
+												class="form-control select3">
 											</select>
 										</td>
 										<td>
-											<input type="number" step="250" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" name="ppi0" id="ppi0" class="form-control " required>
+											<input type="number" step="250" onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" name="ppi[]" id="ppi0"
+												class="form-control " required>
 										</td>
 										<td>
-											<input type="number" step="1" value="1" onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" id="quantity0" name="quantity0" class="form-control" required>
+											<input type="number" step="1" value="1" onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" id="quantity0" name="quantity[]"
+												class="form-control" required>
 										</td>
 										<td>
-											<input type="number" step="1" id="singles0" name="singles0" value="0" class="form-control " onkeyup="getSaleTotalPrice();" onblur="getSaleTotalPrice();" required>
+											<input type="number" step="1" id="singles0" name="singles[]" value="0"
+												class="form-control " onkeyup="getSaleTotalPrice();"
+												onblur="getSaleTotalPrice();" required>
 										</td>
 										<td>
-											<span name="items_per_box0" id="items_per_box0" class="badge badge-primary"></span>
+											<span name="items_per_box[]" id="items_per_box0"
+												class="badge badge-primary"></span>
 										</td>
 										<td>
 											<span class="badge badge-primary" id="subtotal0"></span>
 										</td>
 										<td>
-											<select name="exp0" id="exp0" class="form-control " style="min-width: 150px;" required></select>
+											<select name="exp[]" id="exp0" class="form-control "
+												style="min-width: 150px;" required></select>
+											<input type="hidden" value="" name="batch_no[]" id="batch_no0">
 										</td>
 										<td>
 											<button class="btn btn-danger btn-circle" type="button">
@@ -124,11 +140,12 @@
 					</div>
 					<br>
 					<div class="text-center no-print">
-                        <button name="save-print" class="btn-lg btn-info" type="submit" >
+						<button name="save-print" class="btn-lg btn-info" type="submit">
 							<i caption="Add" class="fa fa-print"></i>&nbsp;&nbsp;&nbsp;Print&nbsp;&nbsp;&nbsp;</button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button  name="save" class="btn-lg btn-primary" type="submit" >
-							<i caption="Add" class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button name="save" class="btn-lg btn-primary" type="submit">
+							<i caption="Add"
+								class="fa fa-save fa-1x">&nbsp;&nbsp;&nbsp;Save&nbsp;&nbsp;&nbsp;</i></button>
 					</div>
 				</form>
 			</div>
@@ -140,12 +157,12 @@
 
 @section('afterFooter')
 @if(Session::has('sale-id'))
-	<script>
-		$(document).ready(function(){
+<script>
+	$(document).ready(function(){
 			printExternal('{{ route('print-sale', session('sale-id')) }}');
 	});
 		
-	</script>
+</script>
 @endif
 <script>
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
