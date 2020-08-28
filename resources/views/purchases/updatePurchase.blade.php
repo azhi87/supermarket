@@ -82,12 +82,6 @@
 						</div>
 					</div>
 
-					<select id="allItems" class="hidden">
-						<option value="0"></option>
-						@foreach ($drugs as $item)
-						<option value="{{$item->id}}">{{$item->name}}</option>
-						@endforeach
-					</select>
 
 					@include('layouts.errorMessages')
 					<div class="table-scrollable table-fixed">
@@ -115,50 +109,47 @@
 									<span class="badge badge-danger">{{$i+1}}</span>
 								</td>
 								<td>
-									<select id="barcode{{$i}}" type="text" name="barcode[{{ $i }}]"
-										onchange="getPurchaseItemPrice(this.value,this.id)"
-										onblur="getPurchaseItemPrice(this.value,this.id)" class="form-control select2">
-										<option value="0"></option>
-										@foreach ($drugs as $drug)
-										@if($drug->id==$item->id)
-										<option value="{{$drug->id}}" selected="selected">{{$drug->name}}</option>
-										@else
-										<option value="{{$drug->id}}">{{$drug->name}}</option>
-										@endif
-										@endforeach
+									<select id="barcode{{$i}}" type="text" name="item[barcode][{{$i}}]"
+										onchange="getSaleItemPrice(this.value,this.id)"
+										onblur="getSaleItemPrice(this.value,this.id)" class="form-control select3">
+
+										<option value="{{ $item->id }}" selected="selected">
+											{{$item->name}}
+										</option>
+
 									</select>
 								</td>
 								<td>
-									<input type="number" step="0.01" value="{{$item->pivot->ppi}}" name="ppi[{{$i}}]"
-										id="ppi{{$i}}" onkeyup="getPurchaseTotalPrice();"
+									<input type="number" step="0.01" value="{{$item->pivot->ppi}}"
+										name="item[ppi][{{$i}}]" id="ppi{{$i}}" onkeyup="getPurchaseTotalPrice();"
 										onblur="getPurchaseTotalPrice();" class="form-control" required>
 								</td>
 								<td>
-									<input type="number" step="250" value="{{$item->sale_price_id}}" name="sppi[{{$i}}]"
-										id="sppi{{$i}}" onkeyup="getPurchaseTotalPrice();"
+									<input type="number" step="250" value="{{$item->sale_price_id}}"
+										name="item[sppi][{{ $i }}]" id="sppi{{ $i }}" onkeyup="getPurchaseTotalPrice();"
 										onblur="getPurchaseTotalPrice();" class="form-control" required>
 								</td>
 								<td>
 									<input type="number" step="1" value="{{$item->pivot->quantity}}" id="quantity{{$i}}"
-										name="quantity[{{$i}}]" class="form-control" onkeyup="getPurchaseTotalPrice();"
-										onblur="getPurchaseTotalPrice();" required>
+										name="item[quantity][{{$i}}]" class="form-control"
+										onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>
 								</td>
 								<td>
 									<input type="number" step="1" value="{{$item->pivot->bonus}}" id="bonus{{$i}}"
-										name="bonus[{{$i}}]" class="form-control" onkeyup="getPurchaseTotalPrice();"
-										onblur="getPurchaseTotalPrice();" required>
+										name="item[bonus][{{$i}}]" class="form-control"
+										onkeyup="getPurchaseTotalPrice();" onblur="getPurchaseTotalPrice();" required>
 								</td>
 								<td>
 									<span class="badge badge-primary"
 										id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
 								</td>
 								<td>
-									<input type="date" value="{{$item->pivot->exp}}" name="exp[{{$i}}]" id="exp{{$i}}"
-										class="form-control text-right" required>
+									<input type="date" value="{{$item->pivot->exp}}" name="item[exp][{{$i}}]"
+										id="exp{{$i}}" class="form-control text-right" required>
 								</td>
 
 								<td>
-									<input type="text" value="{{$item->pivot->batch_no}}" name="batch_no[{{$i}}]"
+									<input type="text" value="{{$item->pivot->batch_no}}" name="item[batch_no][{{$i}}]"
 										id="batch_no{{$i}}" class="form-control text-right">
 								</td>
 								<td>

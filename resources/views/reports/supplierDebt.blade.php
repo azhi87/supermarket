@@ -24,14 +24,18 @@
 								<tbody>
 									<?php $total = 0; ?>
 									@foreach($suppliers as $supplier)
-									
+
 									<tr>
 										<td>{{ $loop->iteration }}</td>
-									<td class="text-primary"><a href=" {{ route('payback',$supplier->id) }}" style="text-decoration: underline;"><strong> {{$supplier->name}}</strong></a></td>
+										<td class="text-primary"><a href=" {{ route('payback',$supplier->id) }}"
+												style="text-decoration: underline;"><strong>
+													{{$supplier->name}}</strong></a></td>
 										<td>{{number_format($supplier->purchases->sum('total'),2)}}</td>
 										<td>{{number_format($supplier->paybacks->sum('discount'),2)}}</td>
 										<td>{{number_format($supplier->paybacks->sum('paid'),2)}}</td>
-									<td class="text-primary"><strong>{{ $supplier->purchases->sum('total') - ($supplier->paybacks->sum('paid') + $supplier->paybacks->sum('discount')) }}</strong></td>
+										<td class="text-primary">
+											<strong>{{ $supplier->purchases->sum('total') - ($supplier->paybacks->sum('paid') + $supplier->paybacks->sum('discount')) }}</strong>
+										</td>
 									</tr>
 									@endforeach
 								</tbody>
@@ -43,14 +47,4 @@
 		</div>
 	</div>
 </div>
-@endsection
-
-@section('afterFooter')
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#menu-top li a").removeClass("menu-top-active");
-		$('#report').addClass('menu-top-active');
-	});
-</script>
-
 @endsection

@@ -18,11 +18,7 @@ class SaleController extends Controller
   public function seeSales($id = 0)
   {
     if ($id == 0) {
-      if (\Auth::user()->type == 'mandwb') {
-        $sales = Sale::with('items')->where('user_id', \Auth::user()->id)->latest()->paginate(15);
-      } else {
-        $sales = Sale::with('items')->latest()->paginate(15);
-      }
+      $sales = Sale::with(['items', 'user'])->latest()->paginate(15);
     } else {
       $sales = Sale::with('items')->where('id', $id)->paginate(1);
     }
@@ -39,7 +35,7 @@ class SaleController extends Controller
   {
 
     $this->validate($request, [
-      'total' => 'required|min:0.1',
+      'total' => 'required|gte:0',
       'discount' => 'lte:total',
     ]);
 

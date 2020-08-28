@@ -2,7 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use DBuse App\Item;
+use DB;
+use App\Item;
 use App\Stock;
 use Carbon\Carbon;
 use Livewire\Component;

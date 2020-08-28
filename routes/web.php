@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,14 +13,12 @@
 |
 */
 
-Auth::routes();
+// use Illuminate\Routing\Route;
 
+Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
-	Route::get('/', function () {
-		$users = \App\User::where('status', '1')->get();
-		return view('main.index', compact('users'));
-	});
+	Route::get('/', 'HomeController@index');
 
 
 
@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('reports/stockValuation', 'ReportController@stockValuation');
 	Route::get('/reports/stock', 'ReportController@showStock')->name('show-stock');
-	Route::post('/reports/supplierDebt', 'ReportController@supplierDebt')->name('supplier-debt-report');
+	Route::post('/reports/supplierDebt', 'ReportController@supplierDebt')->name('supplier-debt-report')->middleware('admin');
 	Route::post('/stock/manufacturer', 'ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
 	Route::post('/stock/stockByItem', 'ReportController@stockByItem')->name('show-item-stock');
 
@@ -90,44 +90,20 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/purchase/edit/{id}', 'PurchaseController@edit')->name('edit-purchase');
 	Route::view('/purchase/home', 'purchases.purchaseHome')->name('purchase-home');
 
-	Route::get('/expenses', 'ExpenseController@index');
-	Route::post('/expenses/store/{id}', 'ExpenseController@store');
-	Route::post('/expenses/store/', 'ExpenseController@store');
+	Route::get('/expenses', 'ExpenseController@index')->name('expenses');
+	Route::post('/expenses/store/{id?}', 'ExpenseController@store')->name('store-expense');
 	Route::post('/expenses/search', 'ExpenseController@search');
 	Route::post('/expenses/searchReason', 'ExpenseController@searchReason');
 
-	Route::get('/expenses/edit/{id}', function ($id) {
-		$expense = \App\Expense::find($id);
-		return view('expenses.expenseUpdate', compact('expense'));
-	});
-
-	Route::post('/reports/supplierSale', function () {
-		$to = Request('to');
-		$from = Request('from');
-		$items = \App\Item::notDeleted()->where('supplier_id', Request('supplier_id'))->get();
-		$name = \App\Supplier::find(Request('supplier_id'))->name;
-		return view('reports.supplierSale', compact(['items', 'from', 'to', 'name']));
-	});
+	Route::get('/expenses/edit/{expense}', 'ExpenseController@edit')->name('edit-expense');
 
 	Route::post('/reports/salesByDate', 'SaleController@salesByDate');
 
 	Route::post('/reports/mandwb', 'ItemController@mandwbReports');
 	Route::post('/reports/mandwbSales', 'SaleController@mandwbSaleReport');
-	Route::post('/reports/income', 'ReportController@income')->name('income-money');
-	Route::post('/reports/incomeByUser', 'ReportController@incomeByUser')->name('show-income-byUser');
+	Route::post('/reports/income', 'ReportController@income')->name('income-money')->middleware('admin');
+	Route::post('/reports/incomeByUser', 'ReportController@incomeByUser')->name('show-income-byUser')->middleware('admin');;
 	Route::post('/reports/returnedItems', 'ReturnController@report');
-	Route::post('/reports/monthlyMandwb', function () {
-		$user_id = Request('user_id');
-		$to = Request('to');
-		$from = Request('from');
-		$user = \App\User::find($user_id);
-		$sales = $user->sales()->where('status', '1')->whereDate('created_at', '>=', $from)
-			->whereDate('created_at', '<=', $to)->get();
-		$user = $user->name;
-		return view('reports.monthlyMandwb', compact(['from', 'to', 'sales', 'user']));
-	});
-
-
 
 	Route::livewire('/live-items', 'add-item')->layout('layouts.master')->name('add-item');
 	Route::livewire('/show-items', 'show-item')->layout('layouts.master')->name('show-items');
@@ -135,15 +111,13 @@ Route::middleware(['auth'])->group(function () {
 	Route::livewire('/show-popular-items', 'item-popularity')->layout('layouts.master')->name('show-popular-items');
 	Route::livewire('/item/transactions/{id?}', 'item-transactions')->layout('layouts.master')->name('show-item-transactions');
 
-	Route::get('/peripheralUpdates', function () {
-		return view('items.peripheralUpdates');
-	});
+	Route::view('/peripheralUpdates', 'items.peripheralUpdates');
 
 	Route::post('/rate/add', 'RateController@create');
 	Route::post('/rate', function () {
 		$rate = new \App\Rate;
 		$rate->rate = Request('rate');
-		$rate->user_id = \Auth::user()->id;
+		$rate->user_id = auth()->user()->id;
 		$rate->save();
 		return redirect('/');
 	});

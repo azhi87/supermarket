@@ -9,13 +9,16 @@ use Tests\TestCase;
 use App\User;
 use App\Rate;
 use App\Item;
+use App\Purchase;
+use App\Sale;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Livewire\Livewire;
 
 class DrugsTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      *

@@ -14,29 +14,31 @@
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">IQD</label>
 						<div class="col-sm-9">
-							<input type="text" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)" id="dinars" name="amount" class="form-control" />
+							<input type="text" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)"
+								id="dinars" name="amount" class="form-control" />
 							<input type="hidden" id="dollars" value="0" class="form-control" />
 						</div>
 					</div>
 					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label">Rate</label>
 						<div class="col-sm-9">
-							<input type="text" id="rate" value="{{$rate->rate}}" onkeyup="calculateTotalPaid(0)" onblur="calculateTotalPaid(0)" class="form-control" readonly="" />
+							<input type="text" id="rate" value="{{$rate->rate ?? 1250}}" onkeyup="calculateTotalPaid(0)"
+								onblur="calculateTotalPaid(0)" class="form-control" readonly="" />
 						</div>
 					</div>
 
 					<div class="row form-group hidden">
 						<label class="col-sm-3 control-label">Dollar</label>
 						<div class="col-sm-9">
-							<input type="text" id="totalPaid"  class="form-control" />
+							<input type="text" id="totalPaid" class="form-control" />
 						</div>
 					</div>
 
 					<div class="row form-group">
 						<label class="col-sm-3 control-label">Reason</label>
 						<div class="col-sm-9">
-    						<textarea class="form-control" name="reason" required=""></textarea>
-	                    </div>
+							<textarea class="form-control" name="reason" required=""></textarea>
+						</div>
 					</div>
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-primary btn-lg btn-block"><b>Save</b></button>
@@ -79,16 +81,17 @@
 									<td>{{$expense->created_at}}</td>
 									<td>{{number_format($expense->amount,2)}}</span></td>
 									<td>{{$expense->reason}}</td>
-									<td class="hidden-print"><a href="/expenses/edit/{{$expense->id}}"><span class="fa fa-edit fa-1x">
+									<td class="hidden-print"><a href="/expenses/edit/{{$expense->id}}"><span
+												class="fa fa-edit fa-1x">
 											</span></a></td>
 								</tr>
 								@endforeach
 							</tbody>
 							<tfoot>
-							    <tr class="bg-info h5 text-light">
-							        <th>Total</th>
-							        <th colspan="2">{{number_format($expenses->sum('amount'),2)}} $</th>
-							    </tr>
+								<tr class="bg-info h5 text-light">
+									<th>Total</th>
+									<th colspan="2">{{number_format($expenses->sum('amount'),2)}} $</th>
+								</tr>
 							</tfoot>
 						</table>
 					</div>

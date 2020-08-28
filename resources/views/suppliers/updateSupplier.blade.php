@@ -11,12 +11,10 @@
 			<div class="card-body bg-light " id="bar-parent1">
 				@include('layouts.messages')
 				@include('layouts.errorMessages')
-				<form method="POST" action="/suppliers/store/{{$supplier->id}}" enctype="multipart/form-data" id="addForm">
+				<form method="POST" action="/suppliers/store/{{$supplier->id}}" enctype="multipart/form-data"
+					id="addForm">
 					{{csrf_field()}}
-					<div class="form-group">
-						<label>Supplier ID </label>
-						<input type="text" readonly="readonly" name="id" value="{{$supplier->id}}" class="form-control">
-					</div>
+
 
 					<div class="form-group">
 						<label for="name">Supplier Name </label>

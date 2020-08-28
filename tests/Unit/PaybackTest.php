@@ -39,7 +39,7 @@ class PaybackTest extends TestCase
     public function  can_add_payback()
     {
         $this->withoutExceptionHandling();
-        $this->be(factory(User::class)->create());
+        $this->signIn();
         $payback = factory(Payback::class)->raw();
         $this->post(route('store-payback'), $payback);
         $this->assertDatabaseHas('paybacks', ['paid' => $payback['paid'], 'supplier_id' => $payback['supplier_id']]);
@@ -101,5 +101,18 @@ class PaybackTest extends TestCase
         $payback = factory(Payback::class)->create();
         $this->get(route('print-payback', $payback->id))
             ->assertStatus(200);
+    }
+
+    /** @test */
+    public function  paybacks_will_decrease_supplier_debt()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+        $supplier = factory(Supplier::class)->create();
+        $payback = factory(Payback::class)->raw(['supplier_id' => $supplier->id]);
+        $this->post(route('store-payback'), $payback);
+        $this->assertDatabaseHas('paybacks', ['paid' => $payback['paid'], 'supplier_id' => $payback['supplier_id']]);
+        $payback = Payback::latest()->first();
+        $this->assertEquals(-1 * $supplier->debt(), $payback->paid + $payback->discount);
     }
 }

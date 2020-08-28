@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Rate;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,7 +24,9 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $users=\App\User::where('status','1')->get();
-        return view('main.index',compact('users'));
+    {
+        $users = User::where('status', '1')->get();
+        $rate = Rate::latest()->first();
+        return view('main.index', compact(['users', 'rate']));
     }
 }

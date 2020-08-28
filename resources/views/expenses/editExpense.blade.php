@@ -10,7 +10,7 @@
 			</div>
 			<div class="card-body bg-light " id="bar-parent1">
 				@include('layouts.errorMessages')
-				<form method="POST" action="/expenses/store/{{$expense->id}}" id="addForm">
+				<form method="POST" action="{{ route('store-expense',$expense->id) }}" id="addForm">
 					{{csrf_field()}}
 
 					<div class="form-group">

@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Purchase;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Events\PurchaseCreatedEvent;
+use App\Http\Requests\StorePurchaseRequest;
+use Illuminate\Support\Facades\Session;
 
 class PurchaseController extends Controller
 {
 	public function index($id = 0)
 	{
 		if ($id == 0)
-			$purchases = Purchase::latest()->paginate(25);
+			$purchases = Purchase::with(['items', 'user', 'supplier'])->latest()->paginate(25);
 		else
-			$purchases = Purchase::where('id', $id)->paginate(1);
+			$purchases = Purchase::with(['items', 'user', 'supplier'])->where('id', $id)->paginate(1);
 
 		return view('purchases.seePurchase', compact('purchases'));
 	}
@@ -31,30 +32,15 @@ class PurchaseController extends Controller
 	{
 		return view('purchases.addPurchase');
 	}
-	public function store(Request $request, $id = 0)
+	public function store(StorePurchaseRequest $request, $id = 0)
 	{
-		$this->validate($request, [
-			'total' => 'required|gt:0',
-			'invoice_no' => 'required',
-			'supplier_id' => 'required|exists:suppliers,id',
-			'type' => 'required',
-			'barcode' => 'required|array|min:1',
-			'quantity' => 'required|array|min:1',
-			'quantity.*' => 'required|gte:0',
-			'sppi' => 'required|array|min:1',
-			'bonus' => 'required|array|min:1',
-			'ppi' => 'required|array|min:1',
-			'ppi.*' => 'required|gte:0',
-			'exp' => 'required|array|min:1',
-			'exp.*' => 'required|date',
-		]);
 		if ($id !== 0) {
 			$purchase = Purchase::findOrFail($id);
 			$purchase->items()->detach();
 			DB::table('stocks')->where('type', $purchase->type)->where('source_id', $purchase->id)->delete();
 		} else {
 			$purchase = new Purchase();
-			$purchase->user_id = \Auth::user()->id;
+			$purchase->user_id = auth()->user()->id;
 		}
 
 		$purchase->supplier_id = $request['supplier_id'];
@@ -62,24 +48,9 @@ class PurchaseController extends Controller
 		$purchase->total = $request['total'];
 		$purchase->type = $request['type'];
 		$purchase->save();
-		$barcode = $request['barcode'];
-		foreach ($barcode as $key => $barcode) {
-			$barcode = $barcode;
-			$item = \App\Item::find($barcode);
-			$item->sale_price_id = $request['sppi'][$key];
-			$item->purchase_price = $request['ppi'][$key];
-			$item->save();
-			$quantity = $request['quantity'][$key];
-			$ppi = $request['ppi'][$key];
-			$exp = $request['exp'][$key];
-			$bonus = $request['bonus'][$key];
-			$batch_no = $request['batch_no'][$key];
+		$purchase->addItems($request['item']);
 
-			if ($barcode === 0 ||  ($quantity === 0 && $bonus === 0)) {
-				continue;
-			}
-			$purchase->items()->attach($barcode, ['ppi' => $ppi, 'quantity' => $quantity, 'bonus' => $bonus, 'exp' => $exp, 'batch_no' => $batch_no]);
-		}
+
 		event(new PurchaseCreatedEvent($purchase));
 		return redirect('/purchase/see/' . $purchase->id);
 	}
@@ -136,8 +107,8 @@ class PurchaseController extends Controller
 		Purchase::destroy($id);
 		DB::table('stocks')->where('type', $purchase->type)->where('source_id', $id)->delete();
 
-		\Session::flash('message', 'Successfuly Deleted');
-		\Session::flash('type', 'success');
+		Session::flash('message', 'Successfuly Deleted');
+		Session::flash('type', 'success');
 		return redirect('/purchase/see');
 	}
 	public function showSupplierPurchases($id)

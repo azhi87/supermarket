@@ -12,6 +12,7 @@
 				@include('layouts.errorMessages')
 				<form class="form-horizontal" method="POST" action="/paybacks/store/{{$payback->id}}">
 					{{csrf_field()}}
+					<input type="hidden" value="{{ $payback->supplier->id }}" name="supplier_id">
 					<div class="form-group">
 						<label for="name">Amount $ </label>
 						<div class="input-group">
@@ -21,7 +22,7 @@
 					<div class="form-group">
 						<label for="name">Discount $ </label>
 						<div class="input-group">
-							<input type="text" name="paid" value="{{$payback->discount}}" class="form-control"
+							<input type="text" name="discount" value="{{$payback->discount}}" class="form-control"
 								required />
 						</div>
 					</div>

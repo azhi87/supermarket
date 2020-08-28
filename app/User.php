@@ -29,19 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function rates()
-    {
-        return $this->hasMany('\App\Rate');
-    }
-    public function drivers()
-    {
-        return $this->where('type', 'driver')->where('status', '1')->get();
-    }
+
     public function sales()
     {
         return $this->hasMany('\App\Sale');
     }
-
 
     public function isAdmin()
     {
@@ -69,18 +61,13 @@ class User extends Authenticatable
         }
         $this->save();
     }
-    public function suppliers()
-    {
-        return DB::table('user_suppliers')->where('user_id', $this->id)->pluck('supplier_id')->toArray();
-    }
-
 
 
     public function todayAmount()
     {
         return DB::table('sales')
             ->where('user_id', $this->id)
-            ->where('created_at', '>=', Carbon::today())
+            ->whereDate('created_at', '>=', Carbon::today())
             ->selectRaw('SUM(total) as total,SUM(discount) as discount')
             ->first();
     }

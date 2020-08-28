@@ -18,4 +18,24 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\Supplier');
     }
+
+    public function addItems($items)
+    {
+        $total = 0;
+        foreach ($items['barcode'] as $i => $barcode) {
+            $total += $items['ppi'][$i] * $items['quantity'][$i];
+            $item = Item::find($barcode);
+            $item->sale_price_id = $items['sppi'][$i];
+            $item->purchase_price = $items['ppi'][$i];
+            $this->items()->attach($barcode, [
+                'ppi' => $items['ppi'][$i],
+                'quantity' => $items['quantity'][$i],
+                'bonus' => $items['bonus'][$i],
+                'exp' => $items['exp'][$i],
+                'batch_no' => $items['batch_no'][$i],
+            ]);
+        }
+        $this->total = $total;
+        $this->save();
+    }
 }

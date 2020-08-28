@@ -15,18 +15,20 @@
 								<th> Total </th>
 							</tr>
 						</thead>
-						@php $total = 0;  @endphp
+						@php $total = 0; @endphp
 						@foreach ($users as $user)
 						@php $total+=$user->todayAmount()->total;@endphp
 						<tr>
 							<td><strong>{{$user->name}}</strong></td>
-							<td class="text-primary"><strong>{{number_format($user->todayAmount()->total,0)}}</strong></td>
+							<td class="text-primary"><strong>{{number_format($user->todayAmount()->total,0)}}</strong>
+							</td>
 						</tr>
 						@endforeach
 						<tfoot>
 							<tr>
 								<th><strong>Total</strong></th>
-								<td colspan="2" class="h4 text-danger"><strong> {{number_format($total,0)}}</strong></td>
+								<td colspan="2" class="h4 text-danger"><strong> {{number_format($total,0)}}</strong>
+								</td>
 							</tr>
 						</tfoot>
 					</table>
@@ -98,8 +100,8 @@
 			</div>
 		</div>
 	</div>
-	
-		@if(Auth::user()->type=='admin')
+
+	@if(Auth::user()->type=='admin')
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="card card-topline-green">
 			<div class="card-head bg-light">
@@ -110,7 +112,7 @@
 				{{csrf_field()}}
 				<div class="card-body " id="bar-parent">
 					<fieldset class="form-group">
-						<input type="text" name="rate" class="form-control" value="{{$rate->rate}}" required>
+						<input type="text" name="rate" class="form-control" value="{{ $rate->rate ?? '1250'}}" required>
 					</fieldset>
 					<button type="submit" class="btn btn-primary btn-block "><strong>Save</strong></button>
 				</div>
@@ -121,20 +123,20 @@
 </div>
 
 
-	    <!-- start footer -->
-    <div class="page-footer">
-    <div class="scroll-to-top">
-        <i class="icon-arrow-up"></i>
-      </div>
+<!-- start footer -->
+<div class="page-footer">
+	<div class="scroll-to-top">
+		<i class="icon-arrow-up"></i>
+	</div>
 
-      <div class="page-footer-inner">&copy; E-Pharmacy Supported By MedicalIT Group (+964-770-025-7717)
-          </div>
-      <div class="page-footer-inner">&copy; E-Pharmacy Developed By TechSaz Group For IT Solutions
-            </div>
-      <div class="page-footer-inner">
-        <a href="https://techsaz.net" target="_blank" class="makerCss">Techsaz Webiste</a>
-      </div>
-    </div>
+	<div class="page-footer-inner">&copy; E-Pharmacy Supported By MedicalIT Group (+964-770-025-7717)
+	</div>
+	<div class="page-footer-inner">&copy; E-Pharmacy Developed By TechSaz Group For IT Solutions
+	</div>
+	<div class="page-footer-inner">
+		<a href="https://techsaz.net" target="_blank" class="makerCss">Techsaz Webiste</a>
+	</div>
+</div>
 
-    <!-- end footer -->			
+<!-- end footer -->
 @endsection

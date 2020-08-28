@@ -18,13 +18,13 @@
                                         <th>Name</th>
                                         <th>
                                             <table class="table table-bordered">
-                                             	<tr class="text-center">
-                                                <th>Expire</td>
-                                                <th>Bought</td>
-                                                <th>Sold</td>
-                                                <th>Stock</td>
+                                                <tr class="text-center">
+                                                    <th>Expire</td>
+                                                    <th>Bought</td>
+                                                    <th>Sold</td>
+                                                    <th>Stock</td>
                                                 </tr>
-                                            </table>    
+                                            </table>
                                         </th>
                                     </tr>
                                 </thead>
@@ -32,15 +32,22 @@
                                 <tr class="text-center">
 
                                     <td>{{$item->barcode}}</td>
-                                    <td width=""> {{$item->name}}</td>
+                                    <td width=""> {{ $item->name }}</td>
                                     <td>
                                         @foreach ($item->expiryStock() as $exp)
                                         <table class="table table-bordered ">
                                             <tr class="text-center">
-                                                <td width="25%"><label class="label label-info label-mini">{{$exp->expp}}</label></td>
-                                                <td width="25%"> <label class="text-primary"><strong>{{number_format($exp->bought*$item->items_per_box)}}</strong></td>
-                                                <td width="25%"> <label class="text-success"><strong>{{number_format($exp->sold*-1*$item->items_per_box)}}<strong></td>
-                                                <td width="25%"> <label class="text-danger"><strong>{{number_format($exp->quantity*$item->items_per_box)}}<strong></td>
+                                                <td width="25%"><label
+                                                        class="label label-info label-mini">{{$exp->expp}}</label></td>
+                                                <td width="25%"> <label
+                                                        class="text-primary"><strong>{{number_format($exp->bought * $item->items_per_box)}}</strong>
+                                                </td>
+                                                <td width="25%"> <label
+                                                        class="text-success"><strong>{{number_format($exp->sold*-1*$item->items_per_box)}}<strong>
+                                                </td>
+                                                <td width="25%"> <label
+                                                        class="text-danger"><strong>{{number_format($exp->quantity*$item->items_per_box)}}<strong>
+                                                </td>
                                             </tr>
                                         </table>
                                         @endforeach
@@ -56,12 +63,4 @@
     </div>
 </div>
 
-@endsection
-@section('afterFooter')
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#menu-top li a").removeClass("menu-top-active");
-        $('#report').addClass('menu-top-active');
-    });
-</script>
 @endsection

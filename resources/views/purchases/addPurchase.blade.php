@@ -74,12 +74,7 @@
 						</div>
 					</div>
 
-					<select id="allItems" class="hidden">
-						<option></option>
-						@foreach ($drugs as $item)
-						<option value="{{$item->id}}">{{$item->name}}</option>
-						@endforeach
-					</select>
+
 
 					@include('layouts.errorMessages')
 					<div class="table-scrollable table-fixed">
@@ -103,28 +98,28 @@
 									<span class="badge badge-danger">1</span>
 								</td>
 								<td>
-									<select id="barcode0" type="text" name="barcode[]"
+									<select id="barcode0" type="text" name="item[barcode][]"
 										onchange="getPurchaseItemPrice(this.value,this.id)"
 										onblur="getPurchaseItemPrice(this.value,this.id)" class="form-control select3">
 									</select>
 								</td>
 								<td>
 									<input type="number" step="0.01" min="0" onkeyup="getPurchaseTotalPrice();"
-										onblur="getPurchaseTotalPrice();" name="ppi[]" id="ppi0" class="form-control "
-										required>
+										onblur="getPurchaseTotalPrice();" name="item[ppi][]" id="ppi0"
+										class="form-control " required>
 								</td>
 								<td>
 									<input type="number" step="250" onkeyup="getPurchaseTotalPrice();"
-										onblur="getPurchaseTotalPrice();" name="sppi[]" id="sppi0"
+										onblur="getPurchaseTotalPrice();" name="item[sppi][]" id="sppi0"
 										class="form-control ">
 								</td>
 								<td>
 									<input type="number" step="0.1" value="1" onkeyup="getPurchaseTotalPrice();"
-										onblur="getPurchaseTotalPrice();" id="quantity0" name="quantity[]"
+										onblur="getPurchaseTotalPrice();" id="quantity0" name="item[quantity][]"
 										class="form-control" required>
 								</td>
 								<td>
-									<input type="number" step="1" id="bonus0" name="bonus[]" value="0"
+									<input type="number" step="1" id="bonus0" name="item[bonus][]" value="0"
 										class="form-control" onkeyup="getPurchaseTotalPrice();"
 										onblur="getPurchaseTotalPrice();" required>
 								</td>
@@ -132,10 +127,10 @@
 									<span class="badge badge-primary" id="subtotal0"></span>
 								</td>
 								<td>
-									<input type="date" name="exp[]" id="exp0" class="form-control " required>
+									<input type="date" name="item[exp][]" id="exp0" class="form-control " required>
 								</td>
 								<td>
-									<input type="text" name="batch_no[]" id="batch_no0" class="form-control ">
+									<input type="text" name="item[batch_no][]" id="batch_no0" class="form-control ">
 								</td>
 								<td>
 									<button class="btn btn-danger btn-circle" type="button">

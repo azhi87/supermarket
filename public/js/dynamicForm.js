@@ -12,36 +12,36 @@ function addItem() {
     i++;
     var item = `<tr id="${i}">
               <td>
-              <span class='badge badge-danger'>${i + 1}</span>
+                <span class='badge badge-danger'>${i + 1}</span>
               </td>
 
               <td>
-              <select id='barcode${i}' name='barcode[]' onchange='getPurchaseItemPrice(this.value,this.id)' onblur='getPurchaseItemPrice(this.value,this.id)' class='form-control select3'>
+              <select id='barcode${i}' name='item[barcode][]' onchange='getPurchaseItemPrice(this.value,this.id)' onblur='getPurchaseItemPrice(this.value,this.id)' class='form-control select3'>
               </select>
               </td>
 
               <td>
-              <input type='number' step='0.01' onkeyup='getPurchaseTotalPrice();'  onblur='getPurchaseTotalPrice();' name='ppi[]' id='ppi${i}' class='form-control '>
+              <input type='number' step='0.01' onkeyup='getPurchaseTotalPrice();'  onblur='getPurchaseTotalPrice();' name='item[ppi][]' id='ppi${i}' class='form-control '>
               </td>
 
               <td>
-              <input type='number' step='250'  name='sppi[]' id='sppi${i}' class='form-control '>
+              <input type='number' step='250'  name='item[sppi][]' id='sppi${i}' class='form-control '>
               </td>
               <td>
-              <input type='number' step='1' onkeyup='getPurchaseTotalPrice();'  onblur='getPurchaseTotalPrice();' value='1' id='quantity${i}'  name='quantity[]' class='form-control'>
+              <input type='number' step='1' onkeyup='getPurchaseTotalPrice();'  onblur='getPurchaseTotalPrice();' value='1' id='quantity${i}'  name='item[quantity][]' class='form-control'>
               </td> 
 
 
               <td>
-              <input type='number' step='1' onkeyup='getPurchaseTotalPrice();' value='0' required onblur='getPurchaseTotalPrice();' name='bonus[]' id='bonus${i}' class='form-control'>
+              <input type='number' step='1' onkeyup='getPurchaseTotalPrice();' value='0' required onblur='getPurchaseTotalPrice();' name='item[bonus][]' id='bonus${i}' class='form-control'>
               </td>
 
               <td> <span class = 'badge badge-primary' id='subtotal${i}'></span></td >
               <td>
-              <input type='date' name='exp[]' id='exp${i}' class='form-control' required>
+              <input type='date' name='item[exp][]' id='exp${i}' class='form-control' required>
               </td> 
                <td>
-              <input type='text' name='batch_no[]' id='batch_no${i}' class='form-control'>
+              <input type='text' name='item[batch_no][]' id='batch_no${i}' class='form-control'>
               </td> 
               <td>
               <button class='btn btn-danger btn-circle btn3d' type='button'  onclick='removeItem(${i})'>
@@ -325,7 +325,7 @@ function getSaleItemPrice(barcode, id) {
                             ${data2.exp} (${data2.quantity.toFixed(
                                 1
                             )}) <span class="text-muted">(${
-                                data2.batch_no
+                                data2.batch_no || ""
                             })</span>
                             </option>`
                         );

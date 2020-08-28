@@ -8,6 +8,7 @@ use App\Stock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Item extends Model
 {
@@ -68,44 +69,24 @@ class Item extends Model
     {
         return $this->belongsTo('App\Category', 'category_id');
     }
-    public function ireturns()
-    {
-        return $this->hasMany('\App\Ireturn');
-    }
-    public function sumReturned()
-    {
-        return DB::table('ireturns')->where('item_id', $this->id)->sum('quantity');
-    }
+
+
     public function sumBroken()
     {
         return DB::table('brokens')->where('item_id', $this->id)->sum('quantity');
     }
-    public function averagePurchasePrice()
+
+    public function profit($from = null, $to = null)
     {
-        // $sumPrice=DB::table('purchase_items')->where('item_id',$this->id)
-        //                                   ->sum(DB::raw('(ppi * quantity)'));
-        // $sumQuantity=DB::table('purchase_items')->where('item_id',$this->id)
-        //                                   ->sum('quantity');
-        // if($sumQuantity==0)
-        // {
-        //     $sumQuantity=1;
-        // }
-        // return $sumPrice/$sumQuantity;
-        return $this->purchase_price;
-    }
-    public function totalProfit($from, $to)
-    {
-        $xasm = DB::table('sale_items')->where('item_id', $this->id)
-            ->whereDate('created_at', '>=', $from)
-            ->whereDate('created_at', '<=', $to)
-            ->sum('discount');
 
+        $profit = DB::table('stocks')
+            ->where('item_id', $this->id)
+            ->whereDate('created_at', '>=', $from ?? Carbon::now()->subtract('years', 2))
+            ->whereDate('created_at', '<=', $to ??  Carbon::now()->addDay())
+            ->whereType('sale')
+            ->select(DB::raw("SUM (quantity * ppi - (quantity * {$this->purchase_price})) as profit"))->get()->first()->profit;
 
-        $parayXasm = ($xasm / $this->items_per_box) * $this->averagePurchasePrice();
-        $xerifroshtn = $this->totalProfitWithoutDiscount($from, $to);
-        return $xerifroshtn - ($parayXasm);
-
-        //($sumPrice->averageSalePrice - $this->averagePurchasePrice())*$sumQuantity;
+        return -1 * $profit;
     }
     public function totalProfitWithoutDiscount($from, $to)
     {
@@ -124,25 +105,9 @@ class Item extends Model
             ->join('items', 'items.id', '=', 'sale_items.item_id')
             ->sum(DB::raw('sale_items.quantity+(sale_items.discount/items.items_per_box)'));
     }
-    public function boxesByGarak($garak_id, $from, $to)
+    //ignoring expiry dates and batch numbers
+    public function maxzan()
     {
-        return $this->sales()->where('garak_id', $garak_id)
-            ->sum('quantity');
-    }
-    // public function stock()
-    // {
-    //     return floor($this->totalPurchase()+$this->sumReturned()-($this->totalSale()+$this->totalXasm()+$this->sumBroken()));
-    // }
-    public function formattedDescription()
-    {
-        return nl2br($this->description);
-    }
-    public function specialPrice($customer_id)
-    {
-        if (count($c = DB::table('customer_items')->where('customer_id', $customer_id)->where('item_id', $this->id)->value('sale_price'))) {
-            return $c;
-        } else {
-            return $this->sale_price;
-        }
+        return $this->stock()->sum('quantity');
     }
 }

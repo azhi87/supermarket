@@ -46,6 +46,37 @@ class SupplierTest extends TestCase
     }
 
     /** @test */
+    public function  can_edit_supplier()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $supplier = factory(Supplier::class)->create();
+        $this->get(route('edit-supplier', $supplier->id))
+            ->assertStatus(200)
+            ->assertSee($supplier->id)
+            ->assertSee($supplier->name)
+            ->assertSee($supplier->mobile)
+            ->assertSee($supplier->address);
+    }
+
+    /** @test */
+    public function  can_update_supplier()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $supplier = factory(Supplier::class)->create();
+        $data = [
+            'name' => 'Azhi',
+            'mobile' => '07701505161',
+            'address' => 'kani spika'
+        ];
+        $this->post(route('store-supplier', $supplier->id), $data);
+        $this->assertDatabaseHas('suppliers', [
+            'name' =>  'Azhi',
+            'mobile' => '07701505161',
+            'address' => 'kani spika'
+        ]);
+    }
+
+    /** @test */
     public function purchases_increase_supplier_debt()
     {
         $this->withoutExceptionHandling();

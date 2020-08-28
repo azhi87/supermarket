@@ -80,12 +80,7 @@
 								</div>
 							</div>
 
-							<select id="allItems" class="hidden">
-								<option value="0"></option>
-								@foreach ($drugs as $item)
-								<option value="{{$item->id}}">{{$item->barcode}}--{{$item->name}}</option>
-								@endforeach
-							</select>
+
 
 							@include('layouts.errorMessages')
 							<div class="table-scrollable table-fixed">
@@ -115,15 +110,11 @@
 												onchange="getSaleItemPrice(this.value,this.id)"
 												onblur="getSaleItemPrice(this.value,this.id)"
 												class="form-control select3">
-												<option value="0"></option>
-												@foreach ($drugs as $drug)
-												@if($drug->id==$item->id)
-												<option value="{{$drug->id}}" selected="selected">{{$drug->name}}
+
+												<option value="{{$item->pivot->id}}" selected="selected">
+													{{$item->name}}
 												</option>
-												@else
-												<option value="{{$drug->id}}">{{$drug->name}}</option>
-												@endif
-												@endforeach
+
 											</select>
 										</td>
 										<td>
