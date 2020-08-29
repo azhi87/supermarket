@@ -20,37 +20,32 @@ class Sale extends Model
 	{
 		return $this->belongsTo('App\Customer');
 	}
-	public function countUnConfirmed()
+	public function addItems($items)
 	{
-		if (\Auth::user()->type == 'mandwb') {
-			return $this->where('status', '0')->where('user_id', \Auth::user()->id)->count();
-		} else {
-			return $this->where('status', '0')->count();
-		}
-	}
-	public function statusText()
-	{
-		if ($this->status == '0') {
-			return 'NO';
-		} else {
-			return 'OK';
-		}
-	}
-	public function driverName()
-	{
-		if ($this->driver == "") {
-			return "";
-		} else {
-			return \App\User::find($this->driver)->name;
-		}
-	}
+		$total = 0;
 
-	public function drivermobile()
-	{
-		if ($this->driver == "") {
-			return "";
-		} else {
-			return \App\User::find($this->driver)->mobile;
+		foreach ($items['barcode'] as $i => $barcode) {
+			$item = Item::find($barcode);
+			$singles = $items['singles'][$i];
+			$ppi = $items['ppi'][$i];
+			$quantity = $items['quantity'][$i];
+			$exp = $items['exp'][$i];
+			$batch_no = $items['batch_no'][$i];
+
+			if ($quantity == 0 && $singles == 0) {
+				continue;
+			}
+			// $total += $ppi * ($quantity + ($singles / $item->items_per_box));
+
+			$this->items()->attach($barcode, [
+				'ppi' => $ppi,
+				'quantity' => $quantity,
+				'singles' => $singles,
+				'exp' => $exp,
+				'batch_no' => $batch_no,
+			]);
 		}
+		// $this->total = $total;
+		// $this->save();
 	}
 }

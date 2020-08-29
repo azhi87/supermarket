@@ -90,7 +90,7 @@
 											<span class="badge badge-danger">1</span>
 										</td>
 										<td>
-											<select id="barcode0" type="text" name="barcode[]"
+											<select id="barcode0" type="text" name="item[barcode][]"
 												onchange="getSaleItemPrice(this.value,this.id)"
 												onblur="getSaleItemPrice(this.value,this.id)"
 												class="form-control select3">
@@ -98,30 +98,30 @@
 										</td>
 										<td>
 											<input type="number" step="250" onkeyup="getSaleTotalPrice();"
-												onblur="getSaleTotalPrice();" name="ppi[]" id="ppi0"
+												onblur="getSaleTotalPrice();" name="item[ppi][]" id="ppi0"
 												class="form-control " required>
 										</td>
 										<td>
 											<input type="number" step="1" value="1" onkeyup="getSaleTotalPrice();"
-												onblur="getSaleTotalPrice();" id="quantity0" name="quantity[]"
+												onblur="getSaleTotalPrice();" id="quantity0" name="item[quantity][]"
 												class="form-control" required>
 										</td>
 										<td>
-											<input type="number" step="1" id="singles0" name="singles[]" value="0"
+											<input type="number" step="1" id="singles0" name="item[singles][]" value="0"
 												class="form-control " onkeyup="getSaleTotalPrice();"
 												onblur="getSaleTotalPrice();" required>
 										</td>
 										<td>
-											<span name="items_per_box[]" id="items_per_box0"
+											<span name="item[items_per_box][]" id="items_per_box0"
 												class="badge badge-primary"></span>
 										</td>
 										<td>
 											<span class="badge badge-primary" id="subtotal0"></span>
 										</td>
 										<td>
-											<select name="exp[]" id="exp0" class="form-control "
+											<select name="item[exp][]" id="exp0" class="form-control "
 												style="min-width: 150px;" required></select>
-											<input type="hidden" value="" name="batch_no[]" id="batch_no0">
+											<input type="hidden" value="" name="item[batch_no][]" id="batch_no0">
 										</td>
 										<td>
 											<button class="btn btn-danger btn-circle" type="button">

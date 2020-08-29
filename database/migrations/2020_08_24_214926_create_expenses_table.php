@@ -17,6 +17,7 @@ class CreateExpensesTable extends Migration
             $table->bigIncrements('id');
             $table->enum('currency', ['IQD', '$'])->default('IQD');
             $table->integer('user_id');
+            $table->double('rate')->default(1250);
             $table->double('amount');
             $table->text('reason');
             $table->timestamps();

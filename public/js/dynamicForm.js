@@ -99,24 +99,24 @@ function addSaleItem() {
     <span class='badge badge-danger'>${i + 1}</span>
     </td>
     <td>
-    <select id='barcode${i}' name='barcode[]' onchange='getSaleItemPrice(this.value,this.id)' onblur='getSaleItemPrice(this.value,this.id)' class='form-control select3'>
+    <select id='barcode${i}' name='item[barcode][]' onchange='getSaleItemPrice(this.value,this.id)' onblur='getSaleItemPrice(this.value,this.id)' class='form-control select3'>
     </select>
     </td>
 
     <td>
-    <input type='number' step='250' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' name='ppi[]' id='ppi${i}' class='form-control '>
+    <input type='number' step='250' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' name='item[ppi][]' id='ppi${i}' class='form-control '>
     </td>
 
     <td>
-    <input type='number' step='1' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' value='1' id='quantity${i}'  name='quantity[]' class='form-control '>
+    <input type='number' step='1' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' value='1' id='quantity${i}'  name='item[quantity][]' class='form-control '>
     </td>
 
     <td>
-    <input type='number' step='0' id='singles${i}' name='singles[]'  onkeyup='getSaleTotalPrice();' onblur='getSaleTotalPrice();' value='0'  class='form-control'>
+    <input type='number' step='0' id='singles${i}' name='item[singles][]'  onkeyup='getSaleTotalPrice();' onblur='getSaleTotalPrice();' value='0'  class='form-control'>
     </td>
 
     <td>
-    <span name='items_per_box[]' id='items_per_box${i}' class='badge badge-primary'></span>
+    <span name='item[items_per_box][]' id='items_per_box${i}' class='badge badge-primary'></span>
     </td>
 
     <td>
@@ -124,8 +124,8 @@ function addSaleItem() {
     </td>
 
     <td>
-    <select name='exp[]' id='exp${i}' class='form-control '><select>
-    <input type='text' value='' name='batch_no[]' id='batch_no${i}' class='hidden'>
+    <select name='item[exp][]' id='exp${i}' class='form-control '><select>
+    <input type='text' value='' name='item[batch_no][]' id='batch_no${i}' class='hidden'>
     </td>
 
     <td>
@@ -172,8 +172,6 @@ function addSaleItem() {
         },
     });
     $("#barcode" + i).select2("open");
-
-    // $(".table-fixed").freezeTable();
 }
 
 function getItemPrice(barcode, id) {

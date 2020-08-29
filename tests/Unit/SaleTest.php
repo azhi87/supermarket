@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Item;
 use App\Rate;
 use App\Sale;
+use App\Stock;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -166,7 +167,7 @@ class SaleTest extends TestCase
         $data['total'] = 20;
         $this->post(route('store-sale', 1), $data);
         $this->assertDatabaseHas('stocks', ['item_id' => $item->id, 'quantity' => '-10.0']);
-
+        $this->assertEquals(Stock::count(), 1);
         $this->assertEquals($user->todayAmount()->total, $data['total']);
 
         // $data['type'] = 'returned_sale';

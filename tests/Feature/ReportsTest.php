@@ -62,21 +62,7 @@ class ReportsTest extends TestCase
             ->assertDontSee($supplier2->name)
             ->assertSee($supplier->debt());
     }
-    // /** @test */
-    // public function  drugs_generate_profit()
-    // {
-    //     $this->withoutExceptionHandling();
-    //     $this->signIn();
-    //     $ppi = 10;
-    //     $bonus = 10;
-    //     $quantity = 10;
-    //     $item = factory(Item::class)->create(['purchase_price' => $ppi]);
-    //     $singles = 0;
-    //     $purchase = $this->add_a_purchase($item->id, $quantity, $bonus, $ppi, 'purchase');
-    //     $sale = $this->add_a_sale($item->id, $quantity, $singles, $ppi, 'sale');
-    //     dd($item->purchase_price);
-    //     $this->assertEquals($item->profit(), $bonus * $ppi);
-    // }
+
     /** @test */
     public function  debt_report_shows_all_supplier_if_explicitly_selected()
     {

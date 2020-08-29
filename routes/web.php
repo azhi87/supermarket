@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('reports/stockValuation', 'ReportController@stockValuation');
 	Route::get('/reports/stock', 'ReportController@showStock')->name('show-stock');
 	Route::post('/reports/supplierDebt', 'ReportController@supplierDebt')->name('supplier-debt-report')->middleware('admin');
+	Route::post('/reports/profit', 'ReportController@profit')->name('show-profit')->middleware('admin');
 	Route::post('/stock/manufacturer', 'ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
 	Route::post('/stock/stockByItem', 'ReportController@stockByItem')->name('show-item-stock');
 

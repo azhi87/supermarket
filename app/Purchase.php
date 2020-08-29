@@ -26,7 +26,11 @@ class Purchase extends Model
             $total += $items['ppi'][$i] * $items['quantity'][$i];
             $item = Item::find($barcode);
             $item->sale_price_id = $items['sppi'][$i];
-            $item->purchase_price = $items['ppi'][$i];
+            $item->purchase_price = ($items['quantity'][$i]) /
+                ($items['quantity'][$i] + $items['bonus'][$i]) *
+                $items['ppi'][$i];
+            $item->save();
+
             $this->items()->attach($barcode, [
                 'ppi' => $items['ppi'][$i],
                 'quantity' => $items['quantity'][$i],

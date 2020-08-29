@@ -24,7 +24,7 @@
 	<div class="col-sm-12">
 		<div class="card card-topline-green">
 			<div class="card-body bg-light">
-				<form action='/sale/create/{{$sale->id}}' method='post' role="form">
+				<form action='{{ route('store-sale',$sale->id) }}' method='post' role="form">
 					<div class="card-body" id="bar-parent">
 						{{csrf_field()}}
 						<div class="row">
@@ -69,13 +69,13 @@
 									<span class="input-group-addon"><strong>Type</strong></span>
 									<select required="required" name="type" class="form-control">
 										<option value="{{$sale->type}}" selected>{{$sale->type}}</option>
-										<!--	@if( $sale->type=='sale' )-->
-										<!--	<option value="sale" selected>Sale</option>-->
-										<!--	<option value="returned_sale" >Return</option>-->
-										<!--@else-->
-										<!--	<option value="sale" >Purchase</option>-->
-										<!--	<option value="returned_sale" selected>Return</option>-->
-										<!--@endif-->
+										@if( $sale->type=='sale' )
+										<option value="sale" selected>Sale</option>
+										<option value="returned_sale">Return</option>
+										@else
+										<option value="sale">Purchase</option>
+										<option value="returned_sale" selected>Return</option>
+										@endif
 									</select>
 								</div>
 							</div>
@@ -106,12 +106,12 @@
 											<span class="badge badge-danger">{{$i+1}}</span>
 										</td>
 										<td>
-											<select id="barcode{{$i}}" type="text" name="barcode[{{$i}}]"
+											<select id="barcode{{$i}}" type="text" name="item[barcode][{{$i}}]"
 												onchange="getSaleItemPrice(this.value,this.id)"
 												onblur="getSaleItemPrice(this.value,this.id)"
 												class="form-control select3">
 
-												<option value="{{$item->pivot->id}}" selected="selected">
+												<option value="{{$item->id}}" selected="selected">
 													{{$item->name}}
 												</option>
 
@@ -120,22 +120,22 @@
 										<td>
 											<input type="number" step="250" onkeyup="getSaleTotalPrice();"
 												onblur="getSaleTotalPrice();" value={{$item->pivot->ppi}}
-												name="ppi[{{$i}}]" id="ppi{{$i}}" class="form-control " required>
+												name="item[ppi][{{$i}}]" id="ppi{{$i}}" class="form-control " required>
 										</td>
 										<td>
 											<input type="number" step="1" onkeyup="getSaleTotalPrice();"
 												onblur="getSaleTotalPrice();" id="quantity{{$i}}"
-												value={{$item->pivot->quantity}} name="quantity[{{$i}}]"
+												value={{$item->pivot->quantity}} name="item[quantity][{{$i}}]"
 												class="form-control" required>
 										</td>
 										<td>
 											<input type="number" step="1" id="singles{{$i}}"
-												value={{$item->pivot->singles}} name="singles[{{$i}}]"
+												value={{$item->pivot->singles}} name="item[singles][{{$i}}]"
 												class="form-control " onkeyup="getSaleTotalPrice();"
 												onblur="getSaleTotalPrice();" required>
 										</td>
 										<td>
-											<span name="items_per_box[{{$i}}]" id="items_per_box{{$i}}"
+											<span name="item[items_per_box][{{$i}}]" id="items_per_box{{$i}}"
 												class="badge badge-primary">{{$item->items_per_box}}</span>
 										</td>
 										<td>
@@ -143,10 +143,11 @@
 												id="subtotal{{$i}}">{{number_format((($item->pivot->singles / $item->items_per_box) + ($item->pivot->quantity))*$item->pivot->ppi,0)}}</span>
 										</td>
 										<td width="175px;">
-											<select name="exp[{{$i}}]" id="exp{{$i}}" class="form-control" required>
+											<select name="item[exp][{{$i}}]" id="exp{{$i}}" class="form-control"
+												required>
 												<option>{{$item->pivot->exp}}</option>
 											</select>
-											<input type="hidden" name="batch_no[{{ $i }}]"
+											<input type="hidden" name="item[batch_no][{{ $i }}]"
 												value="{{ $item->pivot->batch_no }}" id="batch_no{{ $i }}" /> </td>
 										<td>
 											<button class="btn btn-danger btn-circle" type="button"

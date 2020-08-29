@@ -120,4 +120,32 @@ class PurchaseTest extends TestCase
         $purchase = factory(Purchase::class)->create();
         $this->get(route('edit-purchase', $purchase->id))->assertStatus(200);
     }
+
+    /** @test */
+    public function adding_purchase_updates_item_purchase_price()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+        $supplier = factory(Supplier::class)->create();
+        $item = factory(Item::class)->create();
+        $item2 = factory(Item::class)->create(['purchase_price' => 40]);
+        $attributes = [
+            'total' => 10,
+            'invoice_no' => 'abcd',
+            'type' => 'purchase',
+            'supplier_id' => $supplier->id,
+            'item' => [
+                'quantity' => [1],
+                'bonus' => [1],
+                'ppi' => [4],
+                'sppi' => [1000],
+                'batch_no' => ['111111'],
+                'barcode' => [$item->id],
+                'exp' => ['2022-01-01']
+            ]
+        ];
+        $this->post(route('store-purchase'), $attributes);
+        $item = Item::find($item->id);
+        $this->assertEquals($item->purchase_price, 2);
+    }
 }
