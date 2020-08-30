@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Broken;
 use App\Item;
 use App\Stock;
 use App\Expense;
@@ -81,17 +82,18 @@ class ReportController extends Controller
     {
         $from = request('from');
         $to = request('to');
-        $itemProfit = Stock::profit($to, $to);
+        $itemProfit = Stock::profit($from, $to);
         $paybackDiscounts = Payback::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum('discount');
         $paybacks = Payback::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum('paid');
         $expenses = Expense::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum(DB::raw('amount / rate'));
         $purchases = Purchase::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum('total');
         $sold = Sale::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum(DB::raw('total / rate'));
         $saleDiscounts = Sale::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum(DB::raw('discount / rate'));
-        $profit = $itemProfit - $saleDiscounts + $paybackDiscounts - $expenses;
+        $brokens = -1 * Stock::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->whereType('broken')->sum('ppi');
+        $profit = $itemProfit - $saleDiscounts + $paybackDiscounts - $expenses - $brokens;
         return view(
             'reports.profits',
-            compact('itemProfit', 'paybackDiscounts', 'paybacks', 'expenses', 'purchases', 'sold', 'saleDiscounts', 'profit', 'from', 'to')
+            compact('itemProfit', 'paybackDiscounts', 'paybacks', 'expenses', 'purchases', 'sold', 'saleDiscounts', 'profit', 'brokens', 'from', 'to')
         );
     }
 }

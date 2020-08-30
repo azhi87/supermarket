@@ -1,5 +1,6 @@
 <?php
 
+use App\Broken;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -111,6 +112,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::livewire('/manufacturer/add', 'add-manufacturer')->layout('layouts.master')->name('add-manufacturer');
 	Route::livewire('/show-popular-items', 'item-popularity')->layout('layouts.master')->name('show-popular-items');
 	Route::livewire('/item/transactions/{id?}', 'item-transactions')->layout('layouts.master')->name('show-item-transactions');
+
+	Route::view('/brokens', 'brokens.brokenHome')->name('show-brokens');
 
 	Route::view('/peripheralUpdates', 'items.peripheralUpdates');
 

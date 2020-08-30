@@ -74,6 +74,16 @@
                     <td class="bordered-0"></td>
                 </tr>
                 <tr>
+                    <td class="bg-info h4 text-white"> Expired Drugs </td>
+                    <td class="text-danger h4 bg-ivory"> {{number_format($brokens,2)}}</td>
+                    <td><i class="fa fa-dollar "></i></td>
+                    <td class=" bordered-0 bg-danger"> </td>
+                </tr>
+
+                <tr>
+                    <td class="bordered-0"></td>
+                </tr>
+                <tr>
                     <td class="bg-info h4 text-white"> Drug Sale Profit </td>
                     <td class="text-danger h4 bg-ivory"> {{number_format($itemProfit,2)}}</td>
                     <td><i class="fa fa-dollar "></i></td>

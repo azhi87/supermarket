@@ -27,17 +27,18 @@ class StocksTest extends TestCase
         $this->actingAs($user);
 
         $data = [
-            'barcode' => [$item_id],
-            'ppi' => [$this->faker->randomNumber(4)],
-            'quantity' => [$quantity],
-            'exp' => [$this->faker->date],
-            'batch_no' => [$this->faker->word],
-            'singles' => [$singles],
-            'howManyItems' => 1,
             'type' => $type,
             'total' => $this->faker->numberBetween(1, 1000),
             'rate' => $rate->rate,
             'discount' => 0,
+            'item' => [
+                'barcode' => [$item_id],
+                'ppi' => [$this->faker->randomNumber(4)],
+                'quantity' => [$quantity],
+                'exp' => [$this->faker->date],
+                'batch_no' => [$this->faker->word],
+                'singles' => [$singles],
+            ]
         ];
         $this->post(route('store-sale'), $data);
     }

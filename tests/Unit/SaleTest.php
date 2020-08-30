@@ -53,17 +53,20 @@ class SaleTest extends TestCase
         $item = factory(Item::class)->create();
 
         $data = [
-            'barcode' => [$item->id],
-            'ppi' => [$item->sale_price_id],
-            'quantity' => [3],
-            'exp' => ['2025-1-1'],
-            'singles' => [1],
-            'batch_no' => [''],
-            'howManyItems' => 1,
             'type' => 'sale',
             'total' => 3 * $item->sale_price_id * 3,
             'rate' => $rate->rate,
-            'discount' => 0
+            'discount' => 0,
+            'item' => [
+                'barcode' => [$item->id],
+                'ppi' => [$item->sale_price_id],
+                'quantity' => [3],
+                'exp' => ['2025-1-1'],
+                'singles' => [1],
+                'batch_no' => [''],
+                'howManyItems' => 1,
+
+            ]
         ];
         $this->post(route('store-sale'), $data);
         $this->assertDatabaseHas('sales', ['discount' => '0']);
@@ -79,17 +82,19 @@ class SaleTest extends TestCase
         $item = factory(Item::class)->create();
 
         $data = [
-            'barcode' => [$item->id, $item->id, $item->id],
-            'ppi' => [$item->sale_price_id, $item->sale_price_id, $item->sale_price_id],
-            'quantity' => [1, 2, 3],
-            'exp' => ['2025-1-1', '2025-1-1', '2025-1-1'],
-            'singles' => [0, 1, 2],
-            'batch_no' => ['', '', ''],
             'howManyItems' => 3,
             'type' => 'sale',
             'total' => 3 * $item->sale_price_id * 3,
             'rate' => $rate->rate,
-            'discount' => 0
+            'discount' => 0,
+            'item' => [
+                'barcode' => [$item->id, $item->id, $item->id],
+                'ppi' => [$item->sale_price_id, $item->sale_price_id, $item->sale_price_id],
+                'quantity' => [1, 2, 3],
+                'exp' => ['2025-1-1', '2025-1-1', '2025-1-1'],
+                'singles' => [0, 1, 2],
+                'batch_no' => ['', '', ''],
+            ]
         ];
         $this->post(route('store-sale'), $data);
         $this->assertDatabaseHas('sales', ['discount' => '0']);
@@ -145,17 +150,18 @@ class SaleTest extends TestCase
         $item = factory(Item::class)->create();
 
         $data = [
-            'barcode' => [$item->id],
-            'ppi' => [$item->sale_price_id],
-            'quantity' => [1],
-            'exp' => ['2025-1-1'],
-            'batch_no' => [''],
-            'singles' => [0],
-            'howManyItems' => 1,
             'type' => 'sale',
             'total' => $item->sale_price_id * 1,
             'rate' => $rate->rate,
-            'discount' => 0
+            'discount' => 0,
+            'item' => [
+                'barcode' => [$item->id],
+                'ppi' => [$item->sale_price_id],
+                'quantity' => [1],
+                'exp' => ['2025-1-1'],
+                'batch_no' => [''],
+                'singles' => [0],
+            ]
         ];
 
         $this->post(route('store-sale'), $data);
@@ -163,8 +169,8 @@ class SaleTest extends TestCase
         $this->assertDatabaseHas('stocks', ['item_id' => $item->id, 'quantity' => '-1.0']);
         $this->assertEquals($item->stock()->count(), 1);
         $this->assertEquals($user->todayAmount()->total, $data['total']);
-        $data['quantity'] = [10];
-        $data['total'] = 20;
+        $data['item']['quantity'] = [10];
+        $data['item']['total'] = 20;
         $this->post(route('store-sale', 1), $data);
         $this->assertDatabaseHas('stocks', ['item_id' => $item->id, 'quantity' => '-10.0']);
         $this->assertEquals(Stock::count(), 1);

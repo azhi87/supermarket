@@ -54,7 +54,8 @@ class ReportsTest extends TestCase
     /** @test */
     public function  debt_report_only_displays_the_chose_supplier()
     {
-        $this->signIn();
+        $this->withoutExceptionHandling();
+        $this->actingAs(factory(User::class)->create(['type' => 'admin']));
         $supplier = factory(Supplier::class)->create();
         $supplier2 = factory(Supplier::class)->create();
         $this->post(route('supplier-debt-report'), ['supplier_id' => $supplier->id])
