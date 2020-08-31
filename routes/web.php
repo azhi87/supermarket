@@ -1,6 +1,7 @@
 <?php
 
 use App\Broken;
+use App\Item;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -108,6 +109,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/reports/incomeByUser', 'ReportController@incomeByUser')->name('show-income-byUser')->middleware('admin');;
 	Route::post('/reports/returnedItems', 'ReturnController@report');
 
+	Route::view('/items/updateAlldrugs', 'items.updateAlldrugs', [
+		'items' => Item::paginate(20)
+	]);
 	Route::livewire('/live-items', 'add-item')->layout('layouts.master')->name('add-item');
 	Route::livewire('/show-items', 'show-item')->layout('layouts.master')->name('show-items');
 	Route::livewire('/manufacturer/add', 'add-manufacturer')->layout('layouts.master')->name('add-manufacturer');
