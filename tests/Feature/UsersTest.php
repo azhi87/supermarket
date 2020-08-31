@@ -75,4 +75,18 @@ class UsersTest extends TestCase
         $this->assertEquals($user->todayAmount()->total, $sale->total + $sale2->total);
         $this->assertEquals($user->todayAmount()->discount, $sale->discount + $sale2->discount);
     }
+    /** @test */
+    public function  a_user_with_status_1_can_login()
+    {
+        $user = factory(User::class)->create(['status' => '1']);
+        $this->signIn($user);
+        $this->get('/')->assertStatus(200);
+    }
+    /** @test */
+    public function  a_user_with_status_0_can_login()
+    {
+        $user = factory(User::class)->create(['status' => '0']);
+        $this->signIn($user);
+        $this->get('/')->assertStatus(200);
+    }
 }

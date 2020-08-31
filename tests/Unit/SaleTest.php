@@ -180,4 +180,11 @@ class SaleTest extends TestCase
         // $this->post(route('store-sale', 1), $data);
         // $this->assertDatabaseHas('stocks', ['item_id' => $item->id, 'quantity' => '10.0']);
     }
+    /** @test */
+    public function  can_access_search_sale_page()
+    {
+        $this->withExceptionHandling();
+        $this->signIn();
+        $this->get(route('search-sale'))->assertStatus(200);
+    }
 }

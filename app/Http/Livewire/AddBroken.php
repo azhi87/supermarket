@@ -23,7 +23,7 @@ class AddBroken extends Component
     {
         if ($this->barcode) {
             $item = Item::find($this->barcode);
-            $this->exp = $item->expiryDates()->last()->exp ?? '';
+            $this->exp = $item->expiryDatesWithExpiredItems()->last()->exp ?? '';
             $this->batch_no = $item->expiryDates()->first()->batch_no ?? '';
             $this->item_id = $this->barcode;
         }

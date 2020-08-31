@@ -1,9 +1,6 @@
 @extends('layouts.master')
 @section('content')
-<?php $user = new \App\User();
-$mandwbs = $user->Mandwbs();
-$drivers = $user->drivers();
-?>
+
 <style>
 	.input-group-addon {
 		color: black;
@@ -19,7 +16,7 @@ $drivers = $user->drivers();
 		<div class="card card-topline-green ">
 			<div class="card-body ">
 				<div class="row">
-					<div class="panel panel-primary col-sm-6 bg-light">
+					<div class="panel panel-primary col-sm-8 my-10 mx-auto bg-light">
 						<form action='/sale/search' method='post' role="form">
 							{{csrf_field()}}
 

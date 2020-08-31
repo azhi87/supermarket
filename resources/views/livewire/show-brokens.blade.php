@@ -19,6 +19,7 @@
                             <th>Quantity </th>
                             <th>Date</th>
                             <th>User</th>
+                            <th>Delete</th>
 
                         </tr>
                     </thead>
@@ -29,8 +30,15 @@
                             <td>{{$broken->item->barcode}}</td>
                             <td>{{$broken->item->name}}</td>
                             <td>{{$broken->quantity}}</td>
-                            <td>{{$broken->created_at->format('d-m-y')}}</td>
+                            <td>{{$broken->created_at->format('d-m-Y')}}</td>
                             <td>{{$broken->user->name}}</td>
+                            <td>
+                                <button class="btn btn-danger" wire:click.prevent='showDeleteButton'>Delete</button>
+                                @if($showDeleteButton === true)
+                                <button class="btn btn-warning" wire:click.prevent="delete({{ $broken->id }})">Confirm
+                                    delete?</button>
+                                @endif
+                            </td>
 
 
                         </tr>

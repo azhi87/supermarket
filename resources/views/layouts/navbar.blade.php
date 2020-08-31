@@ -102,6 +102,10 @@
                     <a href="/expenses" class="dropdown-toggle"><strong>Expense </strong><i class="material-icons"></i>
                     </a>
                 </li>
+                <li class="mega-menu-dropdown {{ request()->is('broken*') ? 'active' : '' }}">
+                    <a href="/brokens" class="dropdown-toggle"><strong>Disposals </strong><i class="material-icons"></i>
+                    </a>
+                </li>
                 <li class="mega-menu-dropdown {{ request()->is('report*') ? 'active' : '' }}">
                     <a href="/reports" class="dropdown-toggle"><strong> Reports</strong><i class="material-icons"></i>
                     </a>

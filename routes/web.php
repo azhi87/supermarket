@@ -54,7 +54,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/stock/manufacturer', 'ReportController@showStockByManufacturer')->name('show-stock-byManufacturer');
 	Route::post('/stock/stockByItem', 'ReportController@stockByItem')->name('show-item-stock');
 
-	Route::post('/sale/search', 'SearchController@searchSale');
+	Route::post('/sale/search', 'SearchController@searchSale')->name('search-sale');
+	Route::view('/sale/search', 'sales.searchSale')->name('search-sale');
 	Route::post('/sale/searchId', 'SaleController@search');
 
 	Route::get('/sale/edit/{index}', 'SaleController@edit')->name('edit-sale');

@@ -1,4 +1,4 @@
-@if(Session::has('message') || Session::has('errors'))
+@if(Session::has('message') || Session::has('error'))
 {{--  <div class="row">
  <div class="col-md-5"></div>
 	<div class="alert alert-success alert-dismissable col-md-4" role="alert">
@@ -10,9 +10,9 @@
 </div>
 </div> --}}
 <script type="text/javascript">
-   @if(Session::has('errors'))
+   @if(Session::has('error'))
 swal({
-              text:'{{session('errors')}}',
+              text:"{{session('error')}}",
               type:'error',
               title:'Something went wrong',
                confirmButtonClass: 'btn btn-danger btn-fill',
@@ -22,7 +22,7 @@ swal({
 @else
 
 swal({
-              text:'{{session('message')}}',
+              text:"{{session('message')}}",
               type:'success',
               title:'Success',
                confirmButtonClass: 'btn btn-success btn-fill',

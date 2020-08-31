@@ -41,6 +41,25 @@ class Item extends Model
             ->having(DB::raw('sum(quantity)'), '>', 0)
             ->get();
     }
+    public function expiryDatesWithExpiredItems()
+    {
+        return DB::table('stocks')->where('item_id', $this->id)
+            ->whereDate('exp', '>=', Carbon::today())
+            ->select('exp', DB::raw('sum(quantity) as quantity'), 'batch_no')
+            ->groupBy('exp', 'batch_no')
+            ->having(DB::raw('sum(quantity)'), '>', 0)
+            ->get();
+    }
+    public function stockByAGivenDate($date)
+    {
+        return DB::table('stocks')->where('item_id', $this->id)
+            ->whereDate('exp', '=', $date)
+            ->where('quantity', '>', 0)
+            ->select('exp')
+            ->orderBy('exp', 'desc')
+            ->get()
+            ->first();
+    }
     public function expiryStock()
     {
         return DB::select(DB::raw("select exp as expp,

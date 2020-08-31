@@ -26,7 +26,7 @@
                 <div class="form-group row">
                     <label class="col-sm-4 control-label">Expiry Date</label>
                     <div class="col-sm-8">
-                        <input type="date" readonly class="form-control" wire:model.lazy='exp'>
+                        <input type="date" class="form-control" wire:model.lazy='exp'>
                     </div>
                 </div>
                 <div class="form-group row">
