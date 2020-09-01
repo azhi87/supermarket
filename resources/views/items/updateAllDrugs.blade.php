@@ -7,6 +7,7 @@
     <div class="col-md-6">@livewire('add-manufacturer')</div>
     <div class="col-md-6"></div>
 </div>
+
 @foreach ($items as $item)
 @livewire('update-drug',['item' => $item], key($item->id))
 @endforeach
