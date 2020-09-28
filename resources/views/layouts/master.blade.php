@@ -8,26 +8,16 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <title></title>
-  <!-- google font -->
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:600&display=swap" rel="stylesheet">
-  <!-- icons -->
-  <link href="{{asset('public/css/simple-line-icons.min.css')}}" rel="stylesheet" />
-  
   <link href="{{asset('public/css/font-awesome.min.css')}}" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <!--bootstrap -->
 
   <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet" />
-  <link href="{{asset('public/css/datepicker.css')}}" rel="stylesheet" />
   <!-- Material Design Lite CSS -->
-  <link href="{{asset('public/css/material.min.css')}}" rel="stylesheet" />
-  <link href="{{asset('public/css/material_style.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/select2.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/select2-bootstrap.min.css')}}" rel="stylesheet" />
   <!-- Theme Styles -->
   <link href="{{asset('public/css/theme_style1.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/style.css')}}" rel="stylesheet" />
-  <link href="{{asset('public/css/plugins.min.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/formlayout.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/responsive.css')}}" rel="stylesheet" />
   <link href="{{asset('public/css/theme-color.css')}}" rel="stylesheet" />

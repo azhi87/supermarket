@@ -39,7 +39,7 @@
 						<div class="col-sm-9">
 							<select class="form-control" wire:model.lazy='category_id'>
 								<option></option>
-								@foreach ($cats as $cat)
+								@foreach ($cats->sortby('category') as $cat)
 								<option value="{{$cat->id}}">{{$cat->category}}</option>
 								@endforeach
 							</select>
@@ -50,7 +50,7 @@
 						<div class="col-sm-9">
 							<select class="form-control" wire:model.lazy='manufacturer_id' required>
 								<option></option>
-								@foreach ($mans as $man)
+								@foreach ($mans->sortby('name') as $man)
 								<option value="{{$man->id}}">{{$man->name}}</option>
 								@endforeach
 							</select>

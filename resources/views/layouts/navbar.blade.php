@@ -110,7 +110,6 @@
                     <a href="/reports" class="dropdown-toggle"><strong> Reports</strong><i class="material-icons"></i>
                     </a>
                 </li>
-
                 <li class="mega-menu-dropdown hidden {{ request()->is('stock*') ? 'active' : '' }}">
                     <a href="/reports/stock" class="dropdown-toggle"><strong>Stock </strong><i
                             class="material-icons"></i>
@@ -118,6 +117,10 @@
                 </li>
                 <li class="mega-menu-dropdown {{ request()->is('live-items*') ? 'active' : '' }}">
                     <a href="/live-items" class="dropdown-toggle"><strong>Drugs </strong><i class="material-icons"></i>
+                    </a>
+                </li>
+                <li class="mega-menu-dropdown {{ request()->is('items.updateAlldrugs*') ? 'active' : '' }}">
+                    <a href="/items/updateAlldrugs" class="dropdown-toggle"><strong>Update Drugs </strong><i class="material-icons"></i>
                     </a>
                 </li>
                 <li class="mega-menu-dropdown {{ request()->is('supplier*') ? 'active' : '' }}">

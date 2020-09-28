@@ -14,6 +14,10 @@ class UpdateDrug extends Component
     public $name_en;
     public $items_per_box;
     public $category_id;
+    
+    public $purchase_price;
+    public $sale_price_id;
+    
     public $manufacturer_id;
     public $description;
     public $cats;
@@ -30,6 +34,8 @@ class UpdateDrug extends Component
         $this->description = $item->description;
         $this->cats = $item->cats;
         $this->mans = $item->mans;
+        $this->sale_price_id = $item->sale_price_id;
+        $this->purchase_price = $item->purchase_price;
         $this->item_id = $item->id;
         $this->barcode = $item->barcode;
     }

@@ -74,8 +74,6 @@
 						</div>
 					</div>
 
-
-
 					@include('layouts.errorMessages')
 					<div class="table-scrollable table-fixed">
 						<table class="table table-bordered text-center" id="repeatedSale">

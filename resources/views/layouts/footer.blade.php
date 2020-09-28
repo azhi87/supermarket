@@ -18,7 +18,7 @@
 <script src="{{asset('public/js/select2-init.js')}}"></script>
 <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
 <!-- chart js -->
-<script  src="{{asset('public/js/dynamicForm16.js')}}"></script>
+<script  src="{{asset('public/js/dynamicForm.js')}}"></script>
 
 
 <script src="{{asset('public/js/freeze-table.js')}}"></script>

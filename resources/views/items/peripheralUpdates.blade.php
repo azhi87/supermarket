@@ -16,7 +16,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($cats as $cat)
+							@foreach ($cats->sortby('category') as $cat)
 							<form action="/category/edit/{{$cat->id}}" method="POST">
 							    @csrf
 								<tr>

@@ -26,20 +26,17 @@
 							<input type="text" name="purchase_id" class="form-control" />
 							<span class="input-group-addon"><strong>Supplier</strong></span>
 							<select required="required" name="supplier_id" class="form-control">
-										@foreach ($suppliers as $supplier)
-										<option value="-1">All</option>
-										<option value="{{$supplier->id}}">{{$supplier->name}}</option>
-										@endforeach
+							    <option value="-1">All</option>
+								@foreach ($suppliers as $supplier)
+								<option value="{{$supplier->id}}">{{$supplier->name}}</option>
+								@endforeach
 							</select>
-
 							<span class="input-group-btn">
 								<button type="submit" class="btn-primary btn-flat">Search!</button>
 							</span>
 						</div>
 					</form>
 				</div>
-
-			
 				</div>
 				<div class="row">
 					<div class="card-body col-md-12">

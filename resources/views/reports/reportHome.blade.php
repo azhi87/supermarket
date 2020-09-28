@@ -42,7 +42,7 @@
 					<fieldset class="form-group">
 						<label for="id">Employee</label>
 						<select name="user_id" class="form-control">
-							@foreach ($users as $user)
+							@foreach ($users->sortby('name') as $user)
 							<option value="{{ $user->id }}">{{ $user->name }}</option>
 							@endforeach
 						</select>
@@ -109,7 +109,7 @@
 						<label for="formGroupExampleInput2">Supplier</label>
 						<select class="form-control" name="supplier_id">
 							<option value="-1">All Suppliers</option>
-							@foreach($suppliers as $supplier)
+							@foreach($suppliers->sortby('name') as $supplier)
 							<option value="{{ $supplier->id }}"> {{ $supplier->name }} </option>
 							@endforeach
 						</select>
@@ -235,7 +235,7 @@
 					<fieldset class="form-group">
 						<label for="formGroupExampleInput2">Manufacturer</label>
 						<select class="form-control" name="manufacturer_id" required>
-							@foreach($mans as $man)
+							@foreach($mans->sortby('name') as $man)
 							<option value="{{ $man->id }}"> {{ $man->name }} </option>
 							@endforeach
 						</select>
