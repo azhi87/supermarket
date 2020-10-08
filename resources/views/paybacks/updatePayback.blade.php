@@ -28,7 +28,7 @@
 					</div>
 					<div class="form-group">
 						<label for="name">Note</label>
-						<textarea class="form-control" name="reason">{{$payback->description}}</textarea>
+						<textarea class="form-control" name="description" alue="{{$payback->description}}">{{$payback->description}}</textarea>
 					</div>
 					<div class="form-group text-center">
 						<button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>

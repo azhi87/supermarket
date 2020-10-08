@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/sale/ok/{id}', 'SaleController@ok');
 
 
-	Route::get('reports/stockValuation', 'ReportController@stockValuation');
+	Route::get('reports/stockValuation', 'ReportController@stockValuation')->name('show-stock-valuations');
 	Route::get('/reports/stock', 'ReportController@showStock')->name('show-stock');
 	Route::post('/reports/supplierDebt', 'ReportController@supplierDebt')->name('supplier-debt-report')->middleware('admin');
 	Route::post('/reports/profit', 'ReportController@profit')->name('show-profit')->middleware('admin');

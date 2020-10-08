@@ -263,6 +263,16 @@
 		</div>
 	</div>
 
+    <div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="card card-topline-green">
+			<div class="card-head bg-light">
+				<header>Stock valuation</header>
+			</div>
+			<div class="card-body " id="bar-parent">
+				<a href="{{ route('show-stock-valuations') }}" class="btn btn-primary  btn3d btn-block"> Search </a>
+			</div>
+		</div>
+	</div>
 
 </div>
 

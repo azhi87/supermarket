@@ -18,7 +18,16 @@ class ReportController extends Controller
 {
     public function stockValuation()
     {
-        $items = \App\Item::notDeleted()->get();
+        $items = DB::table('stocks')
+            ->join('items','stocks.item_id','items.id')
+            ->select('items.barcode as barcode')
+            ->addSelect('items.name as name')
+            ->addSelect('items.purchase_price as ppi')
+            ->addSelect(DB::raw('sum(quantity) as stock'))
+            ->addSelect(DB::raw('sum(quantity * items.purchase_price) as subtotal'))
+            ->groupBy('items.name','items.barcode')
+            ->having('stock','>',0)
+            ->get();
         return view('reports.stockValuation', compact('items'));
     }
 

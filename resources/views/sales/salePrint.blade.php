@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="white-box">
-								<h1 class="text-center"><strong style="font-weight: bold !important; font-size: 46px !important;"> دەرمانخانەی خێزان </strong></h1>
+								<h1 class="text-center"><strong style="font-weight: bold !important; font-size: 46px !important;">  دەرمانخانەی خانی </strong></h1>
 								<h1 class="text-center">KHEZAN PHARMACY</h1>
 								<hr>
 								<div class="row">
@@ -21,15 +21,15 @@
 											<address>
 												<img src="img/invoice_logo.png" alt="logo" class="logo-default" hidden/>
 												<p class="text-muted m-l-5">
-												کۆتای شەقامی ابراهیم پاشا, تەنیشت فولکەی گۆزەکان , <br>
-													تەلاری پزیشکی خێزانی تەندروست <br>
+												   سلێمانی - سەرەتای شەقامی توویمەلیك، , <br>
+													خوار نەخۆشخانەی ڕۆیال    <br>
 												</p>
 											</address>
 										</div>
 										<div class="pull-right">
 											<address>
-												<p class="addr-font-h4"> <b> مۆبایل :</b> 07700202023</p>
-												<p class="addr-font-h4"> <b> بەکارهێنەر :</b >  {{$sale->user->name}}  </p>
+<!--												<p class="addr-font-h4"> <b> مۆبایل :</b> 07700202023</p>
+-->												<p class="addr-font-h4"> <b> بەکارهێنەر :</b >  {{$sale->user->name}}  </p>
 												<p class="m-t-30">
 													<b> بەروار :</b> <i class="fa fa-calendar"></i> {{$sale->created_at}}
 												</p>
