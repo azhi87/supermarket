@@ -14,10 +14,10 @@ class UpdateDrug extends Component
     public $name_en;
     public $items_per_box;
     public $category_id;
-    
+
     public $purchase_price;
     public $sale_price_id;
-    
+
     public $manufacturer_id;
     public $description;
     public $cats;
@@ -48,6 +48,7 @@ class UpdateDrug extends Component
             'items_per_box' => 'required|numeric|min:1',
             'barcode' => 'required|unique:items,barcode',
             'manufacturer_id' => 'numeric',
+            'sale_price_id' => 'numeric'
         ]);
         $item = Item::find($this->item_id);
         $item->update($data);

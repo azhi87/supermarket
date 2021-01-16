@@ -1,3 +1,4 @@
+
 var i = 0;
 
 function removeItem(id) {
@@ -40,7 +41,7 @@ function addItem() {
               <td>
               <input type='date' name='item[exp][]' id='exp${i}' class='form-control' required>
               </td> 
-               <td>
+               <td class='hidden'>
               <input type='text' name='item[batch_no][]' id='batch_no${i}' class='form-control'>
               </td> 
               <td>
@@ -90,7 +91,7 @@ function addItem() {
     document.getElementById("howManyItems").value = i;
 }
 
-function addSaleItem() {
+function addSaleItem(id,name,ppi,items_per_box) {
     i = document.getElementById("howManyItems").value;
     i++;
     var item = `<tr id='${i}'>
@@ -99,12 +100,11 @@ function addSaleItem() {
     <span class='badge badge-danger'>${i + 1}</span>
     </td>
     <td>
-    <select id='barcode${i}' name='item[barcode][]' onchange='getSaleItemPrice(this.value,this.id)' onblur='getSaleItemPrice(this.value,this.id)' class='form-control select3'>
-    </select>
+    <input type='hidden' id='barcode${i}' name='item[barcode][]' value='${id}' class='form-control'>
+    <input  type='text' value='${name}' class='form-control' readonly>
     </td>
-
     <td>
-    <input type='number' step='250' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' name='item[ppi][]' id='ppi${i}' class='form-control '>
+    <input type='number' value="${ppi}" step='250' onkeyup='getSaleTotalPrice();'  onblur='getSaleTotalPrice();' name='item[ppi][]' id='ppi${i}' class='form-control '>
     </td>
 
     <td>
@@ -115,7 +115,7 @@ function addSaleItem() {
     <input type='number' step='0' id='singles${i}' name='item[singles][]'  onkeyup='getSaleTotalPrice();' onblur='getSaleTotalPrice();' value='0'  class='form-control'>
     </td>
 
-    <td>
+    <td class='hidden'>
     <span name='item[items_per_box][]' id='items_per_box${i}' class='badge badge-primary'></span>
     </td>
 
@@ -123,9 +123,9 @@ function addSaleItem() {
     <span class='badge badge-primary' id='subtotal${i}'></span>
     </td>
 
-    <td>
+    <td class='hidden'>
     <select name='item[exp][]' id='exp${i}' class='form-control '><select>
-    <input type='text' value='' name='item[batch_no][]' id='batch_no${i}' class='hidden'>
+    <input type='text' value='' name='item[batch_no][]' id='batch_no${i}'>
     </td>
 
     <td>
@@ -134,44 +134,9 @@ function addSaleItem() {
     </td>
     </tr>`;
 
-    $(".select3").select2();
     document.getElementById("howManyItems").value = i;
     $("#repeatedSale").append(item);
-    $(".select3").select2({
-        width: "100%",
-        allowClear: true,
-        multiple: true,
-        maximumSelectionSize: 1,
-        ajax: {
-            url: "/drugs/searchAjax",
-            type: "post",
-            dataType: "json",
-            data: function (params) {
-                return {
-                    _token: CSRF_TOKEN,
-                    search: params.term, // search term
-                };
-            },
-            processResults: function (response) {
-                if (response.length == 1) {
-                    $("#barcode" + i)
-                        .append(
-                            $("<option />")
-                                .attr("value", response[0].id)
-                                .html(response[0].text)
-                        )
-                        .val(response[0].id)
-                        .trigger("change")
-                        .select2("close");
-                }
-                return {
-                    results: response,
-                };
-            },
-            cache: true,
-        },
-    });
-    $("#barcode" + i).select2("open");
+    $('#barcode').val(null).trigger('change');
 }
 
 function getItemPrice(barcode, id) {
@@ -288,56 +253,25 @@ function getPurchaseTotalPrice() {
 //       //  return false;
 //    }});
 
-function getSaleItemPrice(barcode, id) {
-    var index = id.match(/\d+$/),
-        number;
-    index = index[0];
+function getSaleItemPrice(barcode) {
+    let name, ppi, items_per_box;
+    if (!barcode) {
+        return false;
+   }
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "/purchases/ItemPrice",
         data: "barcode=" + barcode,
         success: function (data) {
-            $("#ppi" + index).attr("value", data.price);
-            $("#name" + index).text(data.name);
-            $("#items_per_box" + index).text(data.items_per_box);
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "/purchase/getExpiryDates",
-                data: "barcode=" + barcode,
-                success: function (data2) {
-                    if (data2.length === 0) {
-                        swal("This item is not available in stock");
-                        $("barcode" + index).val("");
-                        $("barcode" + index).trigger("change");
-                        $("#exp" + index).empty();
-                        return false;
-                    }
-                    $("#exp" + index).empty();
-                    $.each(data2, function (i, data2) {
-                        $("#exp" + index).append(
-                            `<option data-stock="${data2.quantity}" value="${
-                                data2.exp
-                            }">
-                            ${data2.exp} (${data2.quantity.toFixed(
-                                1
-                            )}) <span class="text-muted">(${
-                                data2.batch_no || ""
-                            })</span>
-                            </option>`
-                        );
-                        $("#batch_no" + index).val(data2.batch_no);
-                    });
-                },
-            });
-
+            ppi = data.price;
+            name = data.name;
+            items_per_box = data.items_per_box;
             getSaleTotalPrice();
-            addSaleItem();
+            addSaleItem(barcode,name,ppi,items_per_box);
         },
         error: function (data) {
-            $("#ppi" + index).attr("value", 0);
-            $("#name" + index).attr("value", "Wrong barcode");
+            alert('server error');
         },
     });
 }

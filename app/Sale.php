@@ -29,8 +29,8 @@ class Sale extends Model
 			$singles = $items['singles'][$i];
 			$ppi = $items['ppi'][$i];
 			$quantity = $items['quantity'][$i];
-			$exp = $items['exp'][$i];
-			$batch_no = $items['batch_no'][$i];
+			$exp = $item->expiryDatesWithExpiredItems()->first()->exp;
+			// $batch_no = $items['batch_no'][$i];
 
 			if ($quantity == 0 && $singles == 0) {
 				continue;
@@ -42,7 +42,6 @@ class Sale extends Model
 				'quantity' => $quantity,
 				'singles' => $singles,
 				'exp' => $exp,
-				'batch_no' => $batch_no,
 			]);
 		}
 		// $this->total = $total;

@@ -6,7 +6,7 @@
 	<div class="col-md-6 col-sm-12">
 		<div class="card card-topline-green">
 			<div class="card-head">
-				<header>Update Supplier</header>
+				<header>گۆڕانکاری فرۆشیار</header>
 			</div>
 			<div class="card-body bg-light " id="bar-parent1">
 				@include('layouts.messages')
@@ -17,20 +17,29 @@
 
 
 					<div class="form-group">
-						<label for="name">Supplier Name </label>
+						<label for="name"> ناوی فرۆشیار </label>
 						<input type="text" class="form-control" value="{{$supplier->name}}" name="name" required>
 					</div>
+
+					<div class="form-group {{ $supplier->debt() == '0' ? '' : 'hidden' }}">
+						<label for="name"> جۆری دراو </label>
+						<select class="form-control" name="isDollar" required>
+							<option value="1" {{ $supplier->isDollar ? 'selected' : ''}}>دۆلار</option>
+							<option value="0">دینار</option>
+						</select>
+					</div>
+
 					<div class="form-group">
-						<label>Mobile# </label>
+						<label>مۆبایل </label>
 						<input type="text" name="mobile" value="{{$supplier->mobile}}" class="form-control">
 					</div>
 
 					<div class="form-group">
-						<label>Address</label>
+						<label>ناونیشان</label>
 						<input type="text" name="address" value="{{$supplier->address}}" class="form-control" required>
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">تۆمارکردن</button>
 				</form>
 			</div>
 		</div>

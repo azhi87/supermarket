@@ -2,12 +2,12 @@
 
 namespace App;
 
-use DB;
 use \App\Sale;
 use App\Stock;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Item extends Model
@@ -41,12 +41,12 @@ class Item extends Model
             ->having(DB::raw('sum(quantity)'), '>', 0)
             ->get();
     }
+
     public function expiryDatesWithExpiredItems()
     {
         return DB::table('stocks')->where('item_id', $this->id)
-            ->whereDate('exp', '>=', Carbon::today())
-            ->select('exp', DB::raw('sum(quantity) as quantity'), 'batch_no')
-            ->groupBy('exp', 'batch_no')
+            ->select('exp', DB::raw('sum(quantity) as quantity'))
+            ->groupBy('exp')
             ->having(DB::raw('sum(quantity)'), '>', 0)
             ->get();
     }

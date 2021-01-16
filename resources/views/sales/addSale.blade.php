@@ -71,6 +71,9 @@
 
 							@include('layouts.errorMessages')
 							<div class="table-scrollable table-fixed">
+								<select id='barcode' class='form-control select3'
+									onchange="getSaleItemPrice(this.value)">
+								</select>
 								<table class="table table-bordered text-center table-scrollable " id="repeatedSale">
 									<thead class="bg-info text-light">
 										<tr>
@@ -79,62 +82,20 @@
 											<th>Price IQD</th>
 											<th>Packs</th>
 											<th>Sheets</th>
-											<th>Sheets Per Pack</th>
+											<th class='hidden'>Sheets Per Pack</th>
 											<th>Subtotal</th>
-											<th>Expire date</th>
+											<th class="hidden">Expire date</th>
 											<th>Remove</th>
 										</tr>
 									</thead>
-									<tr>
-										<td>
-											<span class="badge badge-danger">1</span>
-										</td>
-										<td>
-											<select id="barcode0" type="text" name="item[barcode][]"
-												onchange="getSaleItemPrice(this.value,this.id)"
-												onblur="getSaleItemPrice(this.value,this.id)"
-												class="form-control select3">
-											</select>
-										</td>
-										<td>
-											<input type="number" step="250" onkeyup="getSaleTotalPrice();"
-												onblur="getSaleTotalPrice();" name="item[ppi][]" id="ppi0"
-												class="form-control " required>
-										</td>
-										<td>
-											<input type="number" step="1" value="1" onkeyup="getSaleTotalPrice();"
-												onblur="getSaleTotalPrice();" id="quantity0" name="item[quantity][]"
-												class="form-control" required>
-										</td>
-										<td>
-											<input type="number" step="1" id="singles0" name="item[singles][]" value="0"
-												class="form-control " onkeyup="getSaleTotalPrice();"
-												onblur="getSaleTotalPrice();" required>
-										</td>
-										<td>
-											<span name="item[items_per_box][]" id="items_per_box0"
-												class="badge badge-primary"></span>
-										</td>
-										<td>
-											<span class="badge badge-primary" id="subtotal0"></span>
-										</td>
-										<td>
-											<select name="item[exp][]" id="exp0" class="form-control "
-												style="min-width: 150px;" required></select>
-											<input type="hidden" value="" name="item[batch_no][]" id="batch_no0">
-										</td>
-										<td>
-											<button class="btn btn-danger btn-circle" type="button">
-												<i caption="delete" class="fa fa-minus-circle fa-1x"></i></button>
-										</td>
-									</tr>
+
 								</table>
 							</div>
 						</div>
 					</div>
 
 					<div class="no-print text-center">
-						<input type="hidden" value="0" id="howManyItems" name="howManyItems" />
+						<input type="hidden" value="-1" id="howManyItems" name="howManyItems" />
 						<button class="btn-lg btn-info btn-circle" type="button" onclick="addSaleItem()">
 							<i caption="Add" class="fa fa-plus-circle fa-1x"></i></button>
 					</div>
@@ -160,43 +121,45 @@
 <script>
 	$(document).ready(function(){
 			printExternal('{{ route('print-sale', session('sale-id')) }}');
-	});
-		
+	})
 </script>
 @endif
 <script>
 	var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-	$(document).ready(function() {
-		$('.select3').select2({
-			width: '100%',
-			multiple: true,
-			maximumSelectionLength : 1,
-			ajax: {
-				url: "/drugs/searchAjax",
-				type: "post",
-				dataType: 'json',
-				data: function(params) {
-					return {
-						_token: CSRF_TOKEN,
-						search: params.term // search term
-					};
-				},
-				processResults: function(response) {
-					if (response.length == 1) {
-						$("#barcode0").append($("<option />")
-							.attr("value", response[0].id)
-							.html(response[0].text)
-						).val(response[0].id).trigger("change").select2("close");
-					}
-					return {
-						results: response
-					};
-				},
-				cache: true
-			}
-
+	$(document).ready(function(){
+		$(".select3").select2({
+		width: "100%",
+		allowClear: true,
+		multiple: true,
+		maximumSelectionSize: 1,
+		ajax: {
+		url: "/drugs/searchAjax",
+		type: "post",
+		dataType: "json",
+		data: function (params) {
+		return {
+		_token: CSRF_TOKEN,
+		search: params.term, // search term
+		};
+		},
+		processResults: function (response) {
+		if (response.length == 1) {
+		$("#barcode" + i)
+		.append($("<option />")
+		.attr("value", response[0].id)
+		.html(response[0].text)
+		)
+		.val(response[0].id)
+		.trigger("change")
+		.select2("close");
+		}
+		return {
+		results: response,
+		};
+		},
+		cache: true,
+		},
 		});
-
-	});
+	})
 </script>
 @endsection

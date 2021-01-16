@@ -106,8 +106,8 @@ class ItemController extends Controller
 
    public function getItemPrice()
    {
-      $item = Item::notDeleted()->find(request('barcode'));
-      return json_encode(array("price" => $item->sale_price_id, "name" => $item->name, "items_per_box" => $item->items_per_box, "dates" => $item->expiryDates()));
+      $item = Item::notDeleted()->findOrFail(request('barcode'));
+      return json_encode(array("price" => $item->sale_price_id, "name" => $item->name, "items_per_box" => $item->items_per_box));
    }
 
    public function getExpiryDate()

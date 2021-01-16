@@ -11,7 +11,8 @@ class SupplierController extends Controller
 
 	public function index()
 	{
-		return view('suppliers.suppliersHome');
+		$suppliers = Supplier::paginate(15);
+		return view('suppliers.suppliersHome', compact('suppliers'));
 	}
 
 
@@ -19,16 +20,17 @@ class SupplierController extends Controller
 	{
 		if ($id != 0) {
 			$supplier = Supplier::findOrFail($id);
-			$text = "Supplier Details has been successfully changed!";
+			$text = "فرۆشیارەکە تازەکرایەوە بەسەرکەوتوویی";
 		} else {
 			$supplier = new Supplier();
 			$this->validate(request(), ["name" => "required|min:1"]);
-			$text = "Successfully Added a new Supplier!";
+			$text = "فرۆشیارەکە بەسەرکەوتووی زیاد کرا";
 		}
 
 		$supplier->name = request('name');
 		$supplier->address = request('address');
 		$supplier->mobile = request('mobile');
+		$supplier->isDollar = request('isDollar');
 
 		$supplier->save();
 
@@ -39,5 +41,11 @@ class SupplierController extends Controller
 	{
 		$supplier = Supplier::find($id);
 		return view('suppliers.updateSupplier', compact('supplier'));
+	}
+	public function search()
+	{
+		$id = request('id');
+		$suppliers = Supplier::whereId($id)->paginate(1);
+		return view('suppliers.suppliersHome', compact('suppliers'));
 	}
 }

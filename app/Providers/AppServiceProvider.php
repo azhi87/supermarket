@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
       ]);
     });
 
-    view()->composer(['suppliers.suppliersHome', 'paybacks.payback'], function ($view) {
+    view()->composer(['paybacks.payback'], function ($view) {
       $view->with([
         'suppliers' => \App\Supplier::paginate(15)
       ]);
